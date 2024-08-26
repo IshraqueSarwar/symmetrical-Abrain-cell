@@ -116,7 +116,7 @@ class Tensor2D: public NNL{
 		}
 
 		//getter func
-		Tensor2D get(){
+		vector<vector<float>> get(){
 			return tensor;
 		}
 
@@ -218,7 +218,7 @@ class Tensor1D: public NNL{
 		}
 
 		//getter
-		Tensor1D get(){
+		vector<float> get(){
 			return tensor;
 		}
 
@@ -249,6 +249,14 @@ class Tensor1D: public NNL{
 		}
 
 		//overloading
+
+
+		Tensor1D operator=(const Tensor1D& other){
+			tensor = other.tensor;
+			return tensor;
+		}
+
+
 		Tensor1D operator+(auto n)const{
 			Tensor1D res;
 
@@ -258,26 +266,25 @@ class Tensor1D: public NNL{
 			
 			return res;
 		}
-		// Tensor1D operator+(double n){
-		// 	Tensor1D res;
 
-		// 	for(int i = 0;i<tensor.size();i++){
-		// 		res.tensor.push_back(tensor[i]+n);
-		// 	}
-			
-		// 	return res;
-		// }
 		friend Tensor1D operator+(auto n, Tensor1D& t){
 			return t+n;
 		}
 
 
+		Tensor1D operator*(auto n)const{
+			Tensor1D res;
 
-		Tensor1D operator=(const Tensor1D& other){
-			tensor = other.tensor;
-			return tensor;
+			for(int i = 0;i<tensor.size();i++){
+				res.tensor.push_back(tensor[i]*n);
+			}
+			
+			return res;
 		}
 
+		friend Tensor1D operator*(auto n, Tensor1D& t){
+			return t*n;
+		}
 
 };
 

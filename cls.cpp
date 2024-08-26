@@ -37,7 +37,7 @@ Tensor2D::Tensor2D(vector<vector<float>> t2d, bool validify){
 int main(int argc, char* argv[]){
 	Tensor1D t({1.5,4.6, 5.6});
 	Tensor1D tr;
-	tr =t+1.5;
+	tr = 3*t;
 	tr.print();
 
 
