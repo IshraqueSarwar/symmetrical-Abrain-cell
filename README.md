@@ -1,6 +1,6 @@
 # symmetrical-Abrain-cell
 
-#TODO BOARD:
+# TODO BOARD:
 	 1. operator overloading:(for 1D Tensor) 
 		|--->equal(for assiging another tensor) X
 		|--->addition-auto type X
