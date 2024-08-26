@@ -5,6 +5,22 @@
 using namespace std;
 
 
+//TODO BOARD:
+	// 1. Add validation while a new tensor is created making sure the dimensions are correct
+		// |
+		// |
+		// |---> this should solve problems with dimension errors in transpose and dot
+
+	// 2. We can use typeid(var)==typeid(object) to check for obj-type
+		// |
+		// |--> this will help us to make a dynamic dot product function
+				// |
+				// |
+				// |--->a) 1D vs int
+				// 		b) 1D vs matrix --> check dimensions
+				//		c) matrix vs matrix -->check dimenstions
+
+
 class NNL{
 
 	public:
@@ -13,14 +29,15 @@ class NNL{
 
 
 		void printTensorDim(vector<int>d){
-			cout<<"Tensor.dim(";
-			if(d.size()==2){
-				cout<<d[0]<<", "<<d[1];
-			}else{
-				cout<<d[0];
+
+			cout<<"Tensor.shape(";
+			for(auto i: d){
+				cout<<i<<", ";
 			}
 			cout<<")\n";
 		}
+
+
 		
 };
 
@@ -49,6 +66,19 @@ class Tensor2D: public NNL{
 
 		// Transposing the tensor
 		void transpose(){
+			if(tensor.size()){
+				vector<vector<float>> tensor_trans(tensor[0].size(), vector<float>(tensor.size()));
+
+				for(int i = 0;i<tensor.size();i++){
+					for(int j=0;j<tensor[i].size();j++){
+						tensor_trans[j][i]= tensor[i][j];
+					}
+				}
+
+				tensor = tensor_trans;
+			}
+
+			
 
 		}
 
@@ -76,11 +106,21 @@ class Tensor2D: public NNL{
 			
 		}
 
+		void update_dim(){
+			dimensions.clear();
+			dimensions.push_back(tensor.size());
+			dimensions.push_back(tensor[0].size());
+		}
+
 		//returning dimesion vector;
 		vector<int> dim(){
+			update_dim();
 			NNL::printTensorDim(dimensions);
 			return dimensions;
 		}
+
+
+	private:
 
 
 };
@@ -112,10 +152,12 @@ class Tensor1D: public NNL{
 
 
 
-		Tensor1D transpose(){
+		void transpose(){
 			// transposing a 1D tensor gives us the same tensor
-			return tensor;
+			
 		}
+
+
 
 		void print(){
 			cout<<"Tensor<float, 1D>([";
@@ -124,6 +166,10 @@ class Tensor1D: public NNL{
 			}
 			cout<<tensor[tensor.size()-1]<<"])\n";
 		}
+
+
+
+
 
 		vector<int> dim(){
 			NNL::printTensorDim(dimensions);
