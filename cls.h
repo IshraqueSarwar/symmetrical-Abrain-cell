@@ -1,21 +1,17 @@
-#ifndef CLS_H
-#define CLS_H
-#include <stdexcept>
-
-using namespace std;
-
-
 //TODO BOARD:
 	// 1. operator overloading:(for 1D Tensor) 
 		// |--->equal(for assiging another tensor) X
 		// |--->addition-auto type X
 		// |--->addition(w/another tensor)
-		// |--->
-		// |--->
-		// |--->
-		// |--->
+		// |--->subtraction
+		// |--->division
+		// |--->multiplication
 	// 2. MAKE THE OVERLOAD WORK VICEVERSA.
-	
+	// 3. Create overloads for Tensor2D
+
+
+//ERROR:
+	// 1. t+=f where t & f are tensors(Tensor1D)
 
 
 
@@ -34,7 +30,17 @@ using namespace std;
 				// |--->a) 1D vs int
 				// 		b) 1D vs matrix --> check dimensions
 				//		c) matrix vs matrix -->check dimenstions
+
+
+#ifndef CLS_H
+#define CLS_H
+#include <stdexcept>
+
+using namespace std;
 	
+class Tensor1D;
+class Tensor2D;
+
 
 class NNL{
 
@@ -169,10 +175,12 @@ class Tensor2D: public NNL{
 			dimensions.push_back(tensor[0].size());
 		}
 
-		//returning dimesion vector;
-		vector<int> dim(){
+		// returning dimesion vector;
+		// shape function takes in arg:print that shows the dim if true
+		vector<int> shape(bool print=false){
 			update_dim();
-			NNL::printTensorDim(dimensions);
+			if(print)
+				NNL::printTensorDim(dimensions);
 			return dimensions;
 		}
 
@@ -240,23 +248,33 @@ class Tensor1D: public NNL{
 		}
 
 
+		void update_dim(){
+			dimensions.clear();
+			dimensions.push_back(tensor.size());
+		}
 
 
-
-		vector<int> dim(){
-			NNL::printTensorDim(dimensions);
+		// get dimensions of the tensor
+		// shape function takes in arg:print that shows the dim if true
+		vector<int> shape(bool print=false){
+			update_dim();
+			if(print)
+				NNL::printTensorDim(dimensions);
 			return dimensions;
 		}
 
 		//overloading
 
-
+		// EQUAL to assign
 		Tensor1D operator=(const Tensor1D& other){
 			tensor = other.tensor;
 			return tensor;
 		}
 
 
+
+		/* ADDITION overload*/
+			//Tensor1D + n
 		Tensor1D operator+(auto n)const{
 			Tensor1D res;
 
@@ -267,11 +285,50 @@ class Tensor1D: public NNL{
 			return res;
 		}
 
+
+			// n + Tensor1D
 		friend Tensor1D operator+(auto n, Tensor1D& t){
 			return t+n;
 		}
 
+			// Tensor1D + Tensor1D
+		Tensor1D operator+(Tensor1D& t){
+			if(dimensions==t.shape()){
+				Tensor1D res;
+				for(int i=0;i<tensor.size();i++){
+					res.tensor.push_back(t.tensor[i]+tensor[i]);
+				}
+				return res;
+			}else{
+				throw invalid_argument("Error: The shape of the Tensors don't match");
+			}
+			
+		}
 
+		
+
+
+		/* SUBTRACTION overlaod */
+			// Tensor1D - n
+		Tensor1D operator-(auto n)const{
+			Tensor1D res;
+
+			for(int i=0;i<tensor.size();i++){
+				res.tensor.push_back(tensor[i]-n);
+			}
+
+			return res;
+		}
+			// Tensor1D - Tensor1D
+		Tensor1D operator-(Tensor1D& t){
+
+			//CONTINUE...
+
+		}
+
+
+		/* MULTIPLICATION overlaod */
+			// Tensor1D x n
 		Tensor1D operator*(auto n)const{
 			Tensor1D res;
 
@@ -282,9 +339,23 @@ class Tensor1D: public NNL{
 			return res;
 		}
 
+			// n x Tensor1D
 		friend Tensor1D operator*(auto n, Tensor1D& t){
 			return t*n;
 		}
+
+
+
+
+		/* DIVISION overload */
+		Tensor1D operator/(auto n)const{
+			Tensor1D res;
+			for(int i =0;i<tensor.size();i++){
+				res.tensor.push_back(tensor[i]/n);
+			}
+			return res;
+		}
+
 
 };
 
