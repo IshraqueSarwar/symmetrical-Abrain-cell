@@ -35,10 +35,10 @@ Tensor2D::Tensor2D(vector<vector<float>> t2d, bool validify){
 
 
 int main(int argc, char* argv[]){
-	Tensor1D t({1.5,4.6, 5.6});
-	Tensor1D f({0.5,0.4, 0.4});
+	Tensor1D t({1.5,4.0, 3.0});
+	Tensor1D f({2,2, 2});
 	Tensor1D tr;
-	tr = t+f;
+	tr = t-f;
 	tr.print();
 
 

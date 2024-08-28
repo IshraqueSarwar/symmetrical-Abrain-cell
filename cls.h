@@ -321,8 +321,15 @@ class Tensor1D: public NNL{
 		}
 			// Tensor1D - Tensor1D
 		Tensor1D operator-(Tensor1D& t){
-
-			//CONTINUE...
+			if(dimensions==t.shape()){
+				Tensor1D res;
+				for(int i=0;i<tensor.size();i++){
+					res.tensor.push_back(t.tensor[i]-tensor[i]);
+				}
+				return res;
+			}else{
+				throw invalid_argument("Error: The shape of the Tensors don't match");
+			}
 
 		}
 
@@ -338,6 +345,19 @@ class Tensor1D: public NNL{
 			
 			return res;
 		}
+
+		Tensor1D operator*(Tensor1D& t){
+			if(dimensions==t.shape()){
+				Tensor1D res;
+				for(int i=0;i<tensor.size();i++){
+					res.tensor.push_back(t.tensor[i]*tensor[i]);
+				}
+				return res;
+			}else{
+				throw invalid_argument("Error: The shape of the Tensors don't match");
+			}
+		}
+
 
 			// n x Tensor1D
 		friend Tensor1D operator*(auto n, Tensor1D& t){
