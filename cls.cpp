@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
 
 	Tensor2D t1({{1.5,1.5,2.5}, {2.5,4.6,3.4}});
 	Tensor2D t2({{2,1.7,2.4}, {2,4.9,4.4}});
-	(1+t1).print();
+	(t1*2).print();
 
 
 	

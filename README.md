@@ -38,8 +38,8 @@
 
 # TODO BOARD:
 
-	2. Tensor print() func should always show decimal place
-	3. Make the division operation more efficient using mul--> tensor*(1/n)
+	1. Tensor print() func should always show decimal place
+	2. Make the division operation more efficient using mul--> tensor*(1/n)
 	3. make separate headers
 			|
 			|	<--- need to think about this--->
@@ -47,6 +47,11 @@
 			|--->t2d.h (Tensor2D definition)??
 			|--->t1d.h (Tensor1D definition)???
 	4. Create overloads for Tensor2D
+	5. check both Tensor2D and Tensor1D multiplication functions.
+		|
+		|
+		|---> tensor2D/1D can have matrix product & dot product which are separate.
+		|---> need to implement interproduct between Tensor1D and 2D(matrix prod??)
 
 
 

@@ -1,5 +1,3 @@
-
-
 #ifndef CLS_H
 #define CLS_H
 #include <stdexcept>
@@ -36,7 +34,6 @@ class NNL{
 
 
 // 2d tensor class
-// DOC: 
 class Tensor2D: public NNL{
 	private:
 		vector<vector<float>> tensor;
@@ -209,13 +206,77 @@ class Tensor2D: public NNL{
 
 
 
-	/* SUBTRACTION OVERLOADING */
 
+
+
+
+	/* SUBTRACTION OVERLOADING */
 		// Tensor - n
+	Tensor2D operator-(int n)const{
+		Tensor2D res;
+		for(int i = 0;i<dimensions[0];i++){
+			vector<float>row;
+			for(int j=0;j<dimensions[1];j++){
+				row.push_back(tensor[i][j]-n);
+			}
+			res.tensor.push_back(row);
+		}
+		return res;
+	}
+
 
 		// Tensor - (double) n
+	Tensor2D operator-(double n)const{
+		Tensor2D res;
+		for(int i = 0;i<dimensions[0];i++){
+			vector<float>row;
+			for(int j=0;j<dimensions[1];j++){
+				row.push_back(tensor[i][j]-n);
+			}
+			res.tensor.push_back(row);
+		}
+		return res;
+	}
 
-		//
+		// Tensor - Tensor
+
+
+
+
+
+
+	/* MULTIPLICATION OVERLOADING */
+		// Tensor x n
+	Tensor2D operator*(int n)const{
+		Tensor2D res;
+		for(int i = 0;i<dimensions[0];i++){
+			vector<float>row;
+			for(int j=0;j<dimensions[1];j++){
+				row.push_back(tensor[i][j]*n);
+			}
+			res.tensor.push_back(row);
+		}
+		return res;
+	}
+
+		// Tensor x (double) n
+	Tensor2D operator*(double n) const{
+		Tensor2D res;
+		for(int i = 0;i<dimensions[0];i++){
+			vector<float>row;
+			for(int j=0;j<dimensions[1];j++){
+				row.push_back(tensor[i][j]*n);
+			}
+			res.tensor.push_back(row);
+		}
+		return res;
+	}
+
+
+		// Tensor x Tensor
+
+
+
 
 };
 
@@ -428,6 +489,8 @@ class Tensor1D: public NNL{
 		}
 
 
+
+		//TODO: CHECK IF THIS ACTUALLY HAPPENS IN NUMPY/TORCH n*tensor
 			// n x Tensor1D
 		friend Tensor1D operator*(int n, Tensor1D& t){
 			return t*n;
