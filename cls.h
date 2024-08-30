@@ -1,52 +1,3 @@
-//TODO BOARD:
-
-	// 2. Tensor print() func should always show decimal place
-	// 3. Make the division operation more efficient using mul--> tensor*(1/n)
-	// 3. make separate headers
-	//		|
-	//		|	<--- need to think about this--->
-	//		|--->NNL.h (Main class/ parent class)?
-	//		|--->t2d.h (Tensor2D definition)??
-	//		|--->t1d.h (Tensor1D definition)???
-	// 4. Create overloads for Tensor2D
-
-
-
-
-//ERROR:
-	// 1. t+=f where t & f are tensors(Tensor1D)
-
-
-
-
-// DONE:
-	// 1. Add validation while a new tensor is created making sure the dimensions are correct
-		// |
-		// |
-		// |---> this should solve problems with dimension errors in transpose and dot
-
-	// 2. We can use typeid(var)==typeid(object) to check for obj-type
-		// |
-		// |--> this will help us to make a dynamic dot product function
-				// |
-				// |
-				// |--->a) 1D vs int
-				// 		b) 1D vs matrix --> check dimensions
-				//		c) matrix vs matrix -->check dimenstions
-
-	// 3. operator overloading:(for 1D Tensor) 
-			// |--->equal(for assiging another tensor) X
-			// |--->addition-auto type X
-			// |--->addition(w/another tensor)
-			// |--->subtraction
-			// |--->division
-			// |--->multiplication
-	// 4. MAKE THE OVERLOAD WORK VICEVERSA.
-
-	// 5. make explicit int and double overload 
-	// 		func(currently using auto)			<--- if not done, compiler will keep throwing warnings
-	//													may not work below c++17
-
 
 
 #ifndef CLS_H
@@ -87,8 +38,9 @@ class NNL{
 // 2d tensor class
 // DOC: 
 class Tensor2D: public NNL{
-	vector<vector<float>> tensor;
-	vector<int>dimensions;
+	private:
+		vector<vector<float>> tensor;
+		vector<int>dimensions;
 
 
 	public:
@@ -156,6 +108,7 @@ class Tensor2D: public NNL{
 				}
 
 				tensor = tensor_trans;
+				tensor_trans.clear();
 			}
 
 			
@@ -194,7 +147,7 @@ class Tensor2D: public NNL{
 
 		// returning dimesion vector;
 		// shape function takes in arg:print that shows the dim if true
-		vector<int> shape(bool print=false){
+		vector<int> shape(bool print=true){
 			update_dim();
 			if(print)
 				NNL::printTensorDim(dimensions);
@@ -203,15 +156,77 @@ class Tensor2D: public NNL{
 
 
 
-	//operation overload
-	// Tensor2D operator+(int& n){
+	//OVERLOADING
+	
+	/* EQUAL overload to assign new tensor*/
+	Tensor2D operator=(const Tensor2D& other){
+		tensor = other.tensor;
+		// we need to update the dimension when we assign a new tensor, as the shape of the new
+		// 		tensor can be different.
+		update_dim();
+		return tensor;
+	}
 
-	// }
 
-	private:
+	/* ADDITION OVERLOADING */
+		// Tensor + n
+	Tensor2D operator+(int n)const{
+		Tensor2D res;
+		for(int i = 0;i<dimensions[0];i++){
+			vector<float>row;
+			for(int j=0;j<dimensions[1];j++){
+				row.push_back(tensor[i][j]+n);
+			}
+			res.tensor.push_back(row);
+		}
+		return res;
+	}
 
+		// Tensor + (double)n
+	Tensor2D operator+(double n)const{
+		Tensor2D res;
+		for(int i = 0;i<dimensions[0];i++){
+			vector<float>row;
+			for(int j=0;j<dimensions[1];j++){
+				row.push_back(tensor[i][j]+n);
+			}
+			res.tensor.push_back(row);
+		}
+		return res;
+	}
+
+		// n + Tensor
+	friend Tensor2D operator+(int n, Tensor2D& t){
+		return t+n;
+	}
+
+		// (double)n + Tensor
+	friend Tensor2D operator+(double n, Tensor2D& t){
+		return t+n;
+	}
+
+		// Tensor + Tensor
+
+
+
+	/* SUBTRACTION OVERLOADING */
+
+		// Tensor - n
+
+		// Tensor - (double) n
+
+		//
 
 };
+
+
+
+
+
+
+
+
+
 
 
 
@@ -220,8 +235,9 @@ class Tensor2D: public NNL{
 // 1d tensor class
 
 class Tensor1D: public NNL{
-	vector<float> tensor;
-	vector<int>dimensions;
+	private:
+		vector<float> tensor;
+		vector<int>dimensions;
 
 
 	public:
@@ -232,8 +248,6 @@ class Tensor1D: public NNL{
 		Tensor1D(const Tensor1D& other);
 		
 		
-
-		//TODO: getter
 
 
 
