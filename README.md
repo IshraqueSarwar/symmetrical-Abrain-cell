@@ -41,17 +41,10 @@
 # TODO BOARD:
 
 	1. Tensor print() func should always show decimal place
-	
-	2. make separate headers
-			|
-			|	<--- need to think about this--->
-			|--->NNL.h (Main class/ parent class)?
-			|--->t2d.h (Tensor2D definition)??
-			|--->t1d.h (Tensor1D definition)???
-	3. Create overloads for Tensor2D
-	4. DOT product and Matrix multiplication functions
-	5. Precompiled headers to speed up compilation time?
-	6. t+=f where t & f are tensors(Tensor1D)
+	2. Create overloads for Tensor2D
+	3. DOT product and Matrix multiplication functions
+	4. Precompiled headers to speed up compilation time?
+	5. t+=f where t & f are tensors(Tensor1D)
 
 
 
@@ -93,6 +86,13 @@
 
 
 	6. Make the division operation more efficient using mul--> tensor*(1/n)
+
+	7. make separate headers
+			|
+			|	<--- need to think about this--->
+			|--->NNL.h (Main class/ parent class)?
+			|--->t2d.h (Tensor2D definition)??
+			|--->t1d.h (Tensor1D definition)???
 
 
 
