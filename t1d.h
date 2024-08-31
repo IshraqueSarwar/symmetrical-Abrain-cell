@@ -120,7 +120,6 @@ class Tensor1D: public NNL{
 		}
 
 		
-		//TODO:: change tensor.size() -->dimensions[0]
 
 		/* SUBTRACTION overlaod */
 			// Tensor1D - n

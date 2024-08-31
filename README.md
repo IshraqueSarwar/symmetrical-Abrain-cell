@@ -81,7 +81,7 @@
 
 	5. make explicit int and double overload 
 			func(currently using auto)			<--- if not done, compiler will keep throwing warnings
-														may not work below c++17
+												may not work below c++17
 		Solution was to just use double as arg.
 
 
