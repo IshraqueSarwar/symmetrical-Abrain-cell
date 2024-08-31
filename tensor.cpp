@@ -47,14 +47,23 @@ void testTensor2D(){
 	// (t1*t2).print();
 	// (t1/t2).print();
 
-	(t1+2).print();
-	(t1+2.2).print();
-	(t1-2).print();
-	(t1-2.2).print();
-	(t1*2).print();
-	(t1*2.2).print();
-	(t1/2).print();
-	(t1/2.2).print();
+	// (t1+2).print();
+	// (t1+2.2).print();
+	// (t1-2).print();
+	// (t1-2.2).print();
+	// (t1*2).print();
+	// (t1*2.2).print();
+	// (t1/2).print();
+	// (t1/2.2).print();
+
+	t1+=1;
+	t1.print();
+	t1-=1;
+	t1.print();
+	t1*=2;
+	t1.print();
+	t1/=2;
+	t1.print();
 }
 
 
@@ -62,11 +71,9 @@ void testTensor1D(){
 	Tensor1D t({6.4,4.0, 3.0});
 	Tensor1D f({2,2, 2,10});
 
-	Tensor1D tr;
+	t/=2.2;//TODO: += operation doesn't work for any operation.
 
-	tr = t;
-	tr = f;
-	tr.print();
+	t.print();
 
 }
 
@@ -74,11 +81,11 @@ void testTensor1D(){
 
 int main(int argc, char* argv[]){
 	/* 1D testing */
-	testTensor1D();
+	// testTensor1D();
 
 
 	/* 2D testing */
-	// testTensor2D();
+	testTensor2D();
 
 
 }

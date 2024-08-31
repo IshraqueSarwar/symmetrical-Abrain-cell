@@ -44,7 +44,7 @@
 	2. Create overloads for Tensor2D
 	3. DOT product and Matrix multiplication functions
 	4. Precompiled headers to speed up compilation time?
-	5. t+=f where t & f are tensors(Tensor1D)
+	5. t+=f where t & f are tensors(Tensor1D) and (Tensor2D)
 	6. Work on n/tensor & n-tensor overload for t1d and t2d.
 
 
@@ -95,5 +95,6 @@
 			|--->t2d.h (Tensor2D definition)??
 			|--->t1d.h (Tensor1D definition)???
 
-
+	8. fix t+=(int/double) n and other shorthand operators
+		*=, /=, -=
 

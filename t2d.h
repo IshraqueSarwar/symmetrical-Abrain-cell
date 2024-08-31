@@ -147,6 +147,52 @@ class Tensor2D: public NNL{
 	}
 
 
+
+	// TODO: make shorthands for tensor to tensor operations
+	/* SHORTHAND OPERATORS*/
+		// +=
+	Tensor2D& operator+=(double n){
+		for(int i=0;i<dimensions[0];i++){
+			for(int j=0;j<dimensions[1];j++){
+				this->tensor[i][j]+=n;
+			}
+		}
+		return *this;
+	}
+
+		// -=
+	Tensor2D& operator-=(double n){
+		for(int i=0;i<dimensions[0];i++){
+			for(int j=0;j<dimensions[1];j++){
+				this->tensor[i][j]-=n;
+			}
+		}
+		return *this;
+	}
+
+		// *=
+	Tensor2D& operator*=(double n){
+		for(int i=0;i<dimensions[0];i++){
+			for(int j=0;j<dimensions[1];j++){
+				this->tensor[i][j]*=n;
+			}
+		}
+		return *this;
+	}
+
+		// /=
+	Tensor2D& operator/=(double n){
+		double x = 1/n;
+		for(int i=0;i<dimensions[0];i++){
+			for(int j=0;j<dimensions[1];j++){
+				this->tensor[i][j]*=x;
+			}
+		}
+		return *this;
+	}
+
+
+
 	/* ADDITION OVERLOADING */
 		// Tensor + (double)n
 	Tensor2D operator+(double n)const{

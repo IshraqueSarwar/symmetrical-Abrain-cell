@@ -77,14 +77,50 @@ class Tensor1D: public NNL{
 		}
 
 		//overloading
+		
 
-		// EQUAL to assign
+
+
+		/* EQUAL to assign */
 		Tensor1D operator=(const Tensor1D& other){
 			tensor = other.tensor;
 			// we need to update the dimension when we assign a new tensor, as the shape of the new
 			// 		tensor can be different.
 			update_dim();
 			return tensor;
+		}
+
+		// TODO: make shorthands for tensor to tensor operations
+		/* SHORTHAND OPERATORS*/
+			// +=
+		Tensor1D& operator+=(double n){
+			for(int i=0;i<dimensions[0];i++){
+				this->tensor[i]+=n;
+			}
+			return *this;
+		}
+			//-=
+		Tensor1D& operator-=(double n){
+			for(int i=0;i<dimensions[0];i++){
+				this->tensor[i]-=n;
+			}
+			return *this;
+		}
+			//*=
+		Tensor1D& operator*=(double n){
+			for(int i=0;i<dimensions[0];i++){
+				this->tensor[i]*=n;
+			}
+			return *this;
+		}
+
+			// /=
+		Tensor1D& operator/=(double n){
+			double x = 1/n;
+			for(int i=0;i<dimensions[0];i++){
+				this->tensor[i]*=x;
+			}
+			return *this;
 		}
 
 
@@ -118,6 +154,9 @@ class Tensor1D: public NNL{
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 			
 		}
+
+		
+		
 
 		
 
