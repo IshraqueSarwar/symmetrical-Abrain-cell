@@ -45,6 +45,7 @@
 	3. DOT product and Matrix multiplication functions
 	4. Precompiled headers to speed up compilation time?
 	5. t+=f where t & f are tensors(Tensor1D)
+	6. Work on n/tensor & n-tensor overload for t1d and t2d.
 
 
 
