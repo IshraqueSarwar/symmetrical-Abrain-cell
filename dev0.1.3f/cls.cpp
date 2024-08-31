@@ -42,7 +42,7 @@ int main(int argc, char* argv[]){
 	Tensor1D f({2,2, 2});
 	Tensor1D tr;
 
-	tr = t-2;
+	tr +=2;
 	tr.print();
 
 
