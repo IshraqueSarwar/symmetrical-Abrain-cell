@@ -1,6 +1,7 @@
 #ifndef CLS_H
 #define CLS_H
 #include <stdexcept>
+#include <iomanip>
 
 using namespace std;
 	
@@ -19,6 +20,7 @@ class NNL{
 
 			cout<<"Tensor.shape(";
 			for(auto i: d){
+				cout<<std::setprecision(2);
 				cout<<i<<", ";
 			}
 			cout<<")\n";
@@ -43,6 +45,9 @@ class Tensor2D: public NNL{
 	public:
 		Tensor2D();
 		Tensor2D(vector<vector<float>>t2d, bool validify = false);
+
+
+		
 
 
 		vector<vector<float>> fill_to_valid(vector<vector<float>> t){
@@ -144,7 +149,7 @@ class Tensor2D: public NNL{
 
 		// returning dimesion vector;
 		// shape function takes in arg:print that shows the dim if true
-		vector<int> shape(bool print=true){
+		vector<int> shape(bool print=false){
 			update_dim();
 			if(print)
 				NNL::printTensorDim(dimensions);
@@ -166,19 +171,6 @@ class Tensor2D: public NNL{
 
 
 	/* ADDITION OVERLOADING */
-		// Tensor + n
-	Tensor2D operator+(int n)const{
-		Tensor2D res;
-		for(int i = 0;i<dimensions[0];i++){
-			vector<float>row;
-			for(int j=0;j<dimensions[1];j++){
-				row.push_back(tensor[i][j]+n);
-			}
-			res.tensor.push_back(row);
-		}
-		return res;
-	}
-
 		// Tensor + (double)n
 	Tensor2D operator+(double n)const{
 		Tensor2D res;
@@ -192,10 +184,6 @@ class Tensor2D: public NNL{
 		return res;
 	}
 
-		// n + Tensor
-	friend Tensor2D operator+(int n, Tensor2D& t){
-		return t+n;
-	}
 
 		// (double)n + Tensor
 	friend Tensor2D operator+(double n, Tensor2D& t){
@@ -203,7 +191,21 @@ class Tensor2D: public NNL{
 	}
 
 		// Tensor + Tensor
-
+	Tensor2D operator+(Tensor2D& t){
+		if(dimensions==t.shape()){
+			Tensor2D res;
+			for(int i = 0;i<dimensions[0];i++){
+				vector<float> row;
+				for(int j =0;j<dimensions[1];j++){
+					row.push_back(t.tensor[i][j]+tensor[i][j]);
+				}
+				res.tensor.push_back(row);
+			}
+			return res;
+		}else{
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		}
+	}
 
 
 
@@ -211,20 +213,6 @@ class Tensor2D: public NNL{
 
 
 	/* SUBTRACTION OVERLOADING */
-		// Tensor - n
-	Tensor2D operator-(int n)const{
-		Tensor2D res;
-		for(int i = 0;i<dimensions[0];i++){
-			vector<float>row;
-			for(int j=0;j<dimensions[1];j++){
-				row.push_back(tensor[i][j]-n);
-			}
-			res.tensor.push_back(row);
-		}
-		return res;
-	}
-
-
 		// Tensor - (double) n
 	Tensor2D operator-(double n)const{
 		Tensor2D res;
@@ -239,26 +227,28 @@ class Tensor2D: public NNL{
 	}
 
 		// Tensor - Tensor
+	Tensor2D operator-(Tensor2D& t){
+		if(dimensions==t.shape()){
+			Tensor2D res;
+			for(int i = 0;i<dimensions[0];i++){
+				vector<float> row;
+				for(int j =0;j<dimensions[1];j++){
+					row.push_back(tensor[i][j]-t.tensor[i][j]);
+				}
+				res.tensor.push_back(row);
+			}
+			return res;
+		}else{
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		}
 
+	}
 
 
 
 
 
 	/* MULTIPLICATION OVERLOADING */
-		// Tensor x n
-	Tensor2D operator*(int n)const{
-		Tensor2D res;
-		for(int i = 0;i<dimensions[0];i++){
-			vector<float>row;
-			for(int j=0;j<dimensions[1];j++){
-				row.push_back(tensor[i][j]*n);
-			}
-			res.tensor.push_back(row);
-		}
-		return res;
-	}
-
 		// Tensor x (double) n
 	Tensor2D operator*(double n) const{
 		Tensor2D res;
@@ -274,7 +264,46 @@ class Tensor2D: public NNL{
 
 
 		// Tensor x Tensor
+	Tensor2D operator*(Tensor2D& t){
+		if(dimensions==t.shape()){
+			Tensor2D res;
+			for(int i = 0;i<dimensions[0];i++){
+				vector<float> row;
+				for(int j =0;j<dimensions[1];j++){
+					row.push_back(tensor[i][j]*t.tensor[i][j]);
+				}
+				res.tensor.push_back(row);
+			}
+			return res;
+		}else{
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		}
+	}
 
+
+	/* DIVISION OVERLOADING */
+		//Tensor / (double) n
+	Tensor2D operator/(double n)const{
+		double x = 1/n;
+		return *(this) * x;
+	}
+
+		//Tensor / Tensor
+	Tensor2D operator/(Tensor2D& t){
+		if(dimensions == t.shape()){
+			Tensor2D res;
+			for(int i = 0;i<dimensions[0]; i++){
+				vector<float> row;
+				for(int j = 0;j<dimensions[1];j++){
+					row.push_back(tensor[i][j]/t.tensor[i][j]);
+				}
+				res.tensor.push_back(row);
+			}
+			return res;
+		}else{
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		}
+	}
 
 
 
@@ -369,16 +398,6 @@ class Tensor1D: public NNL{
 
 
 		/* ADDITION overload*/
-			//Tensor1D + n
-		Tensor1D operator+(int n)const{
-			Tensor1D res;
-
-			for(int i = 0;i<tensor.size();i++){
-				res.tensor.push_back(tensor[i]+n);
-			}
-			
-			return res;
-		}
 			//Tensor1D + (double)n
 		Tensor1D operator+(double n)const{
 			Tensor1D res;
@@ -390,11 +409,6 @@ class Tensor1D: public NNL{
 			return res;
 		}
 
-
-			// n + Tensor1D
-		friend Tensor1D operator+(int n, Tensor1D& t){
-			return t+n;
-		}	
 			// (double)n + Tensor1D
 		friend Tensor1D operator+(double n, Tensor1D& t){
 			return t+n;
@@ -414,36 +428,33 @@ class Tensor1D: public NNL{
 		}
 
 		
-
+		//TODO:: change tensor.size() -->dimensions[0]
 
 		/* SUBTRACTION overlaod */
 			// Tensor1D - n
-		Tensor1D operator-(int n)const{
-			Tensor1D res;
-
-			for(int i=0;i<tensor.size();i++){
-				res.tensor.push_back(tensor[i]-n);
-			}
-
-			return res;
-		}
-
-			// Tensor1D - n
 		Tensor1D operator-(double n)const{
 			Tensor1D res;
-
-			for(int i=0;i<tensor.size();i++){
+			for(int i=0;i<dimensions[0];i++){
 				res.tensor.push_back(tensor[i]-n);
 			}
-
 			return res;
 		}
+
+		//TODO:	//(double)n -tensor 
+		// Tensor1D operator-(double n, Tensor1D& t){
+		// 	Tensor1D res;
+		// 	for(int i=0;i<dimensions[0];i++){
+		// 		res.tensor.push_back(n-tensor[i]);
+		// 	}
+
+		// 	return res;
+		// }
 
 			// Tensor1D - Tensor1D
 		Tensor1D operator-(Tensor1D& t){
 			if(dimensions==t.shape()){
 				Tensor1D res;
-				for(int i=0;i<tensor.size();i++){
+				for(int i=0;i<dimensions[0];i++){
 					res.tensor.push_back(t.tensor[i]-tensor[i]);
 				}
 				return res;
@@ -454,16 +465,7 @@ class Tensor1D: public NNL{
 
 
 		/* MULTIPLICATION overlaod */
-			// Tensor1D x n
-		Tensor1D operator*(int n)const{
-			Tensor1D res;
-
-			for(int i = 0;i<tensor.size();i++){
-				res.tensor.push_back(tensor[i]*n);
-			}
-			
-			return res;
-		}
+		
 			// Tensor1D x (double)n
 		Tensor1D operator*(double n)const{
 			Tensor1D res;
@@ -489,39 +491,28 @@ class Tensor1D: public NNL{
 		}
 
 
-
-		//TODO: CHECK IF THIS ACTUALLY HAPPENS IN NUMPY/TORCH n*tensor
-			// n x Tensor1D
-		friend Tensor1D operator*(int n, Tensor1D& t){
-			return t*n;
-		}
 			// (double)n x Tensor1D
 		friend Tensor1D operator*(double n, Tensor1D& t){
 			return t*n;
 		}
 
 
-
-
-
 		/* DIVISION overload */
 			// Tensor / n
-		Tensor1D operator/(int n)const{
-			Tensor1D res;
-			for(int i =0;i<tensor.size();i++){
-				res.tensor.push_back(tensor[i]/n);
-			}
-			return res;
+		Tensor1D operator/(double n)const{
+			double x = 1/n;
+			return (*this) *x;
 		}
 
-			// Tensor / n
-		Tensor1D operator/(double n)const{
-			Tensor1D res;
-			for(int i =0;i<tensor.size();i++){
-				res.tensor.push_back(tensor[i]/n);
-			}
-			return res;
-		}
+		//TODO:	// n / tensor
+		// Tensor1D operator/(double n, Tensor1D& t){
+		// 	Tensor1D res;
+		// 	for(int i=0;i<dimensions[0];i++){
+		// 		res.tensor.push_back(n/tensor[i]);
+		// 	}
+
+		// 	return res;
+		// }
 
 			// Tensor / Tensor
 		Tensor1D operator/(Tensor1D& t){

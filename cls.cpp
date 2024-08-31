@@ -38,23 +38,20 @@ Tensor2D::Tensor2D(vector<vector<float>> t2d, bool validify){
 
 int main(int argc, char* argv[]){
 	/* 1D testing */
-	// Tensor1D t({6.4,4.0, 3.0});
-	// Tensor1D f({2,2, 2});
-	// Tensor1D tr;
+	Tensor1D t({6.4,4.0, 3.0});
+	Tensor1D f({2,2, 2});
+	Tensor1D tr;
 
-	// (t/2.2).print();
-	// (t/2.3).print();
-	// (t/3).print();
-	// (t/9).print();
-	// (t/12.2).print();
+	tr = t-2;
+	tr.print();
 
 
 
 	/* 2D testing */
 
-	Tensor2D t1({{1.5,1.5,2.5}, {2.5,4.6,3.4}});
-	Tensor2D t2({{2,1.7,2.4}, {2,4.9,4.4}});
-	(t1*2).print();
+	// Tensor2D t1({{1.5,1.5,2.5}, {2.5,4.6,3.4}});
+	// Tensor2D t2({{2,1.7,2.4}, {2,4.9,4.4}});
+	// (t1/t2).print();
 
 
 	

@@ -1,3 +1,5 @@
+# Creating a Neural Net library from scratch in c++
+
 
 # DOC:
 	--> ASSIGNING
@@ -39,19 +41,16 @@
 # TODO BOARD:
 
 	1. Tensor print() func should always show decimal place
-	2. Make the division operation more efficient using mul--> tensor*(1/n)
-	3. make separate headers
+	
+	2. make separate headers
 			|
 			|	<--- need to think about this--->
 			|--->NNL.h (Main class/ parent class)?
 			|--->t2d.h (Tensor2D definition)??
 			|--->t1d.h (Tensor1D definition)???
-	4. Create overloads for Tensor2D
-	5. check both Tensor2D and Tensor1D multiplication functions.
-		|
-		|
-		|---> tensor2D/1D can have matrix product & dot product which are separate.
-		|---> need to implement interproduct between Tensor1D and 2D(matrix prod??)
+	3. Create overloads for Tensor2D
+	4. DOT product and Matrix multiplication functions
+	5. Precompiled headers to speed up compilation time?
 
 
 
@@ -89,6 +88,10 @@
 	5. make explicit int and double overload 
 			func(currently using auto)			<--- if not done, compiler will keep throwing warnings
 														may not work below c++17
+		Solution was to just use double as arg.
+
+
+	6. Make the division operation more efficient using mul--> tensor*(1/n)
 
 
 
