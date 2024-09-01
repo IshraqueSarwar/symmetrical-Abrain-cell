@@ -99,6 +99,19 @@ class Tensor1D: public NNL{
 			}
 			return *this;
 		}
+
+		Tensor1D& operator+=(Tensor1D& other){
+			if(dimensions==other.shape()){
+				for(int i = 0;i<dimensions[0];i++){
+					this->tensor[i]+=other.tensor[i];
+				}
+				return *this;
+			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		
+		}
+
+
 			//-=
 		Tensor1D& operator-=(double n){
 			for(int i=0;i<dimensions[0];i++){
@@ -106,12 +119,34 @@ class Tensor1D: public NNL{
 			}
 			return *this;
 		}
+		Tensor1D& operator-=(Tensor1D& other){
+			if(dimensions==other.shape()){
+				for(int i = 0;i<dimensions[0];i++){
+					this->tensor[i]-=other.tensor[i];
+				}
+				return *this;
+			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		
+		}
+
+
 			//*=
 		Tensor1D& operator*=(double n){
 			for(int i=0;i<dimensions[0];i++){
 				this->tensor[i]*=n;
 			}
 			return *this;
+		}
+		Tensor1D& operator*=(Tensor1D& other){
+			if(dimensions==other.shape()){
+				for(int i = 0;i<dimensions[0];i++){
+					this->tensor[i]*=other.tensor[i];
+				}
+				return *this;
+			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		
 		}
 
 			// /=
@@ -121,6 +156,17 @@ class Tensor1D: public NNL{
 				this->tensor[i]*=x;
 			}
 			return *this;
+		}
+		Tensor1D& operator/=(Tensor1D& other){
+			if(dimensions==other.shape()){
+				for(int i = 0;i<dimensions[0];i++){
+					double x = (1/other.tensor[i]);
+					this->tensor[i]*=x;
+				}
+				return *this;
+			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		
 		}
 
 

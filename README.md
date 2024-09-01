@@ -34,6 +34,7 @@
 	t = t*t2 <-- muls each corresponding elements from both tensors
 	t = t/t2 <-- divs each corresponding elements from both tensors
 
+	(t+=t2).print() <-- directly prints the result of the operation within the bracket
 
 
 
@@ -44,8 +45,7 @@
 	2. Create overloads for Tensor2D
 	3. DOT product and Matrix multiplication functions
 	4. Precompiled headers to speed up compilation time?
-	5. t+=f where t & f are tensors(Tensor1D) and (Tensor2D)
-	6. Work on n/tensor & n-tensor overload for t1d and t2d.
+	5. Work on n/tensor & n-tensor overload for t1d and t2d.
 
 
 
@@ -97,4 +97,6 @@
 
 	8. fix t+=(int/double) n and other shorthand operators
 		*=, /=, -=
+
+	9. t+=f where t & f are tensors(Tensor1D) and (Tensor2D)
 
