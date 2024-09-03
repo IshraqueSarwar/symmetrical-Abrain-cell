@@ -1,19 +1,18 @@
 #ifndef T2D_H
 #define T2D_H
-#include <stdexcept>
-#include <iomanip>
+
+//include whatever you want in Tparent class
 #include "Tparent.h"
 #include "t1d.h"
 
 using namespace std;
 	
 class Tensor1D;
-class Tensor2D;
 
 
 
 // 2d tensor class
-class Tensor2D: public NNL{
+class Tensor2D: public Tparent{
 	private:
 		vector<vector<float>> tensor;
 		vector<int>dimensions;
@@ -21,9 +20,10 @@ class Tensor2D: public NNL{
 
 	public:
 		Tensor2D();
+		Tensor2D(const Tensor2D& other);
 		Tensor2D(vector<vector<float>>t2d, bool validify = false);
 
-
+		virtual ~Tensor2D();
 		
 
 
@@ -129,250 +129,250 @@ class Tensor2D: public NNL{
 		vector<int> shape(bool print=false){
 			update_dim();
 			if(print)
-				NNL::printTensorDim(dimensions);
+				Tparent::printTensorDim(dimensions);
 			return dimensions;
 		}
 
 
 
-	//OVERLOADING
-	
-	/* EQUAL overload to assign new tensor*/
-	Tensor2D operator=(const Tensor2D& other){
-		tensor = other.tensor;
-		// we need to update the dimension when we assign a new tensor, as the shape of the new
-		// 		tensor can be different.
-		update_dim();
-		return tensor;
-	}
-
-
-
-	// TODO: make shorthands for tensor to tensor operations
-	/* SHORTHAND OPERATORS*/
-		// +=
-	Tensor2D& operator+=(double n){
-		for(int i=0;i<dimensions[0];i++){
-			for(int j=0;j<dimensions[1];j++){
-				this->tensor[i][j]+=n;
-			}
+		//OVERLOADING
+		
+		/* EQUAL overload to assign new tensor*/
+		Tensor2D operator=(const Tensor2D& other){
+			tensor = other.tensor;
+			// we need to update the dimension when we assign a new tensor, as the shape of the new
+			// 		tensor can be different.
+			update_dim();
+			return tensor;
 		}
-		return *this;
-	}
 
-	Tensor2D& operator+=(Tensor2D& other){
-		if(dimensions==other.shape()){
+
+
+		// TODO: make shorthands for tensor to tensor operations
+		/* SHORTHAND OPERATORS*/
+			// +=
+		Tensor2D& operator+=(double n){
 			for(int i=0;i<dimensions[0];i++){
-				for(int j = 0;j<dimensions[1];j++){
-					this->tensor[i][j]+=other.tensor[i][j];
+				for(int j=0;j<dimensions[1];j++){
+					this->tensor[i][j]+=n;
 				}
 			}
 			return *this;
 		}
-		throw invalid_argument("Error: The shape of the Tensors don't match");
-		
-	}
 
-		// -=
-	Tensor2D& operator-=(double n){
-		for(int i=0;i<dimensions[0];i++){
-			for(int j=0;j<dimensions[1];j++){
-				this->tensor[i][j]-=n;
+		Tensor2D& operator+=(Tensor2D& other){
+			if(dimensions==other.shape()){
+				for(int i=0;i<dimensions[0];i++){
+					for(int j = 0;j<dimensions[1];j++){
+						this->tensor[i][j]+=other.tensor[i][j];
+					}
+				}
+				return *this;
 			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+			
 		}
-		return *this;
-	}
-	Tensor2D& operator-=(Tensor2D& other){
-		if(dimensions==other.shape()){
+
+			// -=
+		Tensor2D& operator-=(double n){
 			for(int i=0;i<dimensions[0];i++){
-				for(int j = 0;j<dimensions[1];j++){
-					this->tensor[i][j]-=other.tensor[i][j];
+				for(int j=0;j<dimensions[1];j++){
+					this->tensor[i][j]-=n;
 				}
 			}
 			return *this;
 		}
-		throw invalid_argument("Error: The shape of the Tensors don't match");
-		
-	}
-
-		// *=
-	Tensor2D& operator*=(double n){
-		for(int i=0;i<dimensions[0];i++){
-			for(int j=0;j<dimensions[1];j++){
-				this->tensor[i][j]*=n;
+		Tensor2D& operator-=(Tensor2D& other){
+			if(dimensions==other.shape()){
+				for(int i=0;i<dimensions[0];i++){
+					for(int j = 0;j<dimensions[1];j++){
+						this->tensor[i][j]-=other.tensor[i][j];
+					}
+				}
+				return *this;
 			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+			
 		}
-		return *this;
-	}
-	Tensor2D& operator*=(Tensor2D& other){
-		if(dimensions==other.shape()){
+
+			// *=
+		Tensor2D& operator*=(double n){
 			for(int i=0;i<dimensions[0];i++){
-				for(int j = 0;j<dimensions[1];j++){
-					this->tensor[i][j]*=other.tensor[i][j];
+				for(int j=0;j<dimensions[1];j++){
+					this->tensor[i][j]*=n;
 				}
 			}
 			return *this;
 		}
-		throw invalid_argument("Error: The shape of the Tensors don't match");
-		
-	}
-
-		// /=
-	Tensor2D& operator/=(double n){
-		double x = 1/n;
-		for(int i=0;i<dimensions[0];i++){
-			for(int j=0;j<dimensions[1];j++){
-				this->tensor[i][j]*=x;
+		Tensor2D& operator*=(Tensor2D& other){
+			if(dimensions==other.shape()){
+				for(int i=0;i<dimensions[0];i++){
+					for(int j = 0;j<dimensions[1];j++){
+						this->tensor[i][j]*=other.tensor[i][j];
+					}
+				}
+				return *this;
 			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+			
 		}
-		return *this;
-	}
-	Tensor2D& operator/=(Tensor2D& other){
-		if(dimensions==other.shape()){
+
+			// /=
+		Tensor2D& operator/=(double n){
+			double x = 1/n;
 			for(int i=0;i<dimensions[0];i++){
-				for(int j = 0;j<dimensions[1];j++){
-					double x = (1/other.tensor[i][j]);
+				for(int j=0;j<dimensions[1];j++){
 					this->tensor[i][j]*=x;
 				}
 			}
 			return *this;
 		}
-		throw invalid_argument("Error: The shape of the Tensors don't match");
-		
-	}
-
-
-
-	/* ADDITION OVERLOADING */
-		// Tensor + (double)n
-	Tensor2D operator+(double n)const{
-		Tensor2D res;
-		for(int i = 0;i<dimensions[0];i++){
-			vector<float>row;
-			for(int j=0;j<dimensions[1];j++){
-				row.push_back(tensor[i][j]+n);
+		Tensor2D& operator/=(Tensor2D& other){
+			if(dimensions==other.shape()){
+				for(int i=0;i<dimensions[0];i++){
+					for(int j = 0;j<dimensions[1];j++){
+						double x = (1/other.tensor[i][j]);
+						this->tensor[i][j]*=x;
+					}
+				}
+				return *this;
 			}
-			res.tensor.push_back(row);
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+			
 		}
-		return res;
-	}
 
 
-		// (double)n + Tensor
-	friend Tensor2D operator+(double n, Tensor2D& t){
-		return t+n;
-	}
 
-		// Tensor + Tensor
-	Tensor2D operator+(Tensor2D& t){
-		if(dimensions==t.shape()){
+		/* ADDITION OVERLOADING */
+			// Tensor + (double)n
+		Tensor2D operator+(double n)const{
 			Tensor2D res;
 			for(int i = 0;i<dimensions[0];i++){
-				vector<float> row;
-				for(int j =0;j<dimensions[1];j++){
-					row.push_back(t.tensor[i][j]+tensor[i][j]);
+				vector<float>row;
+				for(int j=0;j<dimensions[1];j++){
+					row.push_back(tensor[i][j]+n);
 				}
 				res.tensor.push_back(row);
 			}
 			return res;
 		}
-		throw invalid_argument("Error: The shape of the Tensors don't match");
-	}
 
 
-
-
-
-
-	/* SUBTRACTION OVERLOADING */
-		// Tensor - (double) n
-	Tensor2D operator-(double n)const{
-		Tensor2D res;
-		for(int i = 0;i<dimensions[0];i++){
-			vector<float>row;
-			for(int j=0;j<dimensions[1];j++){
-				row.push_back(tensor[i][j]-n);
-			}
-			res.tensor.push_back(row);
+			// (double)n + Tensor
+		friend Tensor2D operator+(double n, Tensor2D& t){
+			return t+n;
 		}
-		return res;
-	}
 
-		// Tensor - Tensor
-	Tensor2D operator-(Tensor2D& t){
-		if(dimensions==t.shape()){
+			// Tensor + Tensor
+		Tensor2D operator+(Tensor2D& t){
+			if(dimensions==t.shape()){
+				Tensor2D res;
+				for(int i = 0;i<dimensions[0];i++){
+					vector<float> row;
+					for(int j =0;j<dimensions[1];j++){
+						row.push_back(t.tensor[i][j]+tensor[i][j]);
+					}
+					res.tensor.push_back(row);
+				}
+				return res;
+			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		}
+
+
+
+
+
+
+		/* SUBTRACTION OVERLOADING */
+			// Tensor - (double) n
+		Tensor2D operator-(double n)const{
 			Tensor2D res;
 			for(int i = 0;i<dimensions[0];i++){
-				vector<float> row;
-				for(int j =0;j<dimensions[1];j++){
-					row.push_back(tensor[i][j]-t.tensor[i][j]);
+				vector<float>row;
+				for(int j=0;j<dimensions[1];j++){
+					row.push_back(tensor[i][j]-n);
 				}
 				res.tensor.push_back(row);
 			}
 			return res;
 		}
-		throw invalid_argument("Error: The shape of the Tensors don't match");
 
-	}
-
-
-
-
-
-	/* MULTIPLICATION OVERLOADING */
-		// Tensor x (double) n
-	Tensor2D operator*(double n) const{
-		Tensor2D res;
-		for(int i = 0;i<dimensions[0];i++){
-			vector<float>row;
-			for(int j=0;j<dimensions[1];j++){
-				row.push_back(tensor[i][j]*n);
+			// Tensor - Tensor
+		Tensor2D operator-(Tensor2D& t){
+			if(dimensions==t.shape()){
+				Tensor2D res;
+				for(int i = 0;i<dimensions[0];i++){
+					vector<float> row;
+					for(int j =0;j<dimensions[1];j++){
+						row.push_back(tensor[i][j]-t.tensor[i][j]);
+					}
+					res.tensor.push_back(row);
+				}
+				return res;
 			}
-			res.tensor.push_back(row);
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+
 		}
-		return res;
-	}
 
 
-		// Tensor x Tensor
-	Tensor2D operator*(Tensor2D& t){
-		if(dimensions==t.shape()){
+
+
+
+		/* MULTIPLICATION OVERLOADING */
+			// Tensor x (double) n
+		Tensor2D operator*(double n) const{
 			Tensor2D res;
 			for(int i = 0;i<dimensions[0];i++){
-				vector<float> row;
-				for(int j =0;j<dimensions[1];j++){
-					row.push_back(tensor[i][j]*t.tensor[i][j]);
+				vector<float>row;
+				for(int j=0;j<dimensions[1];j++){
+					row.push_back(tensor[i][j]*n);
 				}
 				res.tensor.push_back(row);
 			}
 			return res;
 		}
-		throw invalid_argument("Error: The shape of the Tensors don't match");
-	}
 
 
-	/* DIVISION OVERLOADING */
-		//Tensor / (double) n
-	Tensor2D operator/(double n)const{
-		double x = 1/n;
-		return *(this) * x;
-	}
-
-		//Tensor / Tensor
-	Tensor2D operator/(Tensor2D& t){
-		if(dimensions == t.shape()){
-			Tensor2D res;
-			for(int i = 0;i<dimensions[0]; i++){
-				vector<float> row;
-				for(int j = 0;j<dimensions[1];j++){
-					row.push_back(tensor[i][j]/t.tensor[i][j]);
+			// Tensor x Tensor
+		Tensor2D operator*(Tensor2D& t){
+			if(dimensions==t.shape()){
+				Tensor2D res;
+				for(int i = 0;i<dimensions[0];i++){
+					vector<float> row;
+					for(int j =0;j<dimensions[1];j++){
+						row.push_back(tensor[i][j]*t.tensor[i][j]);
+					}
+					res.tensor.push_back(row);
 				}
-				res.tensor.push_back(row);
+				return res;
 			}
-			return res;
+			throw invalid_argument("Error: The shape of the Tensors don't match");
 		}
-		throw invalid_argument("Error: The shape of the Tensors don't match");
-	}
+
+
+		/* DIVISION OVERLOADING */
+			//Tensor / (double) n
+		Tensor2D operator/(double n)const{
+			double x = 1/n;
+			return *(this) * x;
+		}
+
+			//Tensor / Tensor
+		Tensor2D operator/(Tensor2D& t){
+			if(dimensions == t.shape()){
+				Tensor2D res;
+				for(int i = 0;i<dimensions[0]; i++){
+					vector<float> row;
+					for(int j = 0;j<dimensions[1];j++){
+						row.push_back(tensor[i][j]/t.tensor[i][j]);
+					}
+					res.tensor.push_back(row);
+				}
+				return res;
+			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+		}
 
 };
 

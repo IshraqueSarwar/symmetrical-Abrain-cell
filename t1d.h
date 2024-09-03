@@ -1,8 +1,7 @@
 #ifndef T1D_H
 #define T1D_H
 
-#include <stdexcept>
-#include <iomanip>
+// include whatever you want in Tparent class
 #include "Tparent.h"
 #include "t2d.h"
 
@@ -16,7 +15,7 @@ class Tensor2D;
 
 // 1d tensor class
 
-class Tensor1D: public NNL{
+class Tensor1D: public Tparent{
 	private:
 		vector<float> tensor;
 		vector<int>dimensions;
@@ -25,13 +24,12 @@ class Tensor1D: public NNL{
 	public:
 		// main constructor
 		Tensor1D();
+		Tensor1D(const Tensor1D& other);
 		Tensor1D(vector<float> t1d);
 
-		Tensor1D(const Tensor1D& other);
+		virtual ~Tensor1D();
 		
 		
-
-
 
 		//setter
 		void set(const Tensor1D& other){
@@ -53,11 +51,16 @@ class Tensor1D: public NNL{
 
 
 		void print(){
-			cout<<"Tensor<float, 1D>([";
-			for(int i=0;i< dimensions[0]-1; i++){
-				cout<<tensor[i]<<", ";
+			if(tensor.size()){
+				cout<<"Tensor<float, 1D>([";
+				for(int i=0;i< dimensions[0]-1; i++){
+					cout<<tensor[i]<<", ";
+				}
+				cout<<tensor[dimensions[0]-1]<<"])\n";
+			}else{
+				cout<<"Tensor<float, 1D>([])";
 			}
-			cout<<tensor[dimensions[0]-1]<<"])\n";
+			
 		}
 
 
@@ -72,7 +75,7 @@ class Tensor1D: public NNL{
 		vector<int> shape(bool print=false){
 			update_dim();
 			if(print)
-				NNL::printTensorDim(dimensions);
+				Tparent::printTensorDim(dimensions);
 			return dimensions;
 		}
 
@@ -90,7 +93,6 @@ class Tensor1D: public NNL{
 			return tensor;
 		}
 
-		// TODO: make shorthands for tensor to tensor operations
 		/* SHORTHAND OPERATORS*/
 			// +=
 		Tensor1D& operator+=(double n){
@@ -305,7 +307,9 @@ class Tensor1D: public NNL{
 
 
 
+
 };
+
 
 
 #endif

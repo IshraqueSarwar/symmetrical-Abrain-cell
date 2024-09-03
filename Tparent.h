@@ -3,13 +3,20 @@
 
 #include <stdexcept>
 #include <iomanip>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
 
-class NNL{
+class Tensor1D;
+
+class Tparent{
 
 	public:
+		Tparent();
+		virtual ~Tparent();
+
 		virtual void print(){
 		}
 
@@ -23,6 +30,8 @@ class NNL{
 			}
 			cout<<")\n";
 		}
+
+		Tensor1D dot(Tensor1D& t1, Tensor1D& t2);
 
 
 		

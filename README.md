@@ -37,21 +37,27 @@
 	(t+=t2).print() <-- directly prints the result of the operation within the bracket
 
 
+	current build command: (will change as I incorporate cmake)   g++ -o main Tparent.cpp tensor.cpp main.cpp
+
 
 
 # TODO BOARD:
-
-	1. Tensor print() func should always show decimal place
-	2. Create overloads for Tensor2D
-	3. DOT product and Matrix multiplication functions
+	1. Shift all the function definition from t1d.h and t2d.h to tensor.cpp file.
+	2. Test all the operator and assignings before pushing new update.
+	3. Tensor print() func should always show decimal place
 	4. Precompiled headers to speed up compilation time?
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
+	6. overloading operator for cross-class operations ie.tensor2d *=tensor1d
+	7. change Tparent class to something more dynamic
+
 
 
 
 
 # ERROR:
-	
+	1. Right now assigning Tensor1D tr; tr(f)<-- another tensor f, throws: Segment Fault.
+	2. Dot product function from Tparent throws: Segment Fault.
+
 
 
 
@@ -99,4 +105,6 @@
 		*=, /=, -=
 
 	9. t+=f where t & f are tensors(Tensor1D) and (Tensor2D)
+
+	10. Create overloads for Tensor2D
 
