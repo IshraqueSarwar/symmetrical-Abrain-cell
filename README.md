@@ -55,8 +55,7 @@
 
 
 # ERROR:
-	1. Right now assigning Tensor1D tr; tr(f)<-- another tensor f, throws: Segment Fault.
-	2. Dot product function from Tparent throws: Segment Fault.
+	
 
 
 
