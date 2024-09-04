@@ -42,6 +42,11 @@ class Tensor1D: public Tparent{
 		}
 
 
+		//push function for 1D tensor to add element in the end
+		void push(double d){
+			tensor.push_back(d);
+		}
+
 
 		void transpose(){
 			// transposing a 1D tensor gives us the same tensor

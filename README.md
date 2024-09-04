@@ -49,6 +49,7 @@
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
 	6. overloading operator for cross-class operations ie.tensor2d *=tensor1d
 	7. change Tparent class to something more dynamic
+	8. Implement Matrix multiplication.
 
 
 
@@ -106,4 +107,8 @@
 	9. t+=f where t & f are tensors(Tensor1D) and (Tensor2D)
 
 	10. Create overloads for Tensor2D
+
+	11. covered most of dot product for Tensor1D
+
+	12. implemented Matric-vector multiplication
 
