@@ -47,12 +47,16 @@ int main(int argc, char* argv[]){
 
 
 	
+	Tensor2D t1({{2.4, 1.6},{1.0, 4.0}});
 	Tensor2D t2({{2,1.7,2.4}, {2,4.9,4.4}});
+
+
 	Tensor1D t({6.4,4.0, 3.0});
 	Tparent nmath;
-	(nmath.dot(t2,t)).print();
+	// (nmath.dot(t2,t)).print();
+	(nmath.dot(t1,t2)).print();
 	// Tensor1D d(nmath.dot(t,f));
 	// d.print();
 
-
+	// Page 38
 }

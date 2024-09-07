@@ -62,6 +62,10 @@ class Tensor2D: public Tparent{
 			return false;
 		}
 
+		void push(vector<float> v){
+			tensor.push_back(v);
+		}
+
 		
 
 		//setter func

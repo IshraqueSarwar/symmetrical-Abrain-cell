@@ -34,16 +34,16 @@ class Tparent{
 
 		Tensor1D dot(Tensor1D& t1, Tensor1D& t2);
 		double dot(double t1, double t2);
-
-
-		//dot product between Tensor2Ds are matrix mul.
-
 		//dot netween Tensor2D and Tensor1D then matrix-vec mul
 		Tensor1D dot(Tensor2D& t1, Tensor1D& t2);
+		Tensor2D dot(Tensor2D& t1, Tensor2D& t2);
+
 
 		//when Tensor2D is mul by Tensor1D we use matric vec mul
-		Tensor1D matvecmul(Tensor2D& t1, Tensor1D& t2);
-		
+		Tensor1D matvecmul(Tensor2D& a, Tensor1D& b);
+
+		// Matrix multiplication function for Tensor2D and Tensor2D operation
+		Tensor2D matmul(Tensor2D& a, Tensor2D& b);
 };
 
 
