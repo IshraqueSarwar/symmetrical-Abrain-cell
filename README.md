@@ -37,19 +37,20 @@
 	(t+=t2).print() <-- directly prints the result of the operation within the bracket
 
 
-	current build command: (will change as I incorporate cmake)   g++ -o main Tparent.cpp tensor.cpp main.cpp
+	current build command: (will change as I incorporate cmake)   g++ -o main NNL.cpp tensor.cpp main.cpp
 
 
 
 # TODO BOARD:
-	1. Shift all the function definition from t1d.h and t2d.h to tensor.cpp file.
-	2. Test all the operator and assignings before pushing new update.
+	1. overloading operator for cross-class operations ie.tensor2d *=tensor1d
+
+	
 	3. Tensor print() func should always show decimal place
 	4. Precompiled headers to speed up compilation time?
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
-	6. overloading operator for cross-class operations ie.tensor2d *=tensor1d
-	7. change Tparent class to something more dynamic
-	8. Implement Matrix multiplication.
+	
+	
+	
 
 
 
@@ -111,4 +112,10 @@
 	11. covered most of dot product for Tensor1D
 
 	12. implemented Matric-vector multiplication
+
+	13. changed Tparent class to NNL class
+
+	14. Implement Matrix multiplication.
+
+	15. Implement Matrix vector multiplication
 

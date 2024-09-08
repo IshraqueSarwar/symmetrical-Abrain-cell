@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "Tparent.h"
+#include "NNL.h"
 #include "t1d.h"
 #include "t2d.h"
 
@@ -47,16 +47,27 @@ int main(int argc, char* argv[]){
 
 
 	
-	Tensor2D t1({{2.4, 1.6},{1.0, 4.0}});
-	Tensor2D t2({{2,1.7,2.4}, {2,4.9,4.4}});
+	// Testing out weights and biases run...
+
+	NNL nl;
+	Tensor1D inputs({1.0,2.0,3.0,2.5});
 
 
-	Tensor1D t({6.4,4.0, 3.0});
-	Tparent nmath;
-	// (nmath.dot(t2,t)).print();
-	(nmath.dot(t1,t2)).print();
-	// Tensor1D d(nmath.dot(t,f));
-	// d.print();
+	// Tensor2D inputs({{1.0,2.0,3.0,2.5},
+	// 					{2.0,5.0,-1.0,2.0},
+	// 					{-1.5,2.7,3.3,-0.8}});
 
-	// Page 38
+	Tensor2D weights({{0.2,0.8,-0.5,1},
+						{0.5,-0.91,0.26,-0.5},
+						{-0.26,-0.27,0.17,0.87}});
+
+	Tensor1D biases({2.0,3.0,0.5});
+
+	
+	// transpose the weights first. to match the shape.
+	// weights.transpose();
+
+	Tensor1D layer_output(nl.dot(weights, inputs)+biases);
+
+	layer_output.print();
 }

@@ -1,4 +1,4 @@
-#include "Tparent.h"
+#include "NNL.h"
 #include "t1d.h"
 #include "t2d.h"
 #include <iostream>
@@ -11,35 +11,35 @@ using namespace std;
 
 
 // main constructor for 1-dimensional tensor
-Tparent::Tparent(){
+NNL::NNL(){
 
 }
 
-Tparent::~Tparent(){
+NNL::~NNL(){
 
 }
 
 
 
-Tensor1D Tparent::dot(Tensor1D& t1, Tensor1D& t2){
+Tensor1D NNL::dot(Tensor1D& t1, Tensor1D& t2){
 	return t1*t2;
 }
 
-double Tparent::dot(double t1, double t2){
+double NNL::dot(double t1, double t2){
 	return t1*t2;
 }
 
-Tensor1D Tparent::dot(Tensor2D& t1, Tensor1D& t2){
-	return Tparent::matvecmul(t1,t2);
+Tensor1D NNL::dot(Tensor2D& t1, Tensor1D& t2){
+	return NNL::matvecmul(t1,t2);
 }
 
 
-Tensor2D Tparent::dot(Tensor2D& t1, Tensor2D& t2){
-	return Tparent::matmul(t1, t2);
+Tensor2D NNL::dot(Tensor2D& t1, Tensor2D& t2){
+	return NNL::matmul(t1, t2);
 }
 
 
-Tensor1D Tparent::matvecmul(Tensor2D& a, Tensor1D& b){
+Tensor1D NNL::matvecmul(Tensor2D& a, Tensor1D& b){
 	
 	vector<int> t1_shape = a.shape();
 	vector<int> t2_shape = b.shape();
@@ -63,7 +63,7 @@ Tensor1D Tparent::matvecmul(Tensor2D& a, Tensor1D& b){
 }
 
 
-Tensor2D Tparent::matmul(Tensor2D& a, Tensor2D& b){
+Tensor2D NNL::matmul(Tensor2D& a, Tensor2D& b){
 	vector<int> t1_shape = a.shape();
 	vector<int> t2_shape = b.shape();
 

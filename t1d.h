@@ -1,8 +1,8 @@
 #ifndef T1D_H
 #define T1D_H
 
-// include whatever you want in Tparent class
-#include "Tparent.h"
+// include whatever you want in NNL class
+#include "NNL.h"
 #include "t2d.h"
 
 using namespace std;
@@ -15,7 +15,7 @@ class Tensor2D;
 
 // 1d tensor class
 
-class Tensor1D: public Tparent{
+class Tensor1D: public NNL{
 	private:
 		vector<float> tensor;
 		vector<int>dimensions;
@@ -80,7 +80,7 @@ class Tensor1D: public Tparent{
 		vector<int> shape(bool print=false){
 			update_dim();
 			if(print)
-				Tparent::printTensorDim(dimensions);
+				NNL::printTensorDim(dimensions);
 			return dimensions;
 		}
 

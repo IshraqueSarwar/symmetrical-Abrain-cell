@@ -1,5 +1,5 @@
-#ifndef TPARENT_H
-#define TPARENT_H
+#ifndef NNL_H
+#define NNL_H
 
 #include <stdexcept>
 #include <iomanip>
@@ -12,11 +12,11 @@ using namespace std;
 class Tensor1D;
 class Tensor2D;
 
-class Tparent{
+class NNL{
 
 	public:
-		Tparent();
-		virtual ~Tparent();
+		NNL();
+		virtual ~NNL();
 
 		virtual void print(){
 		}
