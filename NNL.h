@@ -44,6 +44,11 @@ class NNL{
 
 		// Matrix multiplication function for Tensor2D and Tensor2D operation
 		Tensor2D matmul(Tensor2D& a, Tensor2D& b);
+
+
+		// overloading operators for cross class operations
+
+		
 };
 
 

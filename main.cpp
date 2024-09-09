@@ -46,28 +46,36 @@ int main(int argc, char* argv[]){
 	// testTensor2D();
 
 
+
+	// cross class operations..
+	Tensor2D t2d({{1,1,1},{1,2,3}});
+	Tensor1D t1d({1,1,1});
+
+	(t2d+t1d).shape(true);
+
+
 	
 	// Testing out weights and biases run...
 
-	NNL nl;
-	Tensor1D inputs({1.0,2.0,3.0,2.5});
+	// NNL nl;
+	// // Tensor1D inputs({1.0,2.0,3.0,2.5});
 
 
 	// Tensor2D inputs({{1.0,2.0,3.0,2.5},
 	// 					{2.0,5.0,-1.0,2.0},
 	// 					{-1.5,2.7,3.3,-0.8}});
 
-	Tensor2D weights({{0.2,0.8,-0.5,1},
-						{0.5,-0.91,0.26,-0.5},
-						{-0.26,-0.27,0.17,0.87}});
+	// Tensor2D weights({{0.2,0.8,-0.5,1},
+	// 					{0.5,-0.91,0.26,-0.5},
+	// 					{-0.26,-0.27,0.17,0.87}});
 
-	Tensor1D biases({2.0,3.0,0.5});
+	// Tensor1D biases({2.0,3.0,0.5});
 
 	
-	// transpose the weights first. to match the shape.
+	// // transpose the weights first. to match the shape.
 	// weights.transpose();
 
-	Tensor1D layer_output(nl.dot(weights, inputs)+biases);
+	// Tensor2D layer_output(nl.dot(weights, inputs)+biases);
 
-	layer_output.print();
+	// layer_output.print();
 }

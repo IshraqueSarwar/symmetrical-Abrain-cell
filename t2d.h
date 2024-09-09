@@ -281,7 +281,19 @@ class Tensor2D: public NNL{
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 		}
 
+		
 
+		// Tensor2D+Tensor1D
+		Tensor2D operator+(Tensor1D& a){
+			vector<float> t1 = a.get();
+			vector<int> t1_shape = a.shape();
+			if(dimensions[1]==t1_shape[0]){
+				cout<<"We'ew here";
+				Tensor2D t;
+				return t;
+			}
+			throw invalid_argument("The shapes don't line up");
+		}
 
 
 

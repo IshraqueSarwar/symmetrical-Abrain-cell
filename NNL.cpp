@@ -91,3 +91,4 @@ Tensor2D NNL::matmul(Tensor2D& a, Tensor2D& b){
 	throw invalid_argument("Error: Shapes ("+to_string(t1_shape[0]) + ", "+ to_string(t1_shape[1])+") and ("+ to_string(t2_shape[0])+") not aligned" );
 
 }
+
