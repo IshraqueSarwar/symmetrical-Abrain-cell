@@ -42,6 +42,7 @@
 
 
 # TODO BOARD:
+	0. update res.tensor.push_bach --> res.push
 	1. overloading operator for cross-class operations ie.tensor2d *=tensor1d
 	focus on overloading them from the main parent class.
 
@@ -49,6 +50,7 @@
 	3. Tensor print() func should always show decimal place
 	4. Precompiled headers to speed up compilation time?
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
+	6. Maybe develop += etc operators for cross class??
 	
 	
 	

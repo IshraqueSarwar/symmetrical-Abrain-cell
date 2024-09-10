@@ -377,6 +377,38 @@ class Tensor2D: public NNL{
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 		}
 
+			// Tensor2D X Tensor1D
+		friend Tensor2D operator*(Tensor2D& t2d, Tensor1D& t1d){
+			vector<int> t1d_shape = t1d.shape();
+			vector<int> t2d_shape = t2d.shape();
+		
+			
+			if(t1d_shape[0]==t2d_shape[1]){
+				vector<float> t1d_v = t1d.get();
+				vector<vector<float>> t2d_v = t2d.get();
+			
+				Tensor2D c;
+				for(int i = 0;i<t2d_shape[0];i++){
+					vector<float>r;
+					for(int j = 0;j<t2d_shape[1];j++){
+						float x = t1d_v[j]*t2d_v[i][j];
+						r.push_back(x);
+					}
+					c.push(r);
+				}
+
+				return c;
+			}
+
+			throw invalid_argument("The inner shape of Tensor2D doesn't match that of Tensor1D");
+		}
+
+
+		friend Tensor2D operator*(Tensor1D& t1d, Tensor2D& t2d){
+			return t2d*t1d;
+		}
+
+			// TODO: MUL, DIV overload. 
 
 		/* DIVISION OVERLOADING */
 			//Tensor / (double) n
@@ -399,6 +431,30 @@ class Tensor2D: public NNL{
 				return res;
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
+		}
+
+		friend Tensor2D operator/(double n, Tensor2D& t){
+			Tensor2D res;
+			for(int i = 0;i<t.dimensions[0];i++){
+				vector<float>row;
+				for(int j=0;j<t.dimensions[1];j++){
+					row.push_back(n/t.tensor[i][j]);
+				}
+				res.tensor.push_back(row);
+			}
+			return res;
+		}
+
+			//Tensor2d / Tensor1d;
+		friend Tensor2D operator/(Tensor2D& t2d, Tensor1D& t1d){
+			Tensor1D r;
+			r = 1/t1d;
+			return t2d*r;
+		}
+
+		friend Tensor2D operator/(Tensor1D& t1d, Tensor2D& t2d){
+			Tensor2D r(1/t2d);
+			return t1d*r;
 		}
 
 };

@@ -292,15 +292,15 @@ class Tensor1D: public NNL{
 			return (*this) *x;
 		}
 
-		//TODO:	// n / tensor
-		// Tensor1D operator/(double n, Tensor1D& t){
-		// 	Tensor1D res;
-		// 	for(int i=0;i<dimensions[0];i++){
-		// 		res.tensor.push_back(n/tensor[i]);
-		// 	}
-
-		// 	return res;
-		// }
+		// n / tensor
+		friend Tensor1D operator/(double n, Tensor1D& t){
+			Tensor1D c;
+			c = t;
+			for(int i = 0;i<c.dimensions[0];i++){
+				c.tensor[i] = n/c.tensor[i];
+			}
+			return c;
+		}
 
 			// Tensor / Tensor
 		Tensor1D operator/(Tensor1D& t){
