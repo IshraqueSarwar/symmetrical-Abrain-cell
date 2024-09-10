@@ -51,7 +51,7 @@ int main(int argc, char* argv[]){
 	Tensor2D t2d({{1,1,1},{1,2,3}});
 	Tensor1D t1d({1,1,1});
 
-	(t2d+t1d).shape(true);
+	(t1d-t2d).print();
 
 
 	

@@ -45,7 +45,7 @@
 	1. overloading operator for cross-class operations ie.tensor2d *=tensor1d
 	focus on overloading them from the main parent class.
 
-	
+	2. optimize the subtraction operators using addition.
 	3. Tensor print() func should always show decimal place
 	4. Precompiled headers to speed up compilation time?
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
@@ -119,4 +119,6 @@
 	14. Implement Matrix multiplication.
 
 	15. Implement Matrix vector multiplication
+
+	16. Now we can do cross class addition,
 

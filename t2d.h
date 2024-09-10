@@ -7,10 +7,7 @@
 
 using namespace std;
 	
-class Tensor1D;
-
-
-
+	
 // 2d tensor class
 class Tensor2D: public NNL{
 	private:
@@ -74,7 +71,7 @@ class Tensor2D: public NNL{
 		}
 
 		//getter func
-		vector<vector<float>> get(){
+		vector<vector<float>> get()const{
 			return tensor;
 		}
 
@@ -265,35 +262,40 @@ class Tensor2D: public NNL{
 			return t+n;
 		}
 
-			// Tensor + Tensor
-		Tensor2D operator+(Tensor2D& t){
-			if(dimensions==t.shape()){
-				Tensor2D res;
-				for(int i = 0;i<dimensions[0];i++){
-					vector<float> row;
-					for(int j =0;j<dimensions[1];j++){
-						row.push_back(t.tensor[i][j]+tensor[i][j]);
+
+
+			//Tensor2D+Tensor1D
+		friend Tensor2D operator+(Tensor2D& t2d, Tensor1D& t1d){
+			vector<int> t1d_shape = t1d.shape();
+			vector<int> t2d_shape = t2d.shape();
+		
+			
+			if(t1d_shape[0]==t2d_shape[1]){
+				vector<float> t1d_v = t1d.get();
+				vector<vector<float>> t2d_v = t2d.get();
+			
+				Tensor2D c;
+				for(int i = 0;i<t2d_shape[0];i++){
+					vector<float>r;
+					for(int j = 0;j<t2d_shape[1];j++){
+						float x = t1d_v[j]+t2d_v[i][j];
+						r.push_back(x);
 					}
-					res.tensor.push_back(row);
+					c.push(r);
 				}
-				return res;
+
+				return c;
 			}
-			throw invalid_argument("Error: The shape of the Tensors don't match");
+
+			throw invalid_argument("The inner shape of Tensor2D doesn't match that of Tensor1D");
 		}
+		
+		friend Tensor2D operator+(Tensor1D& t1d, Tensor2D& t2d){
+			return t2d+t1d;
+		}
+
 
 		
-
-		// Tensor2D+Tensor1D
-		Tensor2D operator+(Tensor1D& a){
-			vector<float> t1 = a.get();
-			vector<int> t1_shape = a.shape();
-			if(dimensions[1]==t1_shape[0]){
-				cout<<"We'ew here";
-				Tensor2D t;
-				return t;
-			}
-			throw invalid_argument("The shapes don't line up");
-		}
 
 
 
@@ -329,6 +331,17 @@ class Tensor2D: public NNL{
 
 		}
 
+
+			//Tensor2D-Tensor1D
+		friend Tensor2D operator-(Tensor2D& t2d, Tensor1D& t1d){
+			Tensor1D r(t1d* -1);
+			return t2d+r;
+		}
+		
+		friend Tensor2D operator-(Tensor1D& t1d, Tensor2D& t2d){
+			Tensor2D r(t2d* -1);
+			return t1d+r;
+		}
 
 
 

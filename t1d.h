@@ -3,11 +3,12 @@
 
 // include whatever you want in NNL class
 #include "NNL.h"
-#include "t2d.h"
+// #include "t2d.h"
 
 using namespace std;
-	
-class Tensor2D;
+
+
+
 
 
 
@@ -37,7 +38,7 @@ class Tensor1D: public NNL{
 		}
 
 		//getter
-		vector<float> get(){
+		vector<float> get()const{
 			return tensor;
 		}
 
@@ -209,7 +210,7 @@ class Tensor1D: public NNL{
 		}
 
 		
-
+	
 		
 
 		
