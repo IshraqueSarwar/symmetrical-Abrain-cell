@@ -37,6 +37,42 @@
 	(t+=t2).print() <-- directly prints the result of the operation within the bracket
 
 
+	--> basic NN layer
+	// Testing out weights and biases run...
+	NNL nl;
+
+
+	//Layer 1
+	Tensor2D inputs({{1.0,2.0,3.0,2.5},
+						{2.0,5.0,-1.0,2.0},
+						{-1.5,2.7,3.3,-0.8}});
+
+	Tensor2D weights({{0.2,0.8,-0.5,1},
+						{0.5,-0.91,0.26,-0.5},
+						{-0.26,-0.27,0.17,0.87}});
+
+	Tensor2D weights2({{0.1,-0.14,0.5},
+						{-0.5,0.12,-0.33},
+						{-0.44,0.73,-0.13}});
+
+	Tensor1D biases({2.0,3.0,0.5});
+	Tensor1D biases2({-1,2,-0.5});
+
+	
+	// transpose the weights first. to match the shape.
+	weights.transpose();
+	Tensor2D iw(nl.dot(inputs, weights));
+	Tensor2D layer1_output(iw+biases);
+
+	weights2.transpose();
+	iw = nl.dot(layer1_output, weights2);
+	Tensor2D layer2_output(iw+biases2);
+
+	layer2_output.print();
+
+
+
+
 	current build command: (will change as I incorporate cmake)   g++ -o main NNL.cpp tensor.cpp main.cpp
 
 
@@ -51,8 +87,8 @@
 	4. Precompiled headers to speed up compilation time?
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
 	6. Maybe develop += etc operators for cross class??
-	
-	
+	7. try to replicate random_randn just like numpy random.
+	8. try to fix the random_randn's seed functionality.
 	
 
 
@@ -123,4 +159,8 @@
 	15. Implement Matrix vector multiplication
 
 	16. Now we can do cross class addition,
+
+	17. Tested 2 layers of pass.
+
+	18. Created gaussian distrbution based Tensor2D randomized generator
 

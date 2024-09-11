@@ -7,6 +7,7 @@
 #include <iomanip>
 
 
+
 using namespace std;
 
 
@@ -92,3 +93,27 @@ Tensor2D NNL::matmul(Tensor2D& a, Tensor2D& b){
 
 }
 
+
+
+Tensor2D NNL::random_randn(int n_inputs, int n_neurons){
+	random_device rd;
+	mt19937 gen(rd());
+
+	// uniform_real_distribution<double> dis(-1.0, 1.0);
+	normal_distribution<double>dis(0.0,1.0);//GAUSSIAN DISTRIB: mean, standard deviation
+
+	Tensor2D res;
+	for(int i = 0;i<n_inputs;i++){
+		vector<float> row;
+		for(int j = 0;j<n_neurons;j++){
+			// double random_number = dis(gen);
+			// cout<<random_number<<endl;
+			row.push_back(dis(gen));
+		}
+
+		res.push(row);
+
+	}
+
+	return res;
+}

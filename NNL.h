@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+#include <random>
 
 using namespace std;
 
@@ -46,7 +47,9 @@ class NNL{
 		Tensor2D matmul(Tensor2D& a, Tensor2D& b);
 
 
-		// overloading operators for cross class operations
+		
+		// randomized Tensor2D
+		Tensor2D random_randn(int n_inputs, int n_neurons);
 
 		
 };
