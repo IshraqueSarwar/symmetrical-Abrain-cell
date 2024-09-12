@@ -117,3 +117,16 @@ Tensor2D NNL::random_randn(int n_inputs, int n_neurons){
 
 	return res;
 }
+
+
+Tensor2D NNL::zeros(int n_inputs, int n_neurons){
+	Tensor2D res;
+	for(int i=0;i<n_inputs;i++){
+		vector<float>row;
+		for(int j = 0;j<n_neurons;j++){
+			row.push_back(0.0);
+		}
+		res.push(row);
+	}
+	return res;
+}

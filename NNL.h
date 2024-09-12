@@ -51,6 +51,9 @@ class NNL{
 		// randomized Tensor2D
 		Tensor2D random_randn(int n_inputs, int n_neurons);
 
+		// tensor full of zeros
+		Tensor2D zeros(int n_inputs, int n_neurons);
+
 		
 };
 

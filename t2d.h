@@ -251,7 +251,7 @@ class Tensor2D: public NNL{
 				for(int j=0;j<dimensions[1];j++){
 					row.push_back(tensor[i][j]+n);
 				}
-				res.tensor.push_back(row);
+				res.push(row);
 			}
 			return res;
 		}
@@ -309,7 +309,7 @@ class Tensor2D: public NNL{
 				for(int j=0;j<dimensions[1];j++){
 					row.push_back(tensor[i][j]-n);
 				}
-				res.tensor.push_back(row);
+				res.push(row);
 			}
 			return res;
 		}
@@ -323,7 +323,7 @@ class Tensor2D: public NNL{
 					for(int j =0;j<dimensions[1];j++){
 						row.push_back(tensor[i][j]-t.tensor[i][j]);
 					}
-					res.tensor.push_back(row);
+					res.push(row);
 				}
 				return res;
 			}
@@ -355,7 +355,7 @@ class Tensor2D: public NNL{
 				for(int j=0;j<dimensions[1];j++){
 					row.push_back(tensor[i][j]*n);
 				}
-				res.tensor.push_back(row);
+				res.push(row);
 			}
 			return res;
 		}
@@ -370,7 +370,7 @@ class Tensor2D: public NNL{
 					for(int j =0;j<dimensions[1];j++){
 						row.push_back(tensor[i][j]*t.tensor[i][j]);
 					}
-					res.tensor.push_back(row);
+					res.push(row);
 				}
 				return res;
 			}
@@ -426,7 +426,7 @@ class Tensor2D: public NNL{
 					for(int j = 0;j<dimensions[1];j++){
 						row.push_back(tensor[i][j]/t.tensor[i][j]);
 					}
-					res.tensor.push_back(row);
+					res.push(row);
 				}
 				return res;
 			}
@@ -440,7 +440,7 @@ class Tensor2D: public NNL{
 				for(int j=0;j<t.dimensions[1];j++){
 					row.push_back(n/t.tensor[i][j]);
 				}
-				res.tensor.push_back(row);
+				res.push(row);
 			}
 			return res;
 		}

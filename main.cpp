@@ -5,6 +5,7 @@
 #include "NNL.h"
 #include "t1d.h"
 #include "t2d.h"
+#include "layer.h"
 
 
 using namespace std;
@@ -49,9 +50,11 @@ int main(int argc, char* argv[]){
 
 
 	// cross class operations..
-	// Tensor2D t2d({{1,1,1},{1,2,3}});
+	// Tensor2D t2d({{0.25575, -0.745871, -0.316489, -0.462466},
+	// 			{-0.740724, -0.557881, -1.2593, 0.0285699}});
 	// Tensor1D t1d({1,2,4});
-	// (1/t1d).print();
+	// t2d*=0.01;
+
 	// Tensor2D res(t2d+t1d);
 	// res.print();
 	// (t2d+t1d).print();
@@ -94,10 +97,12 @@ int main(int argc, char* argv[]){
 
 	layer2_output.print();*/
 
-	Tensor2D r(nl.random_randn(2, 5));
-	r.print();
+	// int n_inputs =2, n_neurons = 4;
 	
 
+	Tensor2D r; r = nl.random_randn(2,4);
+	r *=0.01;
+	r.print();
 
-
+	Layer_dense ll(2,4);
 }

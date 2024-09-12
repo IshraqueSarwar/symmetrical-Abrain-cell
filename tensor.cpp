@@ -27,7 +27,7 @@ Tensor1D::~Tensor1D(){}
 //main constructors for 2-dimensional tensor
 Tensor2D::Tensor2D(): tensor() {}
 Tensor2D::Tensor2D(const Tensor2D& other){
-	Tensor2D::tensor = other.tensor;
+	Tensor2D::set(other.get());
 	Tensor2D::update_dim();
 }
 Tensor2D::Tensor2D(vector<vector<float>> t2d, bool validify){

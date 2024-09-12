@@ -36,6 +36,12 @@
 
 	(t+=t2).print() <-- directly prints the result of the operation within the bracket
 
+	--> basic tensor builtins
+	Tensor2D r;r=nl.random_randn(2, 5);	<--- creates a 2D tensor with dim 2x5 using gaussian distribution randomization of mean =0 and std-dev=1.0
+	r.print();
+
+	Tensor2D r;r = nl.zeros(2, 5)
+	r.print();
 
 	--> basic NN layer
 	// Testing out weights and biases run...
@@ -73,12 +79,14 @@
 
 
 
+
+
 	current build command: (will change as I incorporate cmake)   g++ -o main NNL.cpp tensor.cpp main.cpp
 
 
 
 # TODO BOARD:
-	0. update res.tensor.push_bach --> res.push
+	0. complete the Layer_dense class
 	1. overloading operator for cross-class operations ie.tensor2d *=tensor1d
 	focus on overloading them from the main parent class.
 
@@ -89,14 +97,14 @@
 	6. Maybe develop += etc operators for cross class??
 	7. try to replicate random_randn just like numpy random.
 	8. try to fix the random_randn's seed functionality.
-	
+	9. Tensor::tensor = other.tensor ---> Tensor::set(other.get());
 
 
 
 
 
 # ERROR:
-	
+	1. after nnl.random_randn(n,m), if we multiply it by any DOUBLE, it throws SEGMENTATION FAULT
 
 
 
@@ -163,4 +171,6 @@
 	17. Tested 2 layers of pass.
 
 	18. Created gaussian distrbution based Tensor2D randomized generator
+
+	19. update res.tensor.push_bach --> res.push
 

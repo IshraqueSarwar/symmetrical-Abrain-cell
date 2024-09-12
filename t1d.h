@@ -185,7 +185,7 @@ class Tensor1D: public NNL{
 			Tensor1D res;
 
 			for(int i = 0;i<dimensions[0];i++){
-				res.tensor.push_back(tensor[i]+n);
+				res.push(tensor[i]+n);
 			}
 			
 			return res;
@@ -201,7 +201,7 @@ class Tensor1D: public NNL{
 			if(dimensions==t.shape()){
 				Tensor1D res;
 				for(int i=0;i<dimensions[0];i++){
-					res.tensor.push_back(t.tensor[i]+tensor[i]);
+					res.push(t.tensor[i]+tensor[i]);
 				}
 				return res;
 			}
@@ -223,7 +223,7 @@ class Tensor1D: public NNL{
 		Tensor1D operator-(double n)const{
 			Tensor1D res;
 			for(int i=0;i<dimensions[0];i++){
-				res.tensor.push_back(tensor[i]-n);
+				res.push(tensor[i]-n);
 			}
 			return res;
 		}
@@ -232,7 +232,7 @@ class Tensor1D: public NNL{
 		// Tensor1D operator-(double n, Tensor1D& t){
 		// 	Tensor1D res;
 		// 	for(int i=0;i<dimensions[0];i++){
-		// 		res.tensor.push_back(n-tensor[i]);
+		// 		res.push(n-tensor[i]);
 		// 	}
 
 		// 	return res;
@@ -243,7 +243,7 @@ class Tensor1D: public NNL{
 			if(dimensions==t.shape()){
 				Tensor1D res;
 				for(int i=0;i<dimensions[0];i++){
-					res.tensor.push_back(t.tensor[i]-tensor[i]);
+					res.push(t.tensor[i]-tensor[i]);
 				}
 				return res;
 			}
@@ -259,7 +259,7 @@ class Tensor1D: public NNL{
 			Tensor1D res;
 
 			for(int i = 0;i<dimensions[0];i++){
-				res.tensor.push_back(tensor[i]*n);
+				res.push(tensor[i]*n);
 			}
 			
 			return res;
@@ -271,7 +271,7 @@ class Tensor1D: public NNL{
 			if(dimensions==t.shape()){
 				Tensor1D res;
 				for(int i=0;i<dimensions[0];i++){
-					res.tensor.push_back(t.tensor[i]*tensor[i]);
+					res.push(t.tensor[i]*tensor[i]);
 				}
 				return res;
 			}
@@ -307,7 +307,7 @@ class Tensor1D: public NNL{
 			if(dimensions==t.shape()){
 				Tensor1D res;
 				for(int i=0;i<dimensions[0];i++){
-					res.tensor.push_back(tensor[i]/t.tensor[i]);
+					res.push(tensor[i]/t.tensor[i]);
 				}
 				return res;
 			}
