@@ -1,14 +1,14 @@
 #ifndef T2D_H
 #define T2D_H
 
-//include whatever you want in NNL class
+/* include whatever you want in NNL class*/
 #include "NNL.h"
 #include "t1d.h"
 
 using namespace std;
 	
 	
-// 2d tensor class
+/* 2d tensor class */
 class Tensor2D: public NNL{
 	private:
 		vector<vector<float>> tensor;
@@ -65,18 +65,18 @@ class Tensor2D: public NNL{
 
 		
 
-		//setter func
+		/* setter func*/
 		void set(vector<vector<float>> t2d){
 			tensor = t2d;
 		}
 
-		//getter func
+		/*getter func*/
 		vector<vector<float>> get()const{
 			return tensor;
 		}
 
 
-		// Transposing the tensor
+		/* Transposing the tensor*/
 		void transpose(){
 			if(tensor.size()){
 				vector<vector<float>> tensor_trans(tensor[0].size(), vector<float>(tensor.size()));
@@ -93,7 +93,7 @@ class Tensor2D: public NNL{
 
 		}
 
-		// for displaying the tensor in human readable format.
+		/* for displaying the tensor in human readable format.*/
 		void print(){
 			if(tensor.empty()){
 				cout<<"Tensor<float, 2D>([[]])";
@@ -123,8 +123,8 @@ class Tensor2D: public NNL{
 			dimensions.push_back(tensor[0].size());
 		}
 
-		// returning dimesion vector;
-		// shape function takes in arg:print that shows the dim if true
+		/* returning dimesion vector;
+		 shape function takes in arg:print that shows the dim if true*/
 		vector<int> shape(bool print=false){
 			update_dim();
 			if(print)
@@ -139,16 +139,15 @@ class Tensor2D: public NNL{
 		/* EQUAL overload to assign new tensor*/
 		Tensor2D operator=(const Tensor2D& other){
 			tensor = other.tensor;
-			// we need to update the dimension when we assign a new tensor, as the shape of the new
-			// 		tensor can be different.
+			/* we need to update the dimension when we assign a new tensor, as the shape of the new
+			 		tensor can be different.*/
 			update_dim();
 			return tensor;
 		}
 
 
 
-		// TODO: make shorthands for tensor to tensor operations
-		//TODO: if the other tensor is of shape(1, N), we operate the first tensor to all
+		
 		/* SHORTHAND OPERATORS*/
 			// +=
 		Tensor2D& operator+=(double n){
@@ -169,7 +168,11 @@ class Tensor2D: public NNL{
 					}
 				}
 				return *this;
-			}else if( dimensions[1] == other.shape()[1] && other.shape()[0]==1){
+			}else if( (dimensions[1] == other.shape()[1] && (other.shape()[0]==1 || dimensions[0]==1))){
+				/*We are checking if one of the Tensor is 2D and matches the inner
+				dimension but has a single row that it still works.
+				mainly integrating it in the *= and += operators and using it
+				in -= and /= */
 				for(int i=0;i<dimensions[0];i++){
 					for(int j = 0;j<dimensions[1];j++){
 						this->tensor[i][j]+=other.tensor[0][j];
@@ -195,12 +198,9 @@ class Tensor2D: public NNL{
 			return *this;
 		}
 		Tensor2D& operator-=(Tensor2D& other){
-			if(dimensions==other.shape()){
-				for(int i=0;i<dimensions[0];i++){
-					for(int j = 0;j<dimensions[1];j++){
-						this->tensor[i][j]-=other.tensor[i][j];
-					}
-				}
+			if(dimensions==other.shape() || (dimensions[1] == other.shape()[1] && (other.shape()[0]==1 || dimensions[0]==1)) ){
+				Tensor2D r = other*-1;
+				(*this)+=(r);
 				return *this;
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
@@ -224,6 +224,13 @@ class Tensor2D: public NNL{
 					}
 				}
 				return *this;
+			}else if( (dimensions[1] == other.shape()[1] && (other.shape()[0]==1 || dimensions[0]==1)) ){
+				for(int i=0;i<dimensions[0];i++){
+					for(int j = 0;j<dimensions[1];j++){
+						this->tensor[i][j]*=other.tensor[0][j];
+					}
+				}
+				return *this;
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 			
@@ -240,13 +247,9 @@ class Tensor2D: public NNL{
 			return *this;
 		}
 		Tensor2D& operator/=(Tensor2D& other){
-			if(dimensions==other.shape()){
-				for(int i=0;i<dimensions[0];i++){
-					for(int j = 0;j<dimensions[1];j++){
-						double x = (1/other.tensor[i][j]);
-						this->tensor[i][j]*=x;
-					}
-				}
+			if(dimensions==other.shape()|| (dimensions[1] == other.shape()[1] && (other.shape()[0]==1 || dimensions[0]==1))){
+				Tensor2D r = 1/other;
+				(*this)*=r;
 				return *this;
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
@@ -421,7 +424,7 @@ class Tensor2D: public NNL{
 			return t2d*t1d;
 		}
 
-			// TODO: MUL, DIV overload. 
+			 
 
 		/* DIVISION OVERLOADING */
 			//Tensor / (double) n

@@ -77,19 +77,34 @@
 	layer2_output.print();
 
 
+	/* In shorter format*/
+	Tensor2D X({{ 0.        ,  0.        },
+		       { 0.1068272 , -0.22602643},
+		       {-0.3565171 ,  0.35056463},
+		       { 0.54027534, -0.52019477},
+		       {-0.9980913 , -0.06175594},
+		       {-0.        , -0.        },
+		       { 0.09934813,  0.22941218},
+		       { 0.35293192, -0.35417378},
+		       {-0.73923534,  0.12661397},
+		       { 0.97696507,  0.2133992 }});
+
+	Layer_dense dense1(2,4);
+	Tensor2D output = dense1.forward(X);
+	output.print();
 
 
 
 
-	current build command: (will change as I incorporate cmake)   g++ -o main NNL.cpp tensor.cpp main.cpp
+
+
+	current build command: (will change as I incorporate cmake)   g++ -o main NNL.cpp tensor.cpp main.cpp layer.cpp
 
 
 
 # TODO BOARD:
-	0. complete the Layer_dense class
-	
-	focus on overloading them from the main parent class.
-	1. Add validations to the operator functions.(IMPORTANT)
+	1. complete the Layer_dense class
+		focus on overloading them from the main parent class.
 	2. optimize the subtraction operators using addition.
 	3. Tensor print() func should always show decimal place
 	4. Precompiled headers to speed up compilation time?
@@ -104,7 +119,7 @@
 
 
 # ERROR:
-	1. after nnl.random_randn(n,m), if we multiply it by any DOUBLE, it throws SEGMENTATION FAULT
+	1. after nnl.random_randn(n,m), if we multiply it by any DOUBLE, it throws SEGMENTATION FAULT--> just do the operations one at a time
 
 
 
@@ -175,4 +190,6 @@
 	19. update res.tensor.push_bach --> res.push
 
 	20. overloading operator for cross-class operations ie.tensor2d *=tensor1d
+
+	21. If the other tensor is of shape(1, N), we operate the first tensor to all
 

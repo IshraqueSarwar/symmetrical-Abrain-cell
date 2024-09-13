@@ -50,10 +50,12 @@ int main(int argc, char* argv[]){
 
 
 	// cross class operations..
-	// Tensor2D t2d({{0.25575, -0.745871, -0.316489, -0.462466},
-	// 			{-0.740724, -0.557881, -1.2593, 0.0285699}});
-	// Tensor1D t1d({1,2,4,1});
-	// t2d*=t1d;
+	Tensor2D t2d({{1,6, -2, -1},
+				{-7, -2, -5, 1}});
+	Tensor2D t({{1,2,4,1}});
+	Tensor1D t1d({1,2,4,1});
+	t+=t2d;
+	t2d.print();
 
 	// Tensor2D res(t2d+t1d);
 	// res.print();
@@ -99,7 +101,7 @@ int main(int argc, char* argv[]){
 
 	
 
-	/* we run through one layer of neutrons*/
+	/* demo of single layer neuron rundown*/
 	Tensor2D X({{ 0.        ,  0.        },
 		       { 0.1068272 , -0.22602643},
 		       {-0.3565171 ,  0.35056463},
