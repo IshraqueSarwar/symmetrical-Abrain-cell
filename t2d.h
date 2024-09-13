@@ -148,6 +148,7 @@ class Tensor2D: public NNL{
 
 
 		// TODO: make shorthands for tensor to tensor operations
+		//TODO: if the other tensor is of shape(1, N), we operate the first tensor to all
 		/* SHORTHAND OPERATORS*/
 			// +=
 		Tensor2D& operator+=(double n){
@@ -159,6 +160,7 @@ class Tensor2D: public NNL{
 			return *this;
 		}
 
+		
 		Tensor2D& operator+=(Tensor2D& other){
 			if(dimensions==other.shape()){
 				for(int i=0;i<dimensions[0];i++){
@@ -167,10 +169,21 @@ class Tensor2D: public NNL{
 					}
 				}
 				return *this;
+			}else if( dimensions[1] == other.shape()[1] && other.shape()[0]==1){
+				for(int i=0;i<dimensions[0];i++){
+					for(int j = 0;j<dimensions[1];j++){
+						this->tensor[i][j]+=other.tensor[0][j];
+					}
+				}
+				return *this;
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 			
 		}
+
+
+		// Tensor2D& operator+=(Tensor1D& other)
+
 
 			// -=
 		Tensor2D& operator-=(double n){

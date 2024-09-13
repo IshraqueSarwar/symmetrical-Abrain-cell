@@ -52,8 +52,8 @@ int main(int argc, char* argv[]){
 	// cross class operations..
 	// Tensor2D t2d({{0.25575, -0.745871, -0.316489, -0.462466},
 	// 			{-0.740724, -0.557881, -1.2593, 0.0285699}});
-	// Tensor1D t1d({1,2,4});
-	// t2d*=0.01;
+	// Tensor1D t1d({1,2,4,1});
+	// t2d*=t1d;
 
 	// Tensor2D res(t2d+t1d);
 	// res.print();
@@ -65,9 +65,9 @@ int main(int argc, char* argv[]){
 
 	
 	// Testing out weights and biases run...
-	NNL nl;
+	
 	/*
-
+	NNL nl
 
 	//Layer 1
 	Tensor2D inputs({{1.0,2.0,3.0,2.5},
@@ -97,12 +97,21 @@ int main(int argc, char* argv[]){
 
 	layer2_output.print();*/
 
-	// int n_inputs =2, n_neurons = 4;
 	
 
-	Tensor2D r; r = nl.random_randn(2,4);
-	r *=0.01;
-	r.print();
+	/* we run through one layer of neutrons*/
+	Tensor2D X({{ 0.        ,  0.        },
+		       { 0.1068272 , -0.22602643},
+		       {-0.3565171 ,  0.35056463},
+		       { 0.54027534, -0.52019477},
+		       {-0.9980913 , -0.06175594},
+		       {-0.        , -0.        },
+		       { 0.09934813,  0.22941218},
+		       { 0.35293192, -0.35417378},
+		       {-0.73923534,  0.12661397},
+		       { 0.97696507,  0.2133992 }});
 
-	Layer_dense ll(2,4);
+	Layer_dense dense1(2,4);
+	Tensor2D output = dense1.forward(X);
+	output.print();
 }
