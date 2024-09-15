@@ -9,11 +9,6 @@ using namespace std;
 
 
 
-
-
-
-
-
 // 1d tensor class
 
 class Tensor1D: public NNL{

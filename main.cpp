@@ -50,12 +50,13 @@ int main(int argc, char* argv[]){
 
 
 	// cross class operations..
-	Tensor2D t2d({{1,6, -2, -1},
-				{-7, -2, -5, 1}});
-	Tensor2D t({{1,2,4,1}});
-	Tensor1D t1d({1,2,4,1});
-	t+=t2d;
-	t2d.print();
+	// Tensor2D t2d({{1,6, -2, -1},
+	// 			{-7, -2, -5, 1}});
+	// Tensor2D t({{1,2,4,1}});
+	// Tensor1D t1d({1,2,4,1});
+	// t1d*=-1;
+	// t2d/=t1d;
+	// t2d.print();
 
 	// Tensor2D res(t2d+t1d);
 	// res.print();

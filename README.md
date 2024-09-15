@@ -109,10 +109,9 @@
 	3. Tensor print() func should always show decimal place
 	4. Precompiled headers to speed up compilation time?
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
-	6. Maybe develop += etc operators for cross class??
-	7. try to replicate random_randn just like numpy random.
-	8. try to fix the random_randn's seed functionality.
-	9. Tensor::tensor = other.tensor ---> Tensor::set(other.get());
+	6. try to replicate random_randn just like numpy random.
+	7. try to fix the random_randn's seed functionality.
+	
 
 
 
@@ -193,3 +192,6 @@
 
 	21. If the other tensor is of shape(1, N), we operate the first tensor to all
 
+	22. Maybe develop += etc operators for cross class??
+
+	23. Tensor::tensor = other.tensor ---> Tensor::set(other.get());

@@ -168,7 +168,7 @@ class Tensor2D: public NNL{
 					}
 				}
 				return *this;
-			}else if( (dimensions[1] == other.shape()[1] && (other.shape()[0]==1 || dimensions[0]==1))){
+			}else if( (dimensions[1] == other.shape()[1] && other.shape()[0]==1)){
 				/*We are checking if one of the Tensor is 2D and matches the inner
 				dimension but has a single row that it still works.
 				mainly integrating it in the *= and += operators and using it
@@ -185,7 +185,13 @@ class Tensor2D: public NNL{
 		}
 
 
-		// Tensor2D& operator+=(Tensor1D& other)
+		Tensor2D& operator+=(Tensor1D& other){
+			Tensor2D temp(this->tensor);
+			Tensor2D res = temp+other;
+			this->set(res.get());
+			return *this;
+
+		}
 
 
 			// -=
@@ -197,14 +203,23 @@ class Tensor2D: public NNL{
 			}
 			return *this;
 		}
+
 		Tensor2D& operator-=(Tensor2D& other){
-			if(dimensions==other.shape() || (dimensions[1] == other.shape()[1] && (other.shape()[0]==1 || dimensions[0]==1)) ){
+			if(dimensions==other.shape() || (dimensions[1] == other.shape()[1] && other.shape()[0]==1) ){
 				Tensor2D r = other*-1;
 				(*this)+=(r);
 				return *this;
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 			
+		}
+
+		Tensor2D& operator-=(Tensor1D& other){
+			Tensor2D temp(this->tensor);
+			Tensor2D res = temp-other;
+			this->set(res.get());
+			return *this;
+
 		}
 
 			// *=
@@ -224,7 +239,7 @@ class Tensor2D: public NNL{
 					}
 				}
 				return *this;
-			}else if( (dimensions[1] == other.shape()[1] && (other.shape()[0]==1 || dimensions[0]==1)) ){
+			}else if( dimensions[1] == other.shape()[1] && other.shape()[0]==1  ){
 				for(int i=0;i<dimensions[0];i++){
 					for(int j = 0;j<dimensions[1];j++){
 						this->tensor[i][j]*=other.tensor[0][j];
@@ -234,6 +249,13 @@ class Tensor2D: public NNL{
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 			
+		}
+
+		Tensor2D& operator*=(Tensor1D& other){
+			Tensor2D temp(this->tensor);
+			Tensor2D res = temp*other;
+			this->set(res.get());
+			return *this;
 		}
 
 			// /=
@@ -256,6 +278,13 @@ class Tensor2D: public NNL{
 			
 		}
 
+
+		Tensor2D& operator/=(Tensor1D& other){
+			Tensor2D temp(this->tensor);
+			Tensor2D res = temp/other;
+			this->set(res.get());
+			return *this;
+		}
 
 
 		/* ADDITION OVERLOADING */
