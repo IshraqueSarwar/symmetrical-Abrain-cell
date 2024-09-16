@@ -1,5 +1,5 @@
 #include "NNL.h"
-#include "t1d.h"
+// #include "t1d.h"
 #include "t2d.h"
 #include <iostream>
 #include <vector>

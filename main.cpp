@@ -6,6 +6,7 @@
 #include "t1d.h"
 #include "t2d.h"
 #include "layer.h"
+#include "activation_functions.h"
 
 
 using namespace std;
@@ -103,34 +104,26 @@ int main(int argc, char* argv[]){
 	
 
 	/* demo of single layer neuron rundown*/
-	// Tensor2D X({{ 0.        ,  0.        },
-	// 	       { 0.1068272 , -0.22602643},
-	// 	       {-0.3565171 ,  0.35056463},
-	// 	       { 0.54027534, -0.52019477},
-	// 	       {-0.9980913 , -0.06175594},
-	// 	       {-0.        , -0.        },
-	// 	       { 0.09934813,  0.22941218},
-	// 	       { 0.35293192, -0.35417378},
-	// 	       {-0.73923534,  0.12661397},
-	// 	       { 0.97696507,  0.2133992 }});
+	Tensor2D X({{ 0.        ,  0.        },
+		       { 0.1068272 , -0.22602643},
+		       {-0.3565171 ,  0.35056463},
+		       { 0.54027534, -0.52019477},
+		       {-0.9980913 , -0.06175594},
+		       {-0.        , -0.        },
+		       { 0.09934813,  0.22941218},
+		       { 0.35293192, -0.35417378},
+		       {-0.73923534,  0.12661397},
+		       { 0.97696507,  0.2133992 }});
 
-	// Layer_dense dense1(2,4);
-	// Tensor2D output = dense1.forward(X);
-	// output.print();
+	Layer_dense dense1(2,4);
+	Tensor2D output = dense1.forward(X);
+	output.print();
 
-	// cout<<max(0.1068272 , -0.22602643)<<endl;
-
-
-	NNL nl;
-	Tensor2D r({{1,-2,0.5,-0.1}});
-
-	Tensor2D one({{1,-3,0.5,-0.1},
-					{-1,-5,0,3}});
-	Tensor2D two({{0.1, -1, 0.59, 0.001},
-					{-0.3565171 ,  0.35056463, -0.09934813,  0.22941218}});
-
+	cout<<"\n\n";
 	
-	double n = 0;
-	Tensor2D res=nl.maximum(r, two);
-	res.print();
+	Activation_ReLU activation1;
+	output = activation1.forward(output);
+	output.print();
+
+
 }

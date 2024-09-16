@@ -93,6 +93,12 @@
 	Tensor2D output = dense1.forward(X);
 	output.print();
 
+	--> adding activation function(Rectified linear activation function)
+	
+	Activation_ReLU activation1;
+	output = activation1.forward(output);
+	output.print();
+
 
 
 
