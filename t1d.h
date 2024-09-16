@@ -13,7 +13,7 @@ using namespace std;
 
 class Tensor1D: public NNL{
 	private:
-		vector<float> tensor;
+		vector<double> tensor;
 		vector<int>dimensions;
 
 
@@ -21,7 +21,7 @@ class Tensor1D: public NNL{
 		// main constructor
 		Tensor1D();
 		Tensor1D(const Tensor1D& other);
-		Tensor1D(vector<float> t1d);
+		Tensor1D(vector<double> t1d);
 
 		virtual ~Tensor1D();
 		
@@ -33,7 +33,7 @@ class Tensor1D: public NNL{
 		}
 
 		//getter
-		vector<float> get()const{
+		vector<double> get()const{
 			return tensor;
 		}
 
@@ -53,13 +53,13 @@ class Tensor1D: public NNL{
 
 		void print(){
 			if(tensor.size()){
-				cout<<"Tensor<float, 1D>([";
+				cout<<"Tensor<double, 1D>([";
 				for(int i=0;i< dimensions[0]-1; i++){
 					cout<<tensor[i]<<", ";
 				}
 				cout<<tensor[dimensions[0]-1]<<"])\n";
 			}else{
-				cout<<"Tensor<float, 1D>([])";
+				cout<<"Tensor<double, 1D>([])";
 			}
 			
 		}

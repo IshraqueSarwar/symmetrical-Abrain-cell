@@ -30,7 +30,7 @@
 	
 	t+=t2; <-- adds each corresponding elements from both tensors
 	t = t-t2 <-- subs each corresponding elements from both tensors
-	t+=3 	<-- int/float addition to elements in the tensor
+	t+=3 	<-- int/double addition to elements in the tensor
 	t = t*t2 <-- muls each corresponding elements from both tensors
 	t = t/t2 <-- divs each corresponding elements from both tensors
 
@@ -103,6 +103,8 @@
 
 
 # TODO BOARD:
+	(IMPORTANT Tensor2D += etc are not immutable right now. Need to do this asap)
+	0. Maybe implement [] access for tensors.
 	1. complete the Layer_dense class
 		focus on overloading them from the main parent class.
 	2. optimize the subtraction operators using addition.

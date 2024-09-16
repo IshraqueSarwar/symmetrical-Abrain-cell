@@ -46,8 +46,8 @@ Tensor1D NNL::matvecmul(Tensor2D& a, Tensor1D& b){
 	vector<int> t2_shape = b.shape();
 
 	if(t1_shape[1]==t2_shape[0]){
-		vector<vector<float>> t1 = a.get();
-		vector<float> t2 = b.get();
+		vector<vector<double>> t1 = a.get();
+		vector<double> t2 = b.get();
 		Tensor1D res;
 		for(int i = 0;i<t1_shape[0];i++){
 			double prodsum = 0;
@@ -69,12 +69,12 @@ Tensor2D NNL::matmul(Tensor2D& a, Tensor2D& b){
 	vector<int> t2_shape = b.shape();
 
 	if(t1_shape[1]==t2_shape[0]){
-		vector<vector<float>> t1 = a.get();
-		vector<vector<float>> t2 = b.get();
+		vector<vector<double>> t1 = a.get();
+		vector<vector<double>> t2 = b.get();
 
 		Tensor2D res;
 		for(int i = 0;i<t1_shape[0];i++){
-			vector<float> x;
+			vector<double> x;
 			for(int j = 0;j<t2_shape[1];j++){
 				double z = 0;
 				for(int k = 0;k<t1_shape[1];k++){
@@ -104,7 +104,7 @@ Tensor2D NNL::random_randn(int n_inputs, int n_neurons){
 
 	Tensor2D res;
 	for(int i = 0;i<n_inputs;i++){
-		vector<float> row;
+		vector<double> row;
 		for(int j = 0;j<n_neurons;j++){
 			// double random_number = dis(gen);
 			// cout<<random_number<<endl;
@@ -122,11 +122,133 @@ Tensor2D NNL::random_randn(int n_inputs, int n_neurons){
 Tensor2D NNL::zeros(int n_inputs, int n_neurons){
 	Tensor2D res;
 	for(int i=0;i<n_inputs;i++){
-		vector<float>row;
+		vector<double>row;
 		for(int j = 0;j<n_neurons;j++){
 			row.push_back(0.0);
 		}
 		res.push(row);
 	}
 	return res;
+}
+
+//The maximum function:
+Tensor1D NNL::maximum(Tensor1D& a, Tensor1D& b){
+	vector<int>t1_shape = a.shape();
+	vector<int>t2_shape = b.shape();
+	if(t1_shape==t2_shape){
+		vector<double> t1 = a.get();
+		vector<double> t2 = b.get();
+
+		Tensor1D res;
+		for(int i = 0;i<t1_shape[0];i++){
+			res.push(max(t1[i], t2[i]));
+		}
+		return res;
+	}
+	throw invalid_argument("The shape of the Tensors aren't same.");
+}
+
+Tensor1D NNL::maximum(double n, Tensor1D& a){
+	Tensor1D res;
+	vector<double> a_v = a.get();
+	for(int i = 0;i<a.shape()[0];i++){
+		res.push(max(n, a_v[i]));
+	}
+	return res;
+}
+
+Tensor1D NNL::maximum(Tensor1D& a, double n){
+	return NNL::maximum(n,a);
+}
+
+
+Tensor2D NNL::maximum(double n, Tensor2D& a){
+	Tensor2D res;
+	vector<vector<double>> a_v = a.get();
+	for(int i=0;i<a.shape()[0];i++){
+		vector<double>row;
+		for(int j = 0;j<a.shape()[1];j++){
+			row.push_back(max(n, a_v[i][j]));
+		}
+		res.push(row);
+	}
+	return res;
+}
+
+Tensor2D NNL::maximum(Tensor2D& a, double n){
+	return NNL::maximum(n, a);
+}
+
+
+
+Tensor2D NNL::maximum(Tensor2D& t2d, Tensor1D& t1d){
+	vector<int>t1d_shape = t1d.shape();
+	vector<int>t2d_shape = t2d.shape();
+
+	if(t1d_shape[0]==t2d_shape[1]){
+		Tensor2D res;
+
+		vector<vector<double>> t2 = t2d.get();
+		vector<double> t1 = t1d.get();
+		
+
+		for(int i= 0;i<t2d_shape[0];i++){
+			vector<double>row;
+			for(int j=0;j<t2d_shape[1];j++){
+				row.push_back( max(t1[j], t2[i][j]) );
+			}
+			res.push(row);
+		}
+		return res;
+	}
+	throw invalid_argument("The inner shape of Tensor2D doesn't match that of Tensor1D");
+}
+
+Tensor2D NNL::maximum(Tensor1D& t1d, Tensor2D& t2d){
+	return NNL::maximum(t2d, t1d);
+}
+
+
+Tensor2D NNL::maximum(Tensor2D& a, Tensor2D& b){
+	vector<int> a_shape = a.shape();
+	vector<int> b_shape = b.shape();
+
+	vector<vector<double>> a_v = a.get();
+	vector<vector<double>> b_v = b.get();
+	
+	if(a_shape==b_shape){
+		Tensor2D res;
+		for(int i=0;i<a_shape[0];i++){
+			vector<double>row;
+			for(int j = 0;j<a_shape[1];j++){
+				row.push_back(max(a_v[i][j], b_v[i][j]));
+			}
+			res.push(row);
+		}
+		return res;
+
+	}else if(a_shape[1]==b_shape[1]){
+		Tensor2D res;
+		if(a_shape[0]==1){
+			for(int i=0;i<b_shape[0];i++){
+				vector<double>row;
+				for(int j = 0;j<b_shape[1];j++){
+					row.push_back(max(a_v[0][j], b_v[i][j]));
+				}
+				res.push(row);
+			}
+
+
+		}else if(b_shape[0]==1){
+			for(int i=0;i<b_shape[0];i++){
+				vector<double>row;
+				for(int j = 0;j<b_shape[1];j++){
+					row.push_back(max(a_v[i][j], b_v[0][j]));
+				}
+				res.push(row);
+			}
+		}
+		return res;
+	}
+	throw invalid_argument("The shapes don't match");
 }

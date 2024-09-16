@@ -11,20 +11,20 @@ using namespace std;
 /* 2d tensor class */
 class Tensor2D: public NNL{
 	private:
-		vector<vector<float>> tensor;
+		vector<vector<double>> tensor;
 		vector<int>dimensions;
 
 
 	public:
 		Tensor2D();
 		Tensor2D(const Tensor2D& other);
-		Tensor2D(vector<vector<float>>t2d, bool validify = false);
+		Tensor2D(vector<vector<double>>t2d, bool validify = false);
 
 		virtual ~Tensor2D();
 		
 
 
-		vector<vector<float>> fill_to_valid(vector<vector<float>> t){
+		vector<vector<double>> fill_to_valid(vector<vector<double>> t){
 			int mx = 0;
 			for(int i=0;i<t.size();i++){
 				int sz = t[i].size();
@@ -44,7 +44,7 @@ class Tensor2D: public NNL{
 			return t;
 		}
 
-		bool valid_tensor(vector<vector<float>> t){
+		bool valid_tensor(vector<vector<double>> t){
 			if(!t.empty()){
 				int col = t[0].size();
 
@@ -59,19 +59,19 @@ class Tensor2D: public NNL{
 			return false;
 		}
 
-		void push(vector<float> v){
+		void push(vector<double> v){
 			tensor.push_back(v);
 		}
 
 		
 
 		/* setter func*/
-		void set(vector<vector<float>> t2d){
+		void set(vector<vector<double>> t2d){
 			tensor = t2d;
 		}
 
 		/*getter func*/
-		vector<vector<float>> get()const{
+		vector<vector<double>> get()const{
 			return tensor;
 		}
 
@@ -79,7 +79,7 @@ class Tensor2D: public NNL{
 		/* Transposing the tensor*/
 		void transpose(){
 			if(tensor.size()){
-				vector<vector<float>> tensor_trans(tensor[0].size(), vector<float>(tensor.size()));
+				vector<vector<double>> tensor_trans(tensor[0].size(), vector<double>(tensor.size()));
 
 				for(int i = 0;i<tensor.size();i++){
 					for(int j=0;j<tensor[i].size();j++){
@@ -96,9 +96,9 @@ class Tensor2D: public NNL{
 		/* for displaying the tensor in human readable format.*/
 		void print(){
 			if(tensor.empty()){
-				cout<<"Tensor<float, 2D>([[]])";
+				cout<<"Tensor<double, 2D>([[]])";
 			}else{
-				cout<<"Tensor<float, 2D>(\n[";
+				cout<<"Tensor<double, 2D>(\n[";
 				for(int i = 0;i<tensor.size();i++){
 					cout<<'[';
 					for(int j = 0;j<tensor[i].size()-1;j++){
@@ -292,7 +292,7 @@ class Tensor2D: public NNL{
 		Tensor2D operator+(double n)const{
 			Tensor2D res;
 			for(int i = 0;i<dimensions[0];i++){
-				vector<float>row;
+				vector<double>row;
 				for(int j=0;j<dimensions[1];j++){
 					row.push_back(tensor[i][j]+n);
 				}
@@ -316,14 +316,14 @@ class Tensor2D: public NNL{
 		
 			
 			if(t1d_shape[0]==t2d_shape[1]){
-				vector<float> t1d_v = t1d.get();
-				vector<vector<float>> t2d_v = t2d.get();
+				vector<double> t1d_v = t1d.get();
+				vector<vector<double>> t2d_v = t2d.get();
 			
 				Tensor2D c;
 				for(int i = 0;i<t2d_shape[0];i++){
-					vector<float>r;
+					vector<double>r;
 					for(int j = 0;j<t2d_shape[1];j++){
-						float x = t1d_v[j]+t2d_v[i][j];
+						double x = t1d_v[j]+t2d_v[i][j];
 						r.push_back(x);
 					}
 					c.push(r);
@@ -340,17 +340,13 @@ class Tensor2D: public NNL{
 		}
 
 
-		
-
-
-
 
 		/* SUBTRACTION OVERLOADING */
 			// Tensor - (double) n
 		Tensor2D operator-(double n)const{
 			Tensor2D res;
 			for(int i = 0;i<dimensions[0];i++){
-				vector<float>row;
+				vector<double>row;
 				for(int j=0;j<dimensions[1];j++){
 					row.push_back(tensor[i][j]-n);
 				}
@@ -364,7 +360,7 @@ class Tensor2D: public NNL{
 			if(dimensions==t.shape()){
 				Tensor2D res;
 				for(int i = 0;i<dimensions[0];i++){
-					vector<float> row;
+					vector<double> row;
 					for(int j =0;j<dimensions[1];j++){
 						row.push_back(tensor[i][j]-t.tensor[i][j]);
 					}
@@ -396,7 +392,7 @@ class Tensor2D: public NNL{
 		Tensor2D operator*(double n) const{
 			Tensor2D res;
 			for(int i = 0;i<dimensions[0];i++){
-				vector<float>row;
+				vector<double>row;
 				for(int j=0;j<dimensions[1];j++){
 					row.push_back(tensor[i][j]*n);
 				}
@@ -411,7 +407,7 @@ class Tensor2D: public NNL{
 			if(dimensions==t.shape()){
 				Tensor2D res;
 				for(int i = 0;i<dimensions[0];i++){
-					vector<float> row;
+					vector<double> row;
 					for(int j =0;j<dimensions[1];j++){
 						row.push_back(tensor[i][j]*t.tensor[i][j]);
 					}
@@ -429,14 +425,14 @@ class Tensor2D: public NNL{
 		
 			
 			if(t1d_shape[0]==t2d_shape[1]){
-				vector<float> t1d_v = t1d.get();
-				vector<vector<float>> t2d_v = t2d.get();
+				vector<double> t1d_v = t1d.get();
+				vector<vector<double>> t2d_v = t2d.get();
 			
 				Tensor2D c;
 				for(int i = 0;i<t2d_shape[0];i++){
-					vector<float>r;
+					vector<double>r;
 					for(int j = 0;j<t2d_shape[1];j++){
-						float x = t1d_v[j]*t2d_v[i][j];
+						double x = t1d_v[j]*t2d_v[i][j];
 						r.push_back(x);
 					}
 					c.push(r);
@@ -467,7 +463,7 @@ class Tensor2D: public NNL{
 			if(dimensions == t.shape()){
 				Tensor2D res;
 				for(int i = 0;i<dimensions[0]; i++){
-					vector<float> row;
+					vector<double> row;
 					for(int j = 0;j<dimensions[1];j++){
 						row.push_back(tensor[i][j]/t.tensor[i][j]);
 					}
@@ -481,7 +477,7 @@ class Tensor2D: public NNL{
 		friend Tensor2D operator/(double n, Tensor2D& t){
 			Tensor2D res;
 			for(int i = 0;i<t.dimensions[0];i++){
-				vector<float>row;
+				vector<double>row;
 				for(int j=0;j<t.dimensions[1];j++){
 					row.push_back(n/t.tensor[i][j]);
 				}

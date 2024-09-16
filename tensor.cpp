@@ -15,9 +15,8 @@ Tensor1D::Tensor1D(const Tensor1D& other){
 	Tensor1D::set(other.get());
 	Tensor1D::update_dim();
 }
-Tensor1D::Tensor1D(vector<float> t1d){
-	// Tensor1D::tensor = t1d;
-	Tensor1D::set(t1d);
+Tensor1D::Tensor1D(vector<double> t1d){
+	Tensor1D::tensor = t1d;
 	Tensor1D::update_dim();
 
 }
@@ -32,10 +31,10 @@ Tensor2D::Tensor2D(const Tensor2D& other){
 	Tensor2D::set(other.get());
 	Tensor2D::update_dim();
 }
-Tensor2D::Tensor2D(vector<vector<float>> t2d, bool validify){
+Tensor2D::Tensor2D(vector<vector<double>> t2d, bool validify){
 	if(Tensor2D::valid_tensor(t2d)){
-		// Tensor2D::tensor = t2d;
-		Tensor2D::set(t2d);
+		Tensor2D::tensor = t2d;
+		// Tensor2D::set(t2d);
 		Tensor2D::update_dim();
 	}else{
 		if(validify){
