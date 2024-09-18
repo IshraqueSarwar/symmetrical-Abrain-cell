@@ -51,8 +51,8 @@ int main(int argc, char* argv[]){
 
 
 	// cross class operations..
-	Tensor2D t2d({{1,6, -2, -1},
-				{-7, -2, -5, 1}});
+	// Tensor2D t2d({{1,6, -2, -1},
+	// 			{-7, -2, -5, 1}});
 	// Tensor2D t({{1,2,4,1}});
 	// Tensor1D t1d({1,2,4,1});
 	// t1d*=-1;
@@ -104,26 +104,36 @@ int main(int argc, char* argv[]){
 	
 
 	/* demo of single layer neuron rundown*/
-	Tensor2D X({{ 0.        ,  0.        },
-		       { 0.1068272 , -0.22602643},
-		       {-0.3565171 ,  0.35056463},
-		       { 0.54027534, -0.52019477},
-		       {-0.9980913 , -0.06175594},
-		       {-0.        , -0.        },
-		       { 0.09934813,  0.22941218},
-		       { 0.35293192, -0.35417378},
-		       {-0.73923534,  0.12661397},
-		       { 0.97696507,  0.2133992 }});
+	// Tensor2D X({{ 0.        ,  0.        },
+	// 	       { 0.1068272 , -0.22602643},
+	// 	       {-0.3565171 ,  0.35056463},
+	// 	       { 0.54027534, -0.52019477},
+	// 	       {-0.9980913 , -0.06175594},
+	// 	       {-0.        , -0.        },
+	// 	       { 0.09934813,  0.22941218},
+	// 	       { 0.35293192, -0.35417378},
+	// 	       {-0.73923534,  0.12661397},
+	// 	       { 0.97696507,  0.2133992 }});
 
-	Layer_dense dense1(2,4);
-	Tensor2D output = dense1.forward(X);
-	output.print();
+	// Layer_dense dense1(2,4);
+	// Tensor2D output = dense1.forward(X);
+	// output.print();
 
-	cout<<"\n\n";
+	// cout<<"\n\n";
 	
-	Activation_ReLU activation1;
-	output = activation1.forward(output);
-	output.print();
+	// Activation_ReLU activation1;
+	// output = activation1.forward(output);
+	// output.print();
+
+
+
+	Tensor1D r({1,2,4,1});
+	NNL nmain;
+	double x =nmain.n_max(r);
+	cout<<x<<endl;
+
+	Tensor2D rand = nmain.random_randn(2,3);
+	rand.print();
 
 
 }

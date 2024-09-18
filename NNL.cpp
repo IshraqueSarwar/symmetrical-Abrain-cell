@@ -95,9 +95,15 @@ Tensor2D NNL::matmul(Tensor2D& a, Tensor2D& b){
 
 
 
-Tensor2D NNL::random_randn(int n_inputs, int n_neurons){
+Tensor2D NNL::random_randn(int n_inputs, int n_neurons, int seed){
 	random_device rd;
 	mt19937 gen(rd());
+	
+	// if(seed){
+	// 	mt19937 gen(seed);
+	// }else{
+		
+	// }
 
 	// uniform_real_distribution<double> dis(-1.0, 1.0);
 	normal_distribution<double>dis(0.0,1.0);//GAUSSIAN DISTRIB: mean, standard deviation
@@ -251,4 +257,18 @@ Tensor2D NNL::maximum(Tensor2D& a, Tensor2D& b){
 		return res;
 	}
 	throw invalid_argument("The shapes don't match");
+}
+
+
+double NNL::n_max(Tensor1D& t, int axis){
+	if(!axis){
+		vector<double> t1 = t.get();
+		double mx = t1[0];
+		for(int i=1;i<t.shape()[0];i++){
+			mx = max(mx, t1[i]);
+		}
+		return mx;
+	}
+	throw invalid_argument("Tensor1D doesn't have higher dimensions.");
+
 }

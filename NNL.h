@@ -49,7 +49,7 @@ class NNL{
 
 		
 		/* randomized Tensor2D*/
-		Tensor2D random_randn(int n_inputs, int n_neurons);
+		Tensor2D random_randn(int n_inputs, int n_neurons, int seed=0);
 
 		/* tensor full of zeros */
 		Tensor2D zeros(int n_inputs, int n_neurons);
@@ -74,6 +74,12 @@ class NNL{
 		Tensor2D maximum(Tensor1D& t1d, Tensor2D& t2d);
 
 		Tensor2D maximum(Tensor2D& a, Tensor2D& b);
+
+
+		/* The max function finds the max value(s) in a Tensor:
+			1. Tensor2D (has 2 axis)
+			2. Tensor1D (has 1 axis)*/
+		double n_max(Tensor1D& t, int axis=0); 
 };
 
 
