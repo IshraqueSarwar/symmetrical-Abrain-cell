@@ -128,12 +128,22 @@ int main(int argc, char* argv[]){
 
 
 	Tensor1D r({1,2,4,1});
-	NNL nmain;
-	double x =nmain.n_max(r);
-	cout<<x<<endl;
+	Tensor2D r2({{1,0.5,0.2,-1},
+               {-5,0.3,-2,1}});
 
-	Tensor2D rand = nmain.random_randn(2,3);
-	rand.print();
+	NNL nmain;
+	cout<<nmain.n_max(r2)<<endl;
+
+	Tensor1D res = nmain.n_max(r2,0);
+	res.print();
+	res = nmain.n_max(r2,1);
+	res.print();
+
+	// double x =nmain.n_max(r);
+	// cout<<x<<endl;
+
+	// Tensor2D rand = nmain.random_randn(2,3);
+	// rand.print();
 
 
 }

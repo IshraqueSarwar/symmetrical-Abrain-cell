@@ -272,3 +272,57 @@ double NNL::n_max(Tensor1D& t, int axis){
 	throw invalid_argument("Tensor1D doesn't have higher dimensions.");
 
 }
+
+double NNL::n_max(Tensor2D& t){
+	vector<vector<double>> t1 = t.get();
+	double mx = t1[0][0];
+	for(int i=0;i<t.shape()[0];i++){
+		for(int j = 0;j<t.shape()[1];j++){
+			mx = max(t1[i][j], mx);
+		}
+	}
+	return mx;
+}
+
+
+Tensor1D NNL::n_max(Tensor2D& t, int axis){
+	vector<vector<double>> t1 = t.get();
+	Tensor1D r;
+	
+
+	if(axis==0){
+		Tensor1D res;
+
+		for(int j = 0;j<t.shape()[1];j++){
+			double mx = NULL;
+			for(int i = 0;i<t.shape()[0];i++){
+				if(mx==NULL){
+					mx = t1[i][j];
+				}else{
+					mx = max(mx, t1[i][j]);
+				}
+			}
+
+			res.push(mx);
+		}
+		return res;
+	}else if(axis ==1){
+		Tensor1D res;
+		for(int i =0;i<t.shape()[0];i++){
+			double mx = NULL;
+			for(int j = 0;j<t.shape()[1];j++){
+				if(mx == NULL){
+					mx = t1[i][j];
+				}else{
+					mx = max(mx, t1[i][j]);
+				}
+			}
+			res.push(mx);
+		}
+		return res;
+	}
+
+
+
+	throw invalid_argument("Tensor2D doesn't have higher dimensions than 2.");
+}

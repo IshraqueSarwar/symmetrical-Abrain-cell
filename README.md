@@ -129,7 +129,8 @@
 	1. after nnl.random_randn(n,m), if we multiply it by any DOUBLE, it throws SEGMENTATION FAULT--> just do the operations one at a time
 
 
-
+# WARNINGS:
+	1. Currently using NULL for double inital assignment. which isn't completely valid.
 
 
 # DONE:

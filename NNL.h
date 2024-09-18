@@ -80,6 +80,11 @@ class NNL{
 			1. Tensor2D (has 2 axis)
 			2. Tensor1D (has 1 axis)*/
 		double n_max(Tensor1D& t, int axis=0); 
+
+		double n_max(Tensor2D& t);
+		Tensor1D n_max(Tensor2D& t, int axis);
+
+
 };
 
 
