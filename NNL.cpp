@@ -5,8 +5,8 @@
 #include <vector>
 #include <stdexcept>
 #include <iomanip>
-
-
+#include <variant>
+#include <limits>
 
 using namespace std;
 
@@ -260,69 +260,207 @@ Tensor2D NNL::maximum(Tensor2D& a, Tensor2D& b){
 }
 
 
-double NNL::n_max(Tensor1D& t, int axis){
+/* NOTE: Can output two types, so user must use holds_alternative<type>(var) to detect type and then assign using gets<type>(var)*/
+variant<double, Tensor1D> NNL::n_max(Tensor1D& t, int axis, bool keepdims){
 	if(!axis){
 		vector<double> t1 = t.get();
 		double mx = t1[0];
 		for(int i=1;i<t.shape()[0];i++){
 			mx = max(mx, t1[i]);
 		}
+		
+
+		if(keepdims){
+			Tensor1D res;
+			res.push(mx);
+			return res;
+		}
+
 		return mx;
 	}
 	throw invalid_argument("Tensor1D doesn't have higher dimensions.");
 
 }
 
-double NNL::n_max(Tensor2D& t){
-	vector<vector<double>> t1 = t.get();
-	double mx = t1[0][0];
-	for(int i=0;i<t.shape()[0];i++){
-		for(int j = 0;j<t.shape()[1];j++){
-			mx = max(t1[i][j], mx);
+variant<double, Tensor1D, Tensor2D> NNL::n_max(Tensor2D& t2d, int axis, bool keepdims){
+	vector<vector<double>> t = t2d.get();
+	if(axis==-1){
+		double mx = t[0][0];
+		for(int i=0;i<t2d.shape()[0];i++){
+			for(int j=0;j<t2d.shape()[1];j++){
+				mx = max(mx, t[i][j]);
+			}
 		}
+
+		if(keepdims){
+			Tensor2D res;
+			res.push(vector<double>{mx});
+			return res;
+		}
+		return mx;
+
+	}else if(axis==0){
+		vector<double> res;
+		for(int j = 0;j<t2d.shape()[1];j++){
+			double mx = numeric_limits<double>::infinity();
+			for(int i = 0;i<t2d.shape()[0];i++){
+				if(mx==numeric_limits<double>::infinity()){
+					mx = t[i][j];
+				}else{
+					mx = max(mx, t[i][j]);
+				}
+			}
+
+			res.push_back(mx);
+		}
+		if(keepdims){
+			Tensor2D temp;
+			temp.push(res);
+			return temp;
+
+		}
+		return Tensor1D(res);
+
+
+	}else if(axis==1){
+
+		vector<double> res;
+		for(int i =0;i<t2d.shape()[0];i++){
+			double mx = numeric_limits<double>::infinity();
+			for(int j = 0;j<t2d.shape()[1];j++){
+				if(mx == numeric_limits<double>::infinity()){
+					mx = t[i][j];
+				}else{
+					mx = max(mx, t[i][j]);
+				}
+			}
+			res.push_back(mx);
+		}
+		if(keepdims){
+			Tensor2D temp;
+			for(auto i:res){
+
+				temp.push(vector<double>{i});
+			}
+			return temp;
+		}
+
+		return Tensor1D(res);
+
 	}
-	return mx;
+
+	throw invalid_argument("Tensor2D doesn't have higher dimensions.");
 }
 
 
-Tensor1D NNL::n_max(Tensor2D& t, int axis){
-	vector<vector<double>> t1 = t.get();
-	Tensor1D r;
-	
+variant<double, Tensor1D> NNL::n_sum(Tensor1D& t, int axis, bool keepdims){
+	if(!axis){
+		vector<double> t1 = t.get();
+		double sm = t1[0];
+		for(int i=1;i<t.shape()[0];i++){
+			sm += t1[i];
+		}
+		
 
-	if(axis==0){
-		Tensor1D res;
+		if(keepdims){
+			Tensor1D res;
+			res.push(sm);
+			return res;
+		}
 
-		for(int j = 0;j<t.shape()[1];j++){
-			double mx = NULL;
-			for(int i = 0;i<t.shape()[0];i++){
-				if(mx==NULL){
-					mx = t1[i][j];
-				}else{
-					mx = max(mx, t1[i][j]);
-				}
+		return sm;
+	}
+	throw invalid_argument("Tensor1D doesn't have higher dimensions.");
+
+}
+
+
+
+variant<double, Tensor1D, Tensor2D> NNL::n_sum(Tensor2D& t2d, int axis, bool keepdims){
+	vector<vector<double>> t = t2d.get();
+	if(axis==-1){
+		double sm = 0;
+		for(int i=0;i<t2d.shape()[0];i++){
+			for(int j=0;j<t2d.shape()[1];j++){
+				sm += t[i][j];
+			}
+		}
+
+		if(keepdims){
+			Tensor2D res;
+			res.push(vector<double>{sm});
+			return res;
+		}
+		return sm;
+
+	}else if(axis==0){
+		vector<double> res;
+		for(int j = 0;j<t2d.shape()[1];j++){
+			double sm = 0;
+			for(int i = 0;i<t2d.shape()[0];i++){
+				sm+=t[i][j];
 			}
 
-			res.push(mx);
+			res.push_back(sm);
 		}
-		return res;
-	}else if(axis ==1){
-		Tensor1D res;
-		for(int i =0;i<t.shape()[0];i++){
-			double mx = NULL;
-			for(int j = 0;j<t.shape()[1];j++){
-				if(mx == NULL){
-					mx = t1[i][j];
-				}else{
-					mx = max(mx, t1[i][j]);
-				}
+		if(keepdims){
+			Tensor2D temp;
+			temp.push(res);
+			return temp;
+
+		}
+		return Tensor1D(res);
+
+
+	}else if(axis==1){
+
+		vector<double> res;
+		for(int i =0;i<t2d.shape()[0];i++){
+			double sm = 0;
+			for(int j = 0;j<t2d.shape()[1];j++){
+				sm+=t[i][j];
 			}
-			res.push(mx);
+			res.push_back(sm);
 		}
-		return res;
+		if(keepdims){
+			Tensor2D temp;
+			for(auto i:res){
+
+				temp.push(vector<double>{i});
+			}
+			return temp;
+		}
+
+		return Tensor1D(res);
+
 	}
 
+	throw invalid_argument("Tensor2D doesn't have higher dimensions.");
+}
 
 
-	throw invalid_argument("Tensor2D doesn't have higher dimensions than 2.");
+
+
+Tensor1D NNL::n_exp(Tensor1D& t1d){
+	vector<double> t = t1d.get();
+	Tensor1D res;
+	for(int i =0;i<t1d.shape()[0];i++){
+		res.push(exp(t[i]));
+	}
+	return res;
+}
+
+Tensor2D NNL::n_exp(Tensor2D& t2d){
+	vector<vector<double>> t = t2d.get();
+
+	Tensor2D res;
+	for(int i=0;i<t2d.shape()[0];i++){
+		vector<double>v;
+		for(int j = 0;j<t2d.shape()[1];j++){
+			v.push_back(exp(t[i][j]));
+		}
+		res.push(v);
+	}
+
+	return res;
 }

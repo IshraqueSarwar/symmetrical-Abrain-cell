@@ -1,12 +1,14 @@
 #include <stdexcept>
 #include <iomanip>
 #include <iostream>
+#include <variant>
 
 #include "NNL.h"
 #include "t1d.h"
 #include "t2d.h"
 #include "layer.h"
 #include "activation_functions.h"
+
 
 
 using namespace std;
@@ -39,70 +41,20 @@ void testTensor1D(){
 }
 
 
+variant<Tensor1D, Tensor2D> testFunc(bool keepdims){
+	Tensor1D r({1,2,4});
+	Tensor2D t({{1,2,5}, {2,3,6}});
+
+	if(keepdims){
+		return t;
+	}else{
+		return r;
+	}
+}
+
+
 
 int main(int argc, char* argv[]){
-	/* 1D testing */
-	// testTensor1D();
-
-
-	/* 2D testing */
-	// testTensor2D();
-
-
-
-	// cross class operations..
-	// Tensor2D t2d({{1,6, -2, -1},
-	// 			{-7, -2, -5, 1}});
-	// Tensor2D t({{1,2,4,1}});
-	// Tensor1D t1d({1,2,4,1});
-	// t1d*=-1;
-	// t2d/=t1d;
-	// t2d.print();
-
-	// Tensor2D res(t2d+t1d);
-	// res.print();
-	// (t2d+t1d).print();
-	// (t1d+t2d).print();
-	// (t2d/t1d).print();
-	// (t1d/t2d).print();
-
-
-	
-	// Testing out weights and biases run...
-	
-	/*
-	NNL nl
-
-	//Layer 1
-	Tensor2D inputs({{1.0,2.0,3.0,2.5},
-						{2.0,5.0,-1.0,2.0},
-						{-1.5,2.7,3.3,-0.8}});
-
-	Tensor2D weights({{0.2,0.8,-0.5,1},
-						{0.5,-0.91,0.26,-0.5},
-						{-0.26,-0.27,0.17,0.87}});
-
-	Tensor2D weights2({{0.1,-0.14,0.5},
-						{-0.5,0.12,-0.33},
-						{-0.44,0.73,-0.13}});
-
-	Tensor1D biases({2.0,3.0,0.5});
-	Tensor1D biases2({-1,2,-0.5});
-
-	
-	// transpose the weights first. to match the shape.
-	weights.transpose();
-	Tensor2D iw(nl.dot(inputs, weights));
-	Tensor2D layer1_output(iw+biases);
-
-	weights2.transpose();
-	iw = nl.dot(layer1_output, weights2);
-	Tensor2D layer2_output(iw+biases2);
-
-	layer2_output.print();*/
-
-	
-
 	/* demo of single layer neuron rundown*/
 	// Tensor2D X({{ 0.        ,  0.        },
 	// 	       { 0.1068272 , -0.22602643},
@@ -125,25 +77,43 @@ int main(int argc, char* argv[]){
 	// output = activation1.forward(output);
 	// output.print();
 
+	NNL nl;
+	Tensor1D r({1,2,2,2,1,2});
+	// variant<double, Tensor1D> temp = nl.n_sum(r);
+	// if(holds_alternative<double>(temp)){
+	// 	double res = get<double>(temp);
+	// 	cout<<res<<endl;
+	// }else{
+	// 	Tensor1D res = get<Tensor1D>(temp);
+	// 	res.print();
+	// }
+	
+
+	Tensor2D r2({{1,1,2,1},
+				{2,3,1,4}});
+
+	variant<double, Tensor1D, Tensor2D> temp = nl.n_sum(r2,1, true);
+	
+	if(holds_alternative<double>(temp)){
+		auto res = get<double>(temp);
+		cout<<res<<endl;
+	}else if(holds_alternative<Tensor2D>(temp)){
+		auto res = get<Tensor2D>(temp);
+		res.print();
+	}else{
+		auto res = get<Tensor1D>(temp);
+		res.print();
+
+	}
 
 
-	Tensor1D r({1,2,4,1});
-	Tensor2D r2({{1,0.5,0.2,-1},
-               {-5,0.3,-2,1}});
+	r = nl.n_exp(r);
+	r.print();
+	r2 = nl.n_exp(r2);
+	r2.print();
 
-	NNL nmain;
-	cout<<nmain.n_max(r2)<<endl;
 
-	Tensor1D res = nmain.n_max(r2,0);
-	res.print();
-	res = nmain.n_max(r2,1);
-	res.print();
 
-	// double x =nmain.n_max(r);
-	// cout<<x<<endl;
-
-	// Tensor2D rand = nmain.random_randn(2,3);
-	// rand.print();
 
 
 }

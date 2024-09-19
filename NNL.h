@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <variant>
 
 using namespace std;
 
@@ -79,13 +80,26 @@ class NNL{
 		/* The max function finds the max value(s) in a Tensor:
 			1. Tensor2D (has 2 axis)
 			2. Tensor1D (has 1 axis)*/
-		double n_max(Tensor1D& t, int axis=0); 
+		/* NOTE: Can output two types, so user must use holds_alternative<type>(var) to detect type and then assign using gets<type>(var)*/
 
-		double n_max(Tensor2D& t);
-		Tensor1D n_max(Tensor2D& t, int axis);
+		variant<double, Tensor1D> n_max(Tensor1D& t, int axis=0, bool keepdims=false); 
+		variant<double, Tensor1D, Tensor2D> n_max(Tensor2D& t2d, int axis=-1, bool keepdims = false);
+		
+		//TODO: n_min function similar to n_max
 
 
-};
+		/* The n_sum function similar to n_max*/
+		variant<double, Tensor1D> n_sum(Tensor1D& t, int axis=0, bool keepdims=false);
+		variant<double, Tensor1D, Tensor2D> n_sum(Tensor2D& t, int axis=-1, bool keepdims=false);
+
+
+		/* power of natural number(e)*/
+		Tensor1D n_exp(Tensor1D& t1d);
+		Tensor2D n_exp(Tensor2D& t2d);
+
+
+
+};	
 
 
 #endif

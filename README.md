@@ -27,6 +27,7 @@
 	-->operations
 	Tensor1D t({1.5, 3.0, 2.2});
 	Tensor1D t2({2.0, 2.0, 2.0});
+	auto x = Tensor1D({1.9,2.5,9.3});
 	
 	t+=t2; <-- adds each corresponding elements from both tensors
 	t = t-t2 <-- subs each corresponding elements from both tensors
@@ -99,12 +100,48 @@
 	output = activation1.forward(output);
 	output.print();
 
+	--> aux func
+	NNL nmain;
+
+	// NOTE: Can output two types, so user must use holds_alternative<type>(var) to detect type and then assign using get<type>(var)
+	nmain.n_max(Tensor1D, axis, keepdims);--> types: double/ Tensor1D(if dimension is kept)
+	nmain.n_max(Tensor2D, axis, keepdims);--> types: Tensor1D/ Tensor2D(if dimension is kept)
+	
+	
+	Example:
+		NNL nl;
+		Tensor1D r({1,2,53,2,33,2});
+		variant<double, Tensor1D> temp = nl.n_max(r, 0,true);
+		if(holds_alternative<double>(temp)){
+			double res = get<double>(temp);
+		}else{
+			Tensor1D res = get<Tensor1D>(temp);
+			res.print();
+		}
+
+
+		Tensor2D r2({{1,0.5,0.2,-1},
+				{-5,0.3,-2,1}});
+
+		variant<double, Tensor1D, Tensor2D> temp = nl.n_max(r2, 1, true);
+		
+		if(holds_alternative<double>(temp)){
+			auto res = get<double>(temp);
+			cout<<res<<endl;
+		}else if(holds_alternative<Tensor2D>(temp)){
+			auto res = get<Tensor2D>(temp);
+			res.print();
+		}else{
+			auto res = get<Tensor1D>(temp);
+			res.print();
+
+		}
 
 
 
 
 
-	current build command: (will change as I incorporate cmake)   g++ -o main NNL.cpp tensor.cpp main.cpp layer.cpp
+	current build command: (will change as I incorporate cmake)   g++ -std=c++17 -o main NNL.cpp tensor.cpp main.cpp layer.cpp activation_functions.cpp
 
 
 
