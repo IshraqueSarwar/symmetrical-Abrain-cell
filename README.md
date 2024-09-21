@@ -94,10 +94,16 @@
 	Tensor2D output = dense1.forward(X);
 	output.print();
 
-	--> adding activation function(Rectified linear activation function)
-	
+	--> adding activation function
+
+	1. (Rectified linear activation function)
 	Activation_ReLU activation1;
 	output = activation1.forward(output);
+	output.print();
+
+	2. (softmax activation function)
+	Activation_Softmax activation2;
+	output = activation2.forward(output);
 	output.print();
 
 	--> aux func
@@ -150,13 +156,15 @@
 	0. Maybe implement [] access for tensors.
 	1. complete the Layer_dense class
 		focus on overloading them from the main parent class.
-	2. optimize the subtraction operators using addition.
+	
+	2. optimize the subtraction operators using addition.<---DO THIS
+	
 	3. Tensor print() func should always show decimal place
 	4. Precompiled headers to speed up compilation time?
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
 	6. try to replicate random_randn just like numpy random.
 	7. try to fix the random_randn's seed functionality.
-	8. make sure the special case -, +, *, / operations work viceversa
+	8. make sure the special case -, +, *, / operations work viceversa <--- DO THIS
 	
 
 

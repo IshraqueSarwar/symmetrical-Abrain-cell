@@ -33,8 +33,8 @@ Activation_Softmax::~Activation_Softmax(){
 
 
 Tensor2D Activation_Softmax::forward(Tensor2D& inputs){
-	auto temp = nl.n_max(output, 1, true);
-	auto res = output-get<Tensor2D>(temp);
+	auto temp = nl.n_max(inputs, 1, true);
+	auto res = inputs-get<Tensor2D>(temp);
 	auto exp_values = nl.n_exp(res);
 	auto sum = get<Tensor2D>(nl.n_sum(exp_values, 1, true));
 	auto probabilities = exp_values/sum;

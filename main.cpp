@@ -45,7 +45,6 @@ void testTensor1D(){
 
 int main(int argc, char* argv[]){
 	/* demo of single layer neuron rundown*/
-
 	NNL nl;
 	Tensor2D inputs({{ 0.        ,  0.        },
 		       { 0.1068272 , -0.22602643},
@@ -63,47 +62,15 @@ int main(int argc, char* argv[]){
 	output.print();
 
 	cout<<"\n\n";
-	
-	// Activation_ReLU activation1;
-	// output = activation1.forward(output);
-	// output.print();
 
+	/* Rectified linear activation function*/
+	Activation_ReLU activation1;
+	output = activation1.forward(output);
+	output.print();
+
+	/* Softmax activation function*/
 	Activation_Softmax activation2;
 	output = activation2.forward(output);
 	output.print();
-
-
-	// Tensor1D r({1,2,2,2,1,2});
-	// variant<double, Tensor1D> temp = nl.n_sum(r);
-	// if(holds_alternative<double>(temp)){
-	// 	double res = get<double>(temp);
-	// 	cout<<res<<endl;
-	// }else{
-	// 	Tensor1D res = get<Tensor1D>(temp);
-	// 	res.print();
-	// }
-	
-
-	// Tensor2D r2({{1,1,2,1},
-	// 			{2,3,1,4}});
-
-	// variant<double, Tensor1D, Tensor2D> temp = nl.n_sum(r2,1, true);
-	
-	// if(holds_alternative<double>(temp)){
-	// 	auto res = get<double>(temp);
-	// 	cout<<res<<endl;
-	// }else if(holds_alternative<Tensor2D>(temp)){
-	// 	auto res = get<Tensor2D>(temp);
-	// 	res.print();
-	// }else{
-	// 	auto res = get<Tensor1D>(temp);
-	// 	res.print();
-
-	// }
-
-	
-
-
-
 
 }

@@ -301,6 +301,52 @@ class Tensor2D: public NNL{
 			return res;
 		}
 
+		Tensor2D operator+(Tensor2D& t){
+			if(dimensions==t.shape()){
+				Tensor2D res;
+				for(int i = 0;i<dimensions[0];i++){
+					vector<double> row;
+					for(int j =0;j<dimensions[1];j++){
+						row.push_back(tensor[i][j]+t.tensor[i][j]);
+					}
+					res.push(row);
+				}
+				return res;
+			}else if(dimensions[0]==t.shape()[0]){
+				// if the parent of the operator is single element 2D tensor
+				if( dimensions[1]==1){
+					Tensor2D res;
+					for(int i = 0;i<dimensions[0];i++){
+						vector<double> row;
+						for(int j = 0;j<t.shape()[1];j++){
+							row.push_back(tensor[i][0]+t.tensor[i][j]);
+						}
+						res.push(row);
+					}
+					return res;
+
+				}
+				// if the operated Tensor is single element 2D tensor
+				else if(t.shape()[1]==1){
+					Tensor2D res;
+					for(int i = 0;i<dimensions[0];i++){
+						vector<double> row;
+						for(int j = 0;j<dimensions[1];j++){
+							row.push_back(tensor[i][j]+t.tensor[i][0]);
+						}
+						res.push(row);
+					}
+					return res;
+				}
+
+				
+			}
+			throw invalid_argument("Error: The shape of the Tensors don't match");
+
+		}
+
+
+
 
 			// (double)n + Tensor
 		friend Tensor2D operator+(double n, Tensor2D& t){
@@ -444,7 +490,34 @@ class Tensor2D: public NNL{
 					res.push(row);
 				}
 				return res;
+			}else if(dimensions[0]==t.shape()[0]){
+				// if the parent of the operator is single element 2D tensor
+				if( dimensions[1]==1){
+					Tensor2D res;
+					for(int i = 0;i<dimensions[0];i++){
+						vector<double> row;
+						for(int j = 0;j<t.shape()[1];j++){
+							row.push_back(tensor[i][0]*t.tensor[i][j]);
+						}
+						res.push(row);
+					}
+					return res;
+
+				}
+				// if the operated Tensor is single element 2D tensor
+				else if(t.shape()[1]==1){
+					Tensor2D res;
+					for(int i = 0;i<dimensions[0];i++){
+						vector<double> row;
+						for(int j = 0;j<dimensions[1];j++){
+							row.push_back(tensor[i][j]*t.tensor[i][0]);
+						}
+						res.push(row);
+					}
+					return res;
+				}
 			}
+			
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 		}
 
