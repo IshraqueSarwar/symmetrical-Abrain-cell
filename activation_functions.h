@@ -22,4 +22,16 @@ class Activation_ReLU{
 };
 
 
+class Activation_Softmax{
+	public:
+		Tensor2D output;
+
+		Activation_Softmax();
+		virtual ~Activation_Softmax();
+
+
+		Tensor2D forward(Tensor2D& inputs);
+};
+
+
 #endif

@@ -156,6 +156,7 @@
 	5. Work on n/tensor & n-tensor overload for t1d and t2d.
 	6. try to replicate random_randn just like numpy random.
 	7. try to fix the random_randn's seed functionality.
+	8. make sure the special case -, +, *, / operations work viceversa
 	
 
 
