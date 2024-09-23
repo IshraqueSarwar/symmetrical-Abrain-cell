@@ -159,7 +159,12 @@ class Tensor2D: public NNL{
 			return *this;
 		}
 
-		
+		/*We are checking if one of the Tensor is 2D and matches the inner
+				dimension but has a single row that it still works.
+				mainly integrating it in the *= and += operators and using it
+				in -= and /= */
+		/* NxN adds with Nx1
+			NxN adds with 1xN*/
 		Tensor2D& operator+=(Tensor2D& other){
 			if(dimensions==other.shape()){
 				for(int i=0;i<dimensions[0];i++){
@@ -168,17 +173,28 @@ class Tensor2D: public NNL{
 					}
 				}
 				return *this;
-			}else if( (dimensions[1] == other.shape()[1] && other.shape()[0]==1)){
-				/*We are checking if one of the Tensor is 2D and matches the inner
-				dimension but has a single row that it still works.
-				mainly integrating it in the *= and += operators and using it
-				in -= and /= */
+			}else if( (dimensions[0] == other.shape()[0]) && (other.shape()[1]==1) ){
+				
+				//NxN + Nx1
+				for(int i = 0;i<dimensions[0];i++){
+					for(int j=0;j<dimensions[1];j++){
+						this->tensor[i][j]+=other.tensor[i][0];
+					}
+				}
+			
+				return *this;
+
+			}else if((dimensions[1] == other.shape()[1]) && (other.shape()[0]==1)){
+
+				//NxN + 1xN
 				for(int i=0;i<dimensions[0];i++){
 					for(int j = 0;j<dimensions[1];j++){
 						this->tensor[i][j]+=other.tensor[0][j];
 					}
 				}
+
 				return *this;
+
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 			
@@ -205,12 +221,9 @@ class Tensor2D: public NNL{
 		}
 
 		Tensor2D& operator-=(Tensor2D& other){
-			if(dimensions==other.shape() || (dimensions[1] == other.shape()[1] && other.shape()[0]==1) ){
-				Tensor2D r = other*-1;
-				(*this)+=(r);
-				return *this;
-			}
-			throw invalid_argument("Error: The shape of the Tensors don't match");
+			Tensor2D r = other*-1;
+			(*this)+=(r);
+			return *this;
 			
 		}
 
@@ -231,6 +244,8 @@ class Tensor2D: public NNL{
 			}
 			return *this;
 		}
+
+
 		Tensor2D& operator*=(Tensor2D& other){
 			if(dimensions==other.shape()){
 				for(int i=0;i<dimensions[0];i++){
@@ -239,13 +254,28 @@ class Tensor2D: public NNL{
 					}
 				}
 				return *this;
-			}else if( dimensions[1] == other.shape()[1] && other.shape()[0]==1  ){
+			}else if( (dimensions[0] == other.shape()[0]) && (other.shape()[1]==1) ){
+				
+				//NxN * Nx1
+				for(int i = 0;i<dimensions[0];i++){
+					for(int j=0;j<dimensions[1];j++){
+						this->tensor[i][j]*=other.tensor[i][0];
+					}
+				}
+			
+				return *this;
+
+			}else if((dimensions[1] == other.shape()[1]) && (other.shape()[0]==1)){
+
+				//NxN * 1xN
 				for(int i=0;i<dimensions[0];i++){
 					for(int j = 0;j<dimensions[1];j++){
 						this->tensor[i][j]*=other.tensor[0][j];
 					}
 				}
+
 				return *this;
+
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 			
@@ -269,13 +299,9 @@ class Tensor2D: public NNL{
 			return *this;
 		}
 		Tensor2D& operator/=(Tensor2D& other){
-			if(dimensions==other.shape()|| (dimensions[1] == other.shape()[1] && (other.shape()[0]==1 || dimensions[0]==1))){
-				Tensor2D r = 1/other;
-				(*this)*=r;
-				return *this;
-			}
-			throw invalid_argument("Error: The shape of the Tensors don't match");
-			
+			Tensor2D r = 1/other;
+			(*this)*=r;
+			return *this;
 		}
 
 
