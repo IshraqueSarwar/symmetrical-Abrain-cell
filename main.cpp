@@ -74,4 +74,17 @@ int main(int argc, char* argv[]){
 	output.print();
 
 
+	// Tensor2D t({{1,2,3},
+	// 			{2,3,4},
+	// 			{1,1,2}});
+	// Tensor2D g({{1,2,3}});
+
+	// Tensor2D f({{1},{3},{2}});
+
+
+	// Tensor2D z = f+t;
+	// z.print();
+
+
+
 }

@@ -366,6 +366,29 @@ class Tensor2D: public NNL{
 				}
 
 				
+			}else if(dimensions[1]==t.shape()[1]){
+				if(dimensions[0]==1){
+					Tensor2D res;
+					for(int i = 0;i<t.shape()[0];i++){
+						vector<double> row;
+						for(int j = 0;j<t.shape()[1];j++){
+							row.push_back(tensor[0][j]+t.tensor[i][j]);
+						}
+						res.push(row);
+					}
+					return res;
+				}
+				else if(t.shape()[0]==1){
+					Tensor2D res;
+					for(int i = 0;i<dimensions[0];i++){
+						vector<double> row;
+						for(int j = 0;j<dimensions[1];j++){
+							row.push_back(tensor[i][j]+t.tensor[0][j]);
+						}
+						res.push(row);
+					}
+					return res;
+				}
 			}
 			throw invalid_argument("Error: The shape of the Tensors don't match");
 
