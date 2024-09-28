@@ -464,3 +464,30 @@ Tensor2D NNL::n_exp(Tensor2D& t2d){
 
 	return res;
 }
+
+
+double NNL::n_mean(Tensor1D& t1d){
+	double sum = 0;
+	int size = t1d.shape()[0];
+	vector<double> t = t1d.get();
+
+	for(int i=0;i<size;i++){
+		sum+=t[i];
+	}
+
+	return (sum/size);
+}
+
+double NNL::n_mean(Tensor2D& t2d){
+	double sum = 0;
+	int size = t2d.shape()[0]* t2d.shape()[1];
+	vector<vector<double>> t = t2d.get();
+
+	for(int i=0;i<t2d.shape()[0];i++){
+		for(int j=0;j<t2d.shape()[1];j++){
+			sum+= t[i][j];
+		}
+	}
+
+	return (sum/size);
+}

@@ -45,7 +45,7 @@ void testTensor1D(){
 
 int main(int argc, char* argv[]){
 	/* demo of single layer neuron rundown*/
-	// NNL nl;
+	NNL nl;
 	// Tensor2D inputs({{ 0.        ,  0.        },
 	// 	       { 0.1068272 , -0.22602643},
 	// 	       {-0.3565171 ,  0.35056463},
@@ -74,16 +74,12 @@ int main(int argc, char* argv[]){
 	// output.print();
 
 
-	Tensor2D t({{1,2,3},
-				{2,3,4},
-				{1,1,2}});
-	Tensor2D g({{1,2,3}});
+	Tensor2D t({{0.7, 0.1, 0.2},
+				{0.1, 0.5, 0.4},
+				{0.02, 0.9, 0.08}});
 
-	Tensor2D f({{1},{3},{2}});
-
-
-	Tensor2D z = t-g;
-	z.print();
+	double mean = nl.n_mean(t);
+	cout<<mean<<endl;
 
 
 

@@ -98,6 +98,11 @@ class NNL{
 		Tensor2D n_exp(Tensor2D& t2d);
 
 
+		/*calculating mean for 1D and 2D Tensor */
+		double n_mean(Tensor1D& t1d);
+		double n_mean(Tensor2D& t2d);
+
+
 
 };	
 
