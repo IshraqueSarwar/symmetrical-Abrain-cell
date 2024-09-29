@@ -102,6 +102,11 @@ class NNL{
 		double n_mean(Tensor1D& t1d);
 		double n_mean(Tensor2D& t2d);
 
+		/*calculating log for Tensor1D and Tensor2D and double*/
+		double n_log(double n);
+		Tensor1D n_log(Tensor1D t1d);
+		Tensor2D n_log(Tensor2D t2d);
+
 
 
 };	

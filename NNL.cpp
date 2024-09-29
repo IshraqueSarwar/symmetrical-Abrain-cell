@@ -491,3 +491,31 @@ double NNL::n_mean(Tensor2D& t2d){
 
 	return (sum/size);
 }
+
+double NNL::n_log(double n){
+	return log(n);
+}
+
+
+Tensor1D NNL::n_log(Tensor1D t1d){
+	vector<double> t = t1d.get();
+
+	for(int i = 0;i<t.size();i++){
+		t[i]=log(t[i]);
+	}
+
+	return Tensor1D(t);
+
+}
+
+
+Tensor2D NNL::n_log(Tensor2D t2d){
+	vector<vector<double>> t = t2d.get();
+
+	for(int i=0;i<t2d.shape()[0];i++){
+		for(int j=0;j<t2d.shape()[1];j++){
+			t[i][j]=log(t[i][j]);
+		}
+	}
+	return Tensor2D(t);
+}
