@@ -80,7 +80,7 @@ int main(int argc, char* argv[]){
 	Tensor1D t1({0.02, 0.9, 0.08});
 	vector<int>index={0,1,2};
 	vector<int>class_target = {0,1,1};
-	t.get()
+	(t.get(index, class_target)).print();
 	// double r = 4.5;
 	// Tensor1D lg = nl.n_log(t1);
 	// lg.print();

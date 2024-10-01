@@ -75,13 +75,18 @@ class Tensor2D: public NNL{
 			return tensor;
 		}
 
-		vector<double> get(vector<int> rows, vector<int> class_target)const{
+		Tensor1D get(vector<int> rows, vector<int> class_target)const{
 			vector<double> ret;
+			
 			for(auto index: rows){
-				ret.push_back(tensor[index][class_target[index]])
+				double x = this->tensor[index][class_target[index]];
+				ret.push_back(x);
 			}
-			return ret;
+			
+			return Tensor1D(ret);
 		}
+
+		
 
 
 		/* Transposing the tensor*/
