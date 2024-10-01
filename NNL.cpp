@@ -519,3 +519,33 @@ Tensor2D NNL::n_log(Tensor2D t2d){
 	}
 	return Tensor2D(t);
 }
+
+
+Tensor1D NNL::n_clip(Tensor1D t1d, double mn, double mx){
+	vector<double> t = t1d.get();
+	for(int i=0;i<t1d.shape()[0];i++){
+		if(t[i]>mx){
+			t[i] = mx;
+		}else if(t[i]<mn){
+			t[i]=mn;
+		}
+	}
+
+	return Tensor1D(t);
+}
+
+
+Tensor2D NNL::n_clip(Tensor2D t2d, double mn, double mx){
+	vector<vector<double>> t = t2d.get();
+	for(int i = 0;i<t2d.shape()[0];i++){
+		for(int j =0;j<t2d.shape()[1];j++){
+			if(t[i][j]>mx){
+				t[i][j]=mx;
+			}else if(t[i][j]<mn){
+				t[i][j]=mn;
+			}
+		}
+	}
+
+	return Tensor2D(t);
+}

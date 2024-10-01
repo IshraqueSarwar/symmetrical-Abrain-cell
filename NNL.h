@@ -108,6 +108,9 @@ class NNL{
 		Tensor2D n_log(Tensor2D t2d);
 
 
+		/*clipping values between min and max*/
+		Tensor1D n_clip(Tensor1D t1d, double mn, double mx);
+		Tensor2D n_clip(Tensor2D t2d, double mn, double mx);
 
 };	
 

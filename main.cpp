@@ -45,7 +45,7 @@ void testTensor1D(){
 
 int main(int argc, char* argv[]){
 	/* demo of single layer neuron rundown*/
-	// NNL nl;
+	NNL nl;
 	// Tensor2D inputs({{ 0.        ,  0.        },
 	// 	       { 0.1068272 , -0.22602643},
 	// 	       {-0.3565171 ,  0.35056463},
@@ -78,15 +78,13 @@ int main(int argc, char* argv[]){
 				{0.1, 0.5, 0.4},
 				{0.02, 0.9, 0.08}});
 	Tensor1D t1({0.02, 0.9, 0.08});
-	vector<int>index={0,1,2};
-	vector<int>class_target = {0,1,1};
-	(t.get(index, class_target)).print();
-	// double r = 4.5;
-	// Tensor1D lg = nl.n_log(t1);
-	// lg.print();
-	// Tensor2D lg2 = nl.n_log(t);
-	// lg2.print();
-	// cout<<lg<<endl;
+	
+
+	Tensor1D res = nl.n_clip(t1,0.05,0.5);
+	Tensor2D res2 = nl.n_clip(t,0.05,0.5);
+
+	res.print();res2.print();
+	
 
 
 

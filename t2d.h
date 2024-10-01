@@ -86,7 +86,19 @@ class Tensor2D: public NNL{
 			return Tensor1D(ret);
 		}
 
-		
+		Tensor1D get(Tensor1D rows, Tensor1D class_target)const{
+			vector<double>rows_v = rows.get();
+			vector<double>class_target_v = class_target.get();
+
+			vector<double>ret;
+
+			for(auto index: rows_v){
+				double x = this->tensor[index][class_target_v[index]];
+				ret.push_back(x);
+			}
+
+			return Tensor1D(ret);
+		}
 
 
 		/* Transposing the tensor*/
