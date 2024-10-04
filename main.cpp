@@ -8,6 +8,7 @@
 #include "t2d.h"
 #include "layer.h"
 #include "activation_functions.h"
+#include "loss_functions.h"
 
 
 
@@ -45,7 +46,7 @@ void testTensor1D(){
 
 int main(int argc, char* argv[]){
 	/* demo of single layer neuron rundown*/
-	NNL nl;
+	// NNL nl;
 	// Tensor2D inputs({{ 0.        ,  0.        },
 	// 	       { 0.1068272 , -0.22602643},
 	// 	       {-0.3565171 ,  0.35056463},
@@ -74,18 +75,28 @@ int main(int argc, char* argv[]){
 	// output.print();
 
 
-	Tensor2D t({{0.7, 0.1, 0.2},
+	Tensor2D softmax_outputs({{0.7, 0.1, 0.2},
 				{0.1, 0.5, 0.4},
 				{0.02, 0.9, 0.08}});
-	Tensor1D t1({0.02, 0.9, 0.08});
 	
 
-	Tensor1D res = nl.n_clip(t1,0.05,0.5);
-	Tensor2D res2 = nl.n_clip(t,0.05,0.5);
+	Tensor1D class_target({0,1,1});
 
-	res.print();res2.print();
+	Tensor1D range;
+	for(int i=0;i<softmax_outputs.shape()[0];i++)range.push(i);
 	
+	// for(auto i:range)cout<<i;
+
+
+	Tensor1D res = softmax_outputs.get(range, class_target);
+	res.print();
+	Tensor1D neglog = nl.n_log(res);neglog*=-1;
+	double neg_log_mean = nl.n_mean(neglog);
+	cout<<neg_log_mean<<endl;
 
 
 
+	// Loss_CategoricalCrossentropy loss;
+	// Tensor1D
+	
 }

@@ -112,6 +112,8 @@ class NNL{
 		Tensor1D n_clip(Tensor1D t1d, double mn, double mx);
 		Tensor2D n_clip(Tensor2D t2d, double mn, double mx);
 
+		
+
 };	
 
 

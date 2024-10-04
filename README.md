@@ -154,17 +154,14 @@
 # TODO BOARD:
 	(IMPORTANT Tensor2D += etc are not immutable right now. Need to do this asap)
 	0. Maybe implement [] access for tensors.
-	1. complete the Layer_dense class
-		focus on overloading them from the main parent class.
-	
-	2. optimize the subtraction operators using addition.<---DO THIS
-	
-	3. Tensor print() func should always show decimal place
-	4. Precompiled headers to speed up compilation time?
-	5. Work on n/tensor & n-tensor overload for t1d and t2d.
-	6. try to replicate random_randn just like numpy random.
-	7. try to fix the random_randn's seed functionality.
-	8. make sure the special case -, +, *, / operations work viceversa <--- DO THIS
+	1. create the calculate loss function for main loss class
+	3. check the output shape and corrected confidences shape after calculations
+	4. Tensor print() func should always show decimal place
+	5. Precompiled headers to speed up compilation time?
+	6. Work on n/tensor & n-tensor overload for t1d and t2d.
+	7. try to replicate random_randn just like numpy random.
+	8. try to fix the random_randn's seed functionality.
+	9. make sure the special case -, +, *, / operations work viceversa <--- DO THIS
 	
 
 
@@ -250,3 +247,10 @@
 	22. Maybe develop += etc operators for cross class??
 
 	23. Tensor::tensor = other.tensor ---> Tensor::set(other.get());
+
+	24. created the categorical cross entropy loss function for calculating the loss of the network.
+
+	25. complete the Layer_dense class
+		focus on overloading them from the main parent class.
+	
+	26.  optimize the subtraction operators using addition.
