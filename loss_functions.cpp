@@ -14,6 +14,31 @@ Loss::~Loss(){
 
 }
 
+
+
+
+double Loss::calculate(Tensor2D output, Tensor1D y){
+	Loss_CategoricalCrossentropy catLoss;
+	Tensor1D sample_losses= catLoss.forward(output, y);
+
+	double data_loss = nll.n_mean(sample_losses);
+
+	return data_loss;
+}
+
+
+double Loss::calculate(Tensor2D output, Tensor2D y){
+	Loss_CategoricalCrossentropy catLoss;
+	Tensor1D sample_losses= catLoss.forward(output, y);
+	
+	double data_loss = nll.n_mean(sample_losses);
+
+	return data_loss;
+}
+
+
+
+
 Loss_CategoricalCrossentropy::Loss_CategoricalCrossentropy(){
 
 }

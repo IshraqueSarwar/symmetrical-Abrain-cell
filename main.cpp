@@ -84,13 +84,15 @@ int main(int argc, char* argv[]){
 							{0,1,0},
 							{0,1,0}});
 
-	Tensor2D inner_prod = softmax_outputs*class_target;
-	Tensor1D cross_cor = get<Tensor1D>(nl.n_sum(inner_prod, 1));
-	Tensor1D neg_like = nl.n_log(cross_cor);neg_like*=-1;
-	neg_like.print();
+	// Tensor2D inner_prod = softmax_outputs*class_target;
+	// Tensor1D cross_cor = get<Tensor1D>(nl.n_sum(inner_prod, 1));
+	// Tensor1D neg_like = nl.n_log(cross_cor);neg_like*=-1;
+	// neg_like.print();
 
 	Loss_CategoricalCrossentropy Catloss;
-	Tensor1D loss = Catloss.forward(softmax_outputs, class_target);
-	loss.print();
+	double loss =Catloss.calculate(softmax_outputs, class_target);
+	cout<<loss<<endl;
+
+
 	
 }

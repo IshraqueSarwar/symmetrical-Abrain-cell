@@ -154,7 +154,7 @@
 # TODO BOARD:
 	(IMPORTANT Tensor2D += etc are not immutable right now. Need to do this asap)
 	0. Maybe implement [] access for tensors.
-	1. create the calculate loss function for main loss class
+	1.
 	3. 
 	4. Tensor print() func should always show decimal place
 	5. Precompiled headers to speed up compilation time?
@@ -256,3 +256,5 @@
 	26.  optimize the subtraction operators using addition.
 
 	27. check the output shape and corrected confidences shape after calculations
+
+	28.  create the calculate loss function for main loss class

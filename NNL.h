@@ -85,7 +85,7 @@ class NNL{
 		variant<double, Tensor1D> n_max(Tensor1D& t, int axis=0, bool keepdims=false); 
 		variant<double, Tensor1D, Tensor2D> n_max(Tensor2D& t2d, int axis=-1, bool keepdims = false);
 		
-		//TODO: n_min function similar to n_max
+		
 
 
 		/* The n_sum function similar to n_max*/

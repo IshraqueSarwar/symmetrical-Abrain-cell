@@ -14,15 +14,17 @@ class Loss{
 		Loss();
 		virtual ~Loss();
 
-		// int calculate(Tensor2D output, Tensor1D y);
-		// int calculate(Tens)
+		double calculate(Tensor2D output, Tensor1D y);
+		double calculate(Tensor2D output, Tensor2D y);
+
+		
 
 	private:
 
 };
 
 
-class Loss_CategoricalCrossentropy: Loss{
+class Loss_CategoricalCrossentropy: public Loss{
 	public:
 		Loss_CategoricalCrossentropy();
 		virtual ~Loss_CategoricalCrossentropy();
