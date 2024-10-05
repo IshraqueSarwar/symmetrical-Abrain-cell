@@ -155,7 +155,7 @@
 	(IMPORTANT Tensor2D += etc are not immutable right now. Need to do this asap)
 	0. Maybe implement [] access for tensors.
 	1. create the calculate loss function for main loss class
-	3. check the output shape and corrected confidences shape after calculations
+	3. 
 	4. Tensor print() func should always show decimal place
 	5. Precompiled headers to speed up compilation time?
 	6. Work on n/tensor & n-tensor overload for t1d and t2d.
@@ -254,3 +254,5 @@
 		focus on overloading them from the main parent class.
 	
 	26.  optimize the subtraction operators using addition.
+
+	27. check the output shape and corrected confidences shape after calculations

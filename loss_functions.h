@@ -14,7 +14,8 @@ class Loss{
 		Loss();
 		virtual ~Loss();
 
-		
+		// int calculate(Tensor2D output, Tensor1D y);
+		// int calculate(Tens)
 
 	private:
 
@@ -27,8 +28,8 @@ class Loss_CategoricalCrossentropy: Loss{
 		virtual ~Loss_CategoricalCrossentropy();
 
 
-		Tensor2D forward(Tensor2D y_pred, Tensor1D y_true);
-		Tensor2D forward(Tensor2D y_pred, Tensor2D y_true);
+		Tensor1D forward(Tensor2D y_pred, Tensor1D y_true);
+		Tensor1D forward(Tensor2D y_pred, Tensor2D y_true);
 
 	private:
 

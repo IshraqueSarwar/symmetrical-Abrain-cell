@@ -46,7 +46,7 @@ void testTensor1D(){
 
 int main(int argc, char* argv[]){
 	/* demo of single layer neuron rundown*/
-	// NNL nl;
+	NNL nl;
 	// Tensor2D inputs({{ 0.        ,  0.        },
 	// 	       { 0.1068272 , -0.22602643},
 	// 	       {-0.3565171 ,  0.35056463},
@@ -80,23 +80,17 @@ int main(int argc, char* argv[]){
 				{0.02, 0.9, 0.08}});
 	
 
-	Tensor1D class_target({0,1,1});
+	Tensor2D class_target({{1,0,0},
+							{0,1,0},
+							{0,1,0}});
 
-	Tensor1D range;
-	for(int i=0;i<softmax_outputs.shape()[0];i++)range.push(i);
-	
-	// for(auto i:range)cout<<i;
+	Tensor2D inner_prod = softmax_outputs*class_target;
+	Tensor1D cross_cor = get<Tensor1D>(nl.n_sum(inner_prod, 1));
+	Tensor1D neg_like = nl.n_log(cross_cor);neg_like*=-1;
+	neg_like.print();
 
-
-	Tensor1D res = softmax_outputs.get(range, class_target);
-	res.print();
-	Tensor1D neglog = nl.n_log(res);neglog*=-1;
-	double neg_log_mean = nl.n_mean(neglog);
-	cout<<neg_log_mean<<endl;
-
-
-
-	// Loss_CategoricalCrossentropy loss;
-	// Tensor1D
+	Loss_CategoricalCrossentropy Catloss;
+	Tensor1D loss = Catloss.forward(softmax_outputs, class_target);
+	loss.print();
 	
 }
