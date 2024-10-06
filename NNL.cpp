@@ -549,3 +549,92 @@ Tensor2D NNL::n_clip(Tensor2D t2d, double mn, double mx){
 
 	return Tensor2D(t);
 }
+
+
+
+
+/*definition of argmax*/
+int NNL::n_argmax(Tensor1D t){
+	vector<double> t_v = t.get();
+
+	int max_index = 0;
+	double max_val = t_v[0];
+
+	for(int i=1;i<t.shape()[0];i++){
+		if(t_v[i]>max_val){
+			max_val=t_v[i];
+			max_index = i;
+		}
+	}
+
+	return max_index;
+}
+
+
+int NNL::n_argmax(Tensor2D t){
+	vector<vector<double>> t_v = t.get();
+
+	int max_index=0;
+	double max_val = t_v[0][0];
+
+
+	for(int i =0;i<t.shape()[0];i++){
+		for(int j=0;j<t.shape()[1];j++){
+			if(t_v[i][j]>max_val){
+				max_val = t_v[i][j];
+				max_index = i*t.shape()[1]+j;
+			}
+		}
+	}
+
+	return max_index;
+}
+
+
+Tensor1D NNL::n_argmax(Tensor2D t, int axis){
+	vector<vector<double>> t_v = t.get();
+	if(axis==0){
+		Tensor1D res;
+
+		for(int j = 0;j<t.shape()[1];j++){
+			double max_val = t_v[0][j];
+			int max_index = 0;
+			for(int i = 0;i<t.shape()[0];i++){
+				if(t_v[i][j]>max_val){
+					max_val = t_v[i][j];
+					max_index = i;
+				}
+			}
+			res.push(max_index);
+		}
+
+		return res;
+
+	}else if(axis==1){
+		Tensor1D res;
+
+		for(int i=0;i<t.shape()[0];i++){
+			double max_val = t_v[i][0];
+			int max_index=0;
+			for(int j=0;j<t.shape()[1];j++){
+				if(t_v[i][j]>max_val){
+					max_val=t_v[i][j];
+					max_index = j;
+				}
+			}
+			res.push(max_index);
+		}
+
+		return res;
+	}
+
+	throw invalid_argument("Tensor2D doesn't have higher dimensions.");
+}
+
+
+Tensor1D NNL::n_argmax(Tensor1D t, int axis){
+	if(axis<=1 && axis>=0)
+		return t;
+
+	throw invalid_argument("Tensor1D doesn't have higher dimensions.");
+}

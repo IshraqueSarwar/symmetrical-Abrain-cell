@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <iostream>
 #include <variant>
+#include <typeinfo>
 
 #include "NNL.h"
 #include "t1d.h"
@@ -43,56 +44,86 @@ void testTensor1D(){
 
 
 
+//TODO: make a dataset creator using the existing python library
+
 
 int main(int argc, char* argv[]){
 	/* demo of single layer neuron rundown*/
 	NNL nl;
-	// Tensor2D inputs({{ 0.        ,  0.        },
-	// 	       { 0.1068272 , -0.22602643},
-	// 	       {-0.3565171 ,  0.35056463},
-	// 	       { 0.54027534, -0.52019477},
-	// 	       {-0.9980913 , -0.06175594},
-	// 	       {-0.        , -0.        },
-	// 	       { 0.09934813,  0.22941218},
-	// 	       { 0.35293192, -0.35417378},
-	// 	       {-0.73923534,  0.12661397},
-	// 	       { 0.97696507,  0.2133992 }});
+	Tensor2D X({{ 0.        ,  0.        },
+		       { 0.1068272 , -0.22602643},
+		       {-0.3565171 ,  0.35056463},
+		       { 0.54027534, -0.52019477},
+		       {-0.9980913 , -0.06175594},
+		       {-0.        , -0.        },
+		       { 0.09934813,  0.22941218},
+		       { 0.35293192, -0.35417378},
+		       {-0.73923534,  0.12661397},
+		       { 0.97696507,  0.2133992 }});
 
-	// Layer_dense dense1(2,4);
-	// Tensor2D output = dense1.forward(inputs);
+	Tensor1D y()
+
+
+
+	/* passing data to the first layer*/
+	Layer_dense dense1(2,4);
+	Tensor2D output = dense1.forward(X);
 	// output.print();
 
-	// cout<<"\n\n";
-
-	// /* Rectified linear activation function*/
-	// Activation_ReLU activation1;
-	// output = activation1.forward(output);
-	// output.print();
-
-	// /* Softmax activation function*/
-	// Activation_Softmax activation2;
-	// output = activation2.forward(output);
-	// output.print();
-
-
-	Tensor2D softmax_outputs({{0.7, 0.1, 0.2},
-				{0.1, 0.5, 0.4},
-				{0.02, 0.9, 0.08}});
 	
 
-	Tensor2D class_target({{1,0,0},
-							{0,1,0},
-							{0,1,0}});
-
-	// Tensor2D inner_prod = softmax_outputs*class_target;
-	// Tensor1D cross_cor = get<Tensor1D>(nl.n_sum(inner_prod, 1));
-	// Tensor1D neg_like = nl.n_log(cross_cor);neg_like*=-1;
-	// neg_like.print();
-
-	Loss_CategoricalCrossentropy Catloss;
-	double loss =Catloss.calculate(softmax_outputs, class_target);
-	cout<<loss<<endl;
+	// /* Rectified linear activation function*/
+	Activation_ReLU activation1;
+	output = activation1.forward(output);
+	// output.print();
 
 
+
+	/*passing it through sencond layer of neurons*/
+	Layer_dense dense2(4,2);
+	output = dense1.forward(output);
+	// output.print()
+
+
+	// /* Softmax activation function*/
+	Activation_Softmax activation2;
+	output = activation2.forward(output);
+	output.print();
+
+
+
+	/* calculating Loss of the network */
+	Loss_CategoricalCrossentropy loss_func;
+	double loss = loss_func(output, )
+	
+
+
+	/* <-------TESTING-----> */
+	// Tensor2D softmax_outputs({{0.7, 0.2, 0.1},
+	// 						{0.5, 0.1, 0.4},
+	// 						{0.02, 0.9, 0.08}});
+
+	// // Tensor2D class_targets({{1,0,0},
+	// // 						{0,1,0},
+	// // 						{0,1,0}});
+
+	// Tensor1D class_targets({0,1,1});
+	
+	// Tensor1D predictions = nl.n_argmax(softmax_outputs, 1);
+	// double correct_pred = 0;
+	
+
+	// Tensor1D class_target_1D = nl.n_argmax(class_targets,1);
+
+	// for(int i=0;i<predictions.shape()[0];i++){
+	// 	if(predictions[i]==class_target_1D[i]){
+	// 		correct_pred++;
+	// 	}
+	// }
+
+	// double accuracy = correct_pred/predictions.shape()[0];
+	// cout<<accuracy<<endl;
+
+	
 	
 }

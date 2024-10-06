@@ -112,6 +112,12 @@ class NNL{
 		Tensor1D n_clip(Tensor1D t1d, double mn, double mx);
 		Tensor2D n_clip(Tensor2D t2d, double mn, double mx);
 
+
+		/* argmax function that returns the indices of the maximum val*/
+		int n_argmax(Tensor1D t);
+		Tensor1D n_argmax(Tensor1D t, int axis);
+		int n_argmax(Tensor2D t);
+		Tensor1D n_argmax(Tensor2D t, int axis);
 		
 
 };	

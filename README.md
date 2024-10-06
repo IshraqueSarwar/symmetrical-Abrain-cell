@@ -144,6 +144,10 @@
 		}
 
 
+		3. Using Cross entropy loss function to calculate loss.
+		TODO: WRITE THE DOC!
+
+
 
 
 
@@ -153,9 +157,8 @@
 
 # TODO BOARD:
 	(IMPORTANT Tensor2D += etc are not immutable right now. Need to do this asap)
-	0. Maybe implement [] access for tensors.
-	1.
-	3. 
+	1. make a dataset creator using the existing python library <--will be useful for testing.
+	3. find how to override double subscript for Tensor2D [][]
 	4. Tensor print() func should always show decimal place
 	5. Precompiled headers to speed up compilation time?
 	6. Work on n/tensor & n-tensor overload for t1d and t2d.
@@ -258,3 +261,5 @@
 	27. check the output shape and corrected confidences shape after calculations
 
 	28.  create the calculate loss function for main loss class
+
+	29. Maybe implement [] access for tensors.

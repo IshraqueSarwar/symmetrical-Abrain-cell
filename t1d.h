@@ -82,7 +82,12 @@ class Tensor1D: public NNL{
 
 		//overloading
 		
-
+		double& operator[](int index){
+			if(index>=dimensions[0]){
+				throw invalid_argument("ERROR: The index is out of bounds!");
+			}
+			return this->tensor[index];
+		}
 
 
 		/* EQUAL to assign */

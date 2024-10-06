@@ -161,6 +161,15 @@ class Tensor2D: public NNL{
 
 		//OVERLOADING
 		
+		// double& operator[][](int i, int j){
+		// 	if(i>=dimensions[0] || j>=dimensions[1]){
+		// 		throw invalid_argument("ERROR: The indicies are out of bound!");
+		// 	}
+
+		// 	return this->tensor[i][j];
+		// }
+
+
 		/* EQUAL overload to assign new tensor*/
 		Tensor2D operator=(const Tensor2D& other){
 			tensor = other.tensor;
