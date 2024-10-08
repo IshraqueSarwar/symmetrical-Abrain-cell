@@ -157,6 +157,7 @@
 
 # TODO BOARD:
 	(IMPORTANT Tensor2D += etc are not immutable right now. Need to do this asap)
+	0. 
 	1. make a dataset creator using the existing python library <--will be useful for testing.
 	3. find how to override double subscript for Tensor2D [][]
 	4. Tensor print() func should always show decimal place
@@ -263,3 +264,5 @@
 	28.  create the calculate loss function for main loss class
 
 	29. Maybe implement [] access for tensors.
+
+	30. create a separate .t() function that doesnt transpose the main tensor but rather returns a transposed tensor for use.

@@ -315,7 +315,13 @@ class Tensor1D: public NNL{
 		}
 
 
-
+		void remove_less_than(double x){
+			for(int i= 0;i<dimensions[0];i++){
+				if(this->tensor[i]<=x){
+					this->tensor[i]=x;
+				}
+			}
+		}
 
 
 };

@@ -26,12 +26,18 @@ class Loss{
 
 class Loss_CategoricalCrossentropy: public Loss{
 	public:
+		Tensor2D dinputs;
+
 		Loss_CategoricalCrossentropy();
 		virtual ~Loss_CategoricalCrossentropy();
 
 
 		Tensor1D forward(Tensor2D y_pred, Tensor1D y_true);
 		Tensor1D forward(Tensor2D y_pred, Tensor2D y_true);
+
+
+		void backward(Tensor2D dvalues, Tensor1D y_true);
+		void backward(Tensor2D dvalues, Tensor2D y_true);
 
 	private:
 

@@ -118,6 +118,20 @@ class Tensor2D: public NNL{
 
 		}
 
+		Tensor2D t(){
+			if(tensor.size()){
+				vector<vector<double>> tensor_trans(tensor[0].size(), vector<double>(tensor.size()));
+
+				for(int i = 0;i<tensor.size();i++){
+					for(int j=0;j<tensor[i].size();j++){
+						tensor_trans[j][i]= tensor[i][j];
+					}
+				}
+				return Tensor2D(tensor_trans);
+			}
+			return (*this);
+		}
+
 		/* for displaying the tensor in human readable format.*/
 		void print(){
 			if(tensor.empty()){
@@ -713,6 +727,17 @@ class Tensor2D: public NNL{
 		friend Tensor2D operator/(Tensor1D& t1d, Tensor2D& t2d){
 			Tensor2D r(1/t2d);
 			return t1d*r;
+		}
+
+
+		void remove_less_than(double x){
+			for(int i = 0;i<dimensions[0];i++){
+				for(int j = 0;j<dimensions[1];j++){
+					if(this->tensor[i][j]<=x){
+						this->tensor[i][j] = x;
+					}
+				}
+			}
 		}
 
 };

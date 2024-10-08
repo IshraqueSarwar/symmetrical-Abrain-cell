@@ -48,7 +48,10 @@ void testTensor1D(){
 
 
 int main(int argc, char* argv[]){
-	/* demo of single layer neuron rundown*/
+	/* demo of first run throught two layers of neurons and 
+	two different activation functions and one loss function and calculating the loss*/
+
+	
 	NNL nl;
 	Tensor2D X({{ 0.        ,  0.        },
 		       { 0.1068272 , -0.22602643},
@@ -65,38 +68,24 @@ int main(int argc, char* argv[]){
 
 
 
+	// to pass inputs through layers we use the forward method.
+
 	/* passing data to the first layer*/
 	Layer_dense dense1(2,3);
 	// Tensor2D output = dense1.forward(X);
-	// output.print();
 
-	
-
-	// /* Rectified linear activation function*/
+	/* Rectified linear activation function*/
 	Activation_ReLU activation1;
-	// output = activation1.forward(output);
-	// output.print();
-
-
-
-
 	/*passing it through sencond layer of neurons*/
 	Layer_dense dense2(3,3);
-	// output = dense2.forward(output);
-	// output.print()
+	
 
 
 	// /* Softmax activation function*/
 	Activation_Softmax activation2;
-	// output = activation2.forward(output);
-	// output.print();
-
-
 
 	/* calculating Loss of the network */
 	Loss loss_function;
-	// double loss = loss_func.calculate(output, y);
-	// cout<<loss<<endl;
 
 
 	double lowest_loss = 999999;
@@ -127,7 +116,7 @@ int main(int argc, char* argv[]){
 		dense2.biases = rand;
 
 
-
+		// cout<<"tes\n";
 		output = dense1.forward(X);
 		output = activation1.forward(output);
 		output = dense2.forward(output);
@@ -160,34 +149,63 @@ int main(int argc, char* argv[]){
 			lowest_loss = loss;
 		}
 	}
+	
 
 
 	/* <-------TESTING-----> */
-	// Tensor2D softmax_outputs({{0.7, 0.2, 0.1},
-	// 						{0.5, 0.1, 0.4},
-	// 						{0.02, 0.9, 0.08}});
+	// Tensor2D dvalues({{1,1,1},
+	// 			{2,2,2},
+	// 			{3,3,3}});
 
-	// // Tensor2D class_targets({{1,0,0},
-	// // 						{0,1,0},
-	// // 						{0,1,0}});
+	// Tensor2D inputs({{1, 2, 3, 2.5},
+	// 				{2., 5., -1., 2},
+	// 				{-1.5, 2.7, 3.3, -0.8}});
 
-	// Tensor1D class_targets({0,1,1});
+
+	// Tensor2D weights({{0.2, 0.8, -0.5, 1},
+	// 					{0.5, -0.91, 0.26, -0.5},
+	// 					{-0.26, -0.27, 0.17, 0.87}});
+	// weights.transpose(); // transpose the weights tensor
+
+
+	// Tensor2D biases({{2,3,0.5}});
+
+
+	// auto layer_outputs = nl.dot(inputs, weights)+biases;
+	// auto relu_output = nl.maximum(0, layer_outputs);
+
+	// auto drelu = relu_output;
+	// drelu.remove_less_than(0);
 	
-	// Tensor1D predictions = nl.n_argmax(softmax_outputs, 1);
-	// double correct_pred = 0;
-	
+	// auto weights_t = weights.t();
+	// auto dinputs = nl.dot(drelu, weights_t);
 
-	// Tensor1D class_target_1D = nl.n_argmax(class_targets,1);
+	// auto inputs_t = inputs.t();
+	// auto dweights = nl.dot(inputs_t, drelu);
 
-	// for(int i=0;i<predictions.shape()[0];i++){
-	// 	if(predictions[i]==class_target_1D[i]){
-	// 		correct_pred++;
-	// 	}
-	// }
 
-	// double accuracy = correct_pred/predictions.shape()[0];
-	// cout<<accuracy<<endl;
+	// auto dbiases_variant = nl.n_sum(drelu, 0, true);
+	// Tensor2D dbiases = get<Tensor2D>(dbiases_variant);
 
 	
-	
-}
+
+	// auto temp = dweights*-0.001;
+	// cout<<temp.shape()[0]<<' '<<temp.shape()[1]<<endl;
+	// cout<<weights.shape()[0]<<' '<<weights.shape()[1]<<endl;
+	// weights+=temp;
+
+
+	// auto temp2 = dbiases*-0.001;
+	// biases+=temp2;
+	// cout<<dbiases.shape()[0]<<' '<<dbiases.shape()[1]<<endl;
+	// cout<<biases.shape()[0]<<' '<<biases.shape()[1]<<endl;
+
+	// weights.print();
+	// biases.print();
+
+	// Tensor1D t({1,2,5,3});
+	// Tensor2D res = nl.convert_to_onehot(5, t);
+	// res.print();
+
+
+}	

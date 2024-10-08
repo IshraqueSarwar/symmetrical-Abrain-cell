@@ -118,6 +118,13 @@ class NNL{
 		Tensor1D n_argmax(Tensor1D t, int axis);
 		int n_argmax(Tensor2D t);
 		Tensor1D n_argmax(Tensor2D t, int axis);
+
+		/* this function does the same thing as np.eye(n)[list of indexed]
+			basically it helps convert a 1D tensor with indecies of true val
+			outputs a 2D tensor with ones in the indexes mentioned in the list
+		
+		*/
+		Tensor2D convert_to_onehot(int n, Tensor1D list_of_indices);
 		
 
 };	

@@ -11,6 +11,9 @@
 class Activation_ReLU{
 	public:
 		Tensor2D output;
+		Tensor2D inputs;
+		Tensor2D dinputs;
+
 
 		Activation_ReLU();
 		virtual ~Activation_ReLU();
@@ -18,6 +21,7 @@ class Activation_ReLU{
 
 
 		Tensor2D forward(Tensor2D& inputs);
+		void backward(Tensor2D& dvalues);
 
 };
 

@@ -638,3 +638,27 @@ Tensor1D NNL::n_argmax(Tensor1D t, int axis){
 
 	throw invalid_argument("Tensor1D doesn't have higher dimensions.");
 }
+
+
+
+/*defination of the function that replicates np.eye(n)[list_of_index]
+	to convert a 1D Tensor if true value index into one hot matrix of 
+	those indices*/
+Tensor2D NNL::convert_to_onehot(int n, Tensor1D list_of_indices){
+	Tensor2D res;
+	vector<double>indices = list_of_indices.get();
+
+	for(int i = 0;i<indices.size();i++){
+		vector<double> v;
+		for(int j = 0;j<n;j++){
+			if(j==indices[i]){
+				v.push_back(1);
+			}else{
+				v.push_back(0);
+			}
+		}
+
+		res.push(v);
+	}
+	return res;
+}
