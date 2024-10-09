@@ -155,11 +155,12 @@
 
 
 
-# TODO BOARD:
+# TODO BOARD(objective):
 	(IMPORTANT Tensor2D += etc are not immutable right now. Need to do this asap)
-	0. 
-	1. make a dataset creator using the existing python library <--will be useful for testing.
-	3. find how to override double subscript for Tensor2D [][]
+	0. find how to override double subscript for Tensor2D [][]
+
+	1. Change all vec<vec<double>> access temp for Tensor2D to direct access of Tensor2D using [][] after completing objective 1.
+	3. make a dataset creator using the existing python library <--will be useful for testing.
 	4. Tensor print() func should always show decimal place
 	5. Precompiled headers to speed up compilation time?
 	6. Work on n/tensor & n-tensor overload for t1d and t2d.

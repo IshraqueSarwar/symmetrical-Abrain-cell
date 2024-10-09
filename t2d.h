@@ -502,8 +502,9 @@ class Tensor2D: public NNL{
 		// TODO: Add (n,1)operator(n,m) or viceversa, - and / dome
 
 		Tensor2D operator-(Tensor2D& t){
+			Tensor2D x = (*this);
 			Tensor2D r = t*-1;
-			Tensor2D res = (*this)+r;
+			Tensor2D res = x+r;
 			return res;
 			// if(dimensions==t.shape()){
 			// 	Tensor2D res;

@@ -21,6 +21,18 @@ NNL::~NNL(){
 }
 
 
+Tensor1D NNL::empty_like(Tensor1D t){
+	vector<double>v(t.shape()[0]);
+	return Tensor1D(v);
+}
+
+Tensor2D NNL::empty_like(Tensor2D t){
+	vector<vector<double>> v(t.shape()[0], vector<double>(t.shape()[1]));
+
+	return Tensor2D(v);
+}
+
+
 
 Tensor1D NNL::dot(Tensor1D& t1, Tensor1D& t2){
 	return t1*t2;
@@ -660,5 +672,40 @@ Tensor2D NNL::convert_to_onehot(int n, Tensor1D list_of_indices){
 
 		res.push(v);
 	}
+	return res;
+}
+
+
+/*definition of diagflat*/
+Tensor2D NNL::diagflat(Tensor1D t){
+	vector<double> t_v = t.get();
+
+	Tensor2D res;
+
+	for(int i=0;i<t_v.size();i++){
+		vector<double> v;
+		for(int j = 0;j<t_v.size();j++){
+			if(i==j){
+				v.push_back(t_v[i]);
+			}else{
+				v.push_back(0.0);
+			}
+		}
+		res.push(v);
+	}
+
+	return res;
+}
+
+Tensor2D NNL::diagflat(Tensor2D t){
+	Tensor1D temp;
+	vector<vector<double>>t_v = t.get();
+	for(int i =0;i<t.shape()[0];i++){
+		for(int j = 0;j<t.shape()[1];j++){
+			temp.push(t_v[i][j]);
+		}
+	}
+
+	Tensor2D res = NNL::diagflat(temp);
 	return res;
 }

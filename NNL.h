@@ -34,6 +34,11 @@ class NNL{
 			cout<<")\n";
 		}
 
+		Tensor1D empty_like(Tensor1D t);
+		Tensor2D empty_like(Tensor2D t);
+
+
+
 		Tensor1D dot(Tensor1D& t1, Tensor1D& t2);
 		double dot(double t1, double t2);
 		/*dot netween Tensor2D and Tensor1D then matrix-vec mul*/
@@ -125,6 +130,12 @@ class NNL{
 		
 		*/
 		Tensor2D convert_to_onehot(int n, Tensor1D list_of_indices);
+
+
+		/*diagflat function puts all the elents diagonally in a 2D Tensor*/
+		Tensor2D diagflat(Tensor1D t);
+		Tensor2D diagflat(Tensor2D t);
+
 		
 
 };	

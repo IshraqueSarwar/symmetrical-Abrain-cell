@@ -35,13 +35,13 @@ Tensor2D Layer_dense::forward(Tensor2D inputs_given){
 
 
 void Layer_dense::backward(Tensor2D dvalues){
-	// auto inputs_t = inputs.t();
-	// Layer_dense::dweights = nmain.dot(inputs_t, dvalues);
+	auto inputs_t = Layer_dense::inputs.t();
+	Layer_dense::dweights = nmain.dot(inputs_t, dvalues);
 
-	// auto d_val_sum = nmain.n_sum(dvalues, 0, true);
+	auto d_val_sum = nmain.n_sum(dvalues, 0, true);
 
-	// Layer_dense::dbiases = get<Tensor2D>(d_val_sum);
+	Layer_dense::dbiases = get<Tensor2D>(d_val_sum);
 
-	// auto weights_t = weights.t();
-	// dinputs = nmain.dot(dvalues, weights_t);
+	auto weights_t = weights.t();
+	dinputs = nmain.dot(dvalues, weights_t);
 }
