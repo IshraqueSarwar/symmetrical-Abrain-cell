@@ -676,7 +676,8 @@ Tensor2D NNL::convert_to_onehot(int n, Tensor1D list_of_indices){
 }
 
 
-/*definition of diagflat*/
+/*definition of diagflat:
+converts tensors to a 1D tensor with the values aligned diagonally.*/
 Tensor2D NNL::diagflat(Tensor1D t){
 	vector<double> t_v = t.get();
 
@@ -696,6 +697,8 @@ Tensor2D NNL::diagflat(Tensor1D t){
 
 	return res;
 }
+
+
 
 Tensor2D NNL::diagflat(Tensor2D t){
 	Tensor1D temp;

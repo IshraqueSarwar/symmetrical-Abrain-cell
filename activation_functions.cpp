@@ -17,6 +17,7 @@ Activation_ReLU::Activation_ReLU(){
 
 Activation_ReLU::~Activation_ReLU(){
 	
+
 }
 
 Tensor2D Activation_ReLU::forward(Tensor2D& inputs_given){
@@ -91,8 +92,53 @@ void Activation_Softmax::backward(Tensor2D dvalues){
 		auto jacobian_matrix = temp-temp2;
 
 		auto dot_jacob_single_dvals = nl.dot(jacobian_matrix, single_dvalues);
-
-		Activation_Softmax::dinputs.push(dot_jacob_single_dvals);
+		vector<double> dot_jacob_single_dvals_v = dot_jacob_single_dvals.get();
+		Activation_Softmax::dinputs.push(dot_jacob_single_dvals_v);
 	}
+
+}
+
+
+
+// softmax and categorical cross entropy loss
+Activation_Softmax_Loss_CategoricalCrossentropy::Activation_Softmax_Loss_CategoricalCrossentropy(){
+
+}
+
+
+Activation_Softmax_Loss_CategoricalCrossentropy::~Activation_Softmax_Loss_CategoricalCrossentropy(){
+
+}
+
+
+double Activation_Softmax_Loss_CategoricalCrossentropy::forward(Tensor2D inputs, Tensor1D y_true){
+	Activation_Softmax_Loss_CategoricalCrossentropy::output = Activation_Softmax_Loss_CategoricalCrossentropy::activation.forward(inputs);
+	return Activation_Softmax_Loss_CategoricalCrossentropy::loss.calculate(Activation_Softmax_Loss_CategoricalCrossentropy::output, y_true); 
+}
+
+double Activation_Softmax_Loss_CategoricalCrossentropy::forward(Tensor2D inputs, Tensor2D y_true){
+	Activation_Softmax_Loss_CategoricalCrossentropy::output = Activation_Softmax_Loss_CategoricalCrossentropy::activation.forward(inputs);
+	return Activation_Softmax_Loss_CategoricalCrossentropy::loss.calculate(Activation_Softmax_Loss_CategoricalCrossentropy::output, y_true);
+
+}
+
+// TODO: UNTESTED CODE AHEAD!!!! TOO EXCITED FOR NOW!!!!
+void Activation_Softmax_Loss_CategoricalCrossentropy::backward(Tensor2D dvalues, Tensor1D y_true){
+	double samples = dvalues.shape()[0];
+	vector<vector<double>> dinputs_v = dvalues.get();
+
+	//calculating gradient
+	for(int i = 0;i<samples;i++){
+		dinputs_v[i][y_true[i]]-=1;
+	}
+	Activation_Softmax_Loss_CategoricalCrossentropy::dinputs = Tensor2D(dinputs_v);
+	Activation_Softmax_Loss_CategoricalCrossentropy::dinputs = Activation_Softmax_Loss_CategoricalCrossentropy::dinputs/samples;
+}
+
+
+void Activation_Softmax_Loss_CategoricalCrossentropy::backward(Tensor2D dvalues, Tensor2D y_true){
+	Tensor1D y_true_1D = nl.n_argmax(y_true, 1);
+
+	Activation_Softmax_Loss_CategoricalCrossentropy::backward(dvalues, y_true_1D);
 
 }
