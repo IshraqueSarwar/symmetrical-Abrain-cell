@@ -78,12 +78,14 @@ Tensor1D Loss_CategoricalCrossentropy::forward(Tensor2D y_pred, Tensor2D y_true)
 
 
 void Loss_CategoricalCrossentropy::backward(Tensor2D dvalues, Tensor1D y_true){
-	double samples = dvalues.shape()[0];
-	double labels = dvalues.shape()[1];
+	int samples = dvalues.shape()[0];
+	int labels = dvalues.shape()[1];
 
 	Tensor2D y_true_onehot = nll.convert_to_onehot(labels, y_true);
+
 	y_true_onehot*=-1;
-	//calculating the gradient and then normalizing it by sample size
+	
+	// calculating the gradient and then normalizing it by sample size
 	Loss_CategoricalCrossentropy::dinputs = y_true_onehot/dvalues;
 	Loss_CategoricalCrossentropy::dinputs = Loss_CategoricalCrossentropy::dinputs/samples;
 

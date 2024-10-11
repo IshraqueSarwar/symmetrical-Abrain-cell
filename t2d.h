@@ -285,11 +285,15 @@ class Tensor2D: public NNL{
 
 			// *=
 		Tensor2D& operator*=(double n){
-			for(int i=0;i<dimensions[0];i++){
-				for(int j=0;j<dimensions[1];j++){
+			for(int i=0;i<this->shape()[0];i++){
+				for(int j=0;j<this->shape()[1];j++){
+					// double x = this->tensor[i][j];
 					this->tensor[i][j]*=n;
+					// this->tensor[i][j]*=n;
 				}
 			}
+			
+			// this->set(temp_v);
 			return *this;
 		}
 
@@ -742,9 +746,6 @@ class Tensor2D: public NNL{
 		}
 
 };
-
-
-
 
 
 #endif

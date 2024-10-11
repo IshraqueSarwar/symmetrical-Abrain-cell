@@ -60,7 +60,7 @@ Tensor2D Activation_Softmax::forward(Tensor2D& inputs_given){
 }
 
 void Activation_Softmax::backward(Tensor2D dvalues){
-	Activation_Softmax::dinputs = nl.empty_like(dvalues);
+	// Activation_Softmax::dinputs = nl.empty_like(dvalues);
 
 	vector<vector<double>> output_v = Activation_Softmax::output.get();
 	vector<vector<double>> dvalues_v = dvalues.get();
