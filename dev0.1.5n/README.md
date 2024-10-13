@@ -151,16 +151,16 @@
 
 
 
-	current build command: (will change as I incorporate cmake)   g++ -std=c++17 -o main NNL.cpp tensor.cpp main.cpp layer.cpp activation_functions.cpp
+	current build command: (will change as I incorporate cmake)   g++ -std=c++17 -o main NNL.cpp tensor.cpp main.cpp layer.cpp activation_functions.cpp loss_functions.cpp optimizers.cpp dataloader.cpp
 
 
 
 # TODO BOARD(objective):
 	(IMPORTANT Tensor2D += etc are not immutable right now. Need to do this asap)
-	0. find how to override double subscript for Tensor2D [][]
-
-	1. Change all vec<vec<double>> access temp for Tensor2D to direct access of Tensor2D using [][] after completing objective 1.
-	3. make a dataset creator using the existing python library <--will be useful for testing.
+	0. TRY TO FIND A MORE ACCURATE DATATYPE FOR STORING DATA. DOUBLE is rounding the numbers up
+	1. 
+	2. find how to override double subscript for Tensor2D [][]
+	3. Change all vec<vec<double>> access temp for Tensor2D to direct access of Tensor2D using [][] after completing objective 1.
 	4. Tensor print() func should always show decimal place
 	5. Precompiled headers to speed up compilation time?
 	6. Work on n/tensor & n-tensor overload for t1d and t2d.
@@ -267,3 +267,7 @@
 	29. Maybe implement [] access for tensors.
 
 	30. create a separate .t() function that doesnt transpose the main tensor but rather returns a transposed tensor for use.
+
+	31. Change the direct usage of dimension variable from t1d and t2d files, user this->shape() or t.shape() to access the dimensions.
+
+	32. make a dataset creator using the existing python library <--will be useful for testing.

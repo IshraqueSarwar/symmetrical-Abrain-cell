@@ -196,11 +196,11 @@ class Tensor2D: public NNL{
 
 
 		
-		/* SHORTHAND OPERATORS*/
+		/* SHORTHAND OPERATORS*/ 
 			// +=
 		Tensor2D& operator+=(double n){
-			for(int i=0;i<dimensions[0];i++){
-				for(int j=0;j<dimensions[1];j++){
+			for(int i=0;i<this->shape()[0];i++){
+				for(int j=0;j<this->shape()[1];j++){
 					this->tensor[i][j]+=n;
 				}
 			}
@@ -214,29 +214,31 @@ class Tensor2D: public NNL{
 		/* NxN adds with Nx1
 			NxN adds with 1xN*/
 		Tensor2D& operator+=(Tensor2D& other){
-			if(dimensions==other.shape()){
-				for(int i=0;i<dimensions[0];i++){
-					for(int j = 0;j<dimensions[1];j++){
+			vector<int> this_dim = this->shape();
+			// NxN + NxN
+			if(this_dim==other.shape()){
+				for(int i=0;i<this_dim[0];i++){
+					for(int j = 0;j<this_dim[1];j++){
 						this->tensor[i][j]+=other.tensor[i][j];
 					}
 				}
 				return *this;
-			}else if( (dimensions[0] == other.shape()[0]) && (other.shape()[1]==1) ){
+			}else if( (this_dim[0] == other.shape()[0]) && (other.shape()[1]==1) ){
 				
 				//NxN + Nx1
-				for(int i = 0;i<dimensions[0];i++){
-					for(int j=0;j<dimensions[1];j++){
+				for(int i = 0;i<this_dim[0];i++){
+					for(int j=0;j<this_dim[1];j++){
 						this->tensor[i][j]+=other.tensor[i][0];
 					}
 				}
 			
 				return *this;
 
-			}else if((dimensions[1] == other.shape()[1]) && (other.shape()[0]==1)){
+			}else if((this_dim[1] == other.shape()[1]) && (other.shape()[0]==1)){
 
 				//NxN + 1xN
-				for(int i=0;i<dimensions[0];i++){
-					for(int j = 0;j<dimensions[1];j++){
+				for(int i=0;i<this_dim[0];i++){
+					for(int j = 0;j<this_dim[1];j++){
 						this->tensor[i][j]+=other.tensor[0][j];
 					}
 				}
@@ -260,8 +262,9 @@ class Tensor2D: public NNL{
 
 			// -=
 		Tensor2D& operator-=(double n){
-			for(int i=0;i<dimensions[0];i++){
-				for(int j=0;j<dimensions[1];j++){
+			vector<int> this_dim = this->shape();
+			for(int i=0;i<this_dim[0];i++){
+				for(int j=0;j<this_dim[1];j++){
 					this->tensor[i][j]-=n;
 				}
 			}
@@ -299,29 +302,30 @@ class Tensor2D: public NNL{
 
 
 		Tensor2D& operator*=(Tensor2D& other){
-			if(dimensions==other.shape()){
-				for(int i=0;i<dimensions[0];i++){
-					for(int j = 0;j<dimensions[1];j++){
+			vector<int> this_dim = this->shape();
+			if(this_dim==other.shape()){
+				for(int i=0;i<this_dim[0];i++){
+					for(int j = 0;j<this_dim[1];j++){
 						this->tensor[i][j]*=other.tensor[i][j];
 					}
 				}
 				return *this;
-			}else if( (dimensions[0] == other.shape()[0]) && (other.shape()[1]==1) ){
+			}else if( (this_dim[0] == other.shape()[0]) && (other.shape()[1]==1) ){
 				
 				//NxN * Nx1
-				for(int i = 0;i<dimensions[0];i++){
-					for(int j=0;j<dimensions[1];j++){
+				for(int i = 0;i<this_dim[0];i++){
+					for(int j=0;j<this_dim[1];j++){
 						this->tensor[i][j]*=other.tensor[i][0];
 					}
 				}
 			
 				return *this;
 
-			}else if((dimensions[1] == other.shape()[1]) && (other.shape()[0]==1)){
+			}else if((this_dim[1] == other.shape()[1]) && (other.shape()[0]==1)){
 
 				//NxN * 1xN
-				for(int i=0;i<dimensions[0];i++){
-					for(int j = 0;j<dimensions[1];j++){
+				for(int i=0;i<this_dim[0];i++){
+					for(int j = 0;j<this_dim[1];j++){
 						this->tensor[i][j]*=other.tensor[0][j];
 					}
 				}
@@ -343,8 +347,8 @@ class Tensor2D: public NNL{
 			// /=
 		Tensor2D& operator/=(double n){
 			double x = 1/n;
-			for(int i=0;i<dimensions[0];i++){
-				for(int j=0;j<dimensions[1];j++){
+			for(int i=0;i<this->shape()[0];i++){
+				for(int j=0;j<this->shape()[1];j++){
 					this->tensor[i][j]*=x;
 				}
 			}
@@ -379,7 +383,10 @@ class Tensor2D: public NNL{
 			return res;
 		}
 
+
+			//Tensor2D + Tensor2D
 		Tensor2D operator+(Tensor2D& t){
+			// NxN + NxN
 			if(dimensions==t.shape()){
 				Tensor2D res;
 				for(int i = 0;i<dimensions[0];i++){
@@ -390,6 +397,8 @@ class Tensor2D: public NNL{
 					res.push(row);
 				}
 				return res;
+
+
 			}else if(dimensions[0]==t.shape()[0]){
 				// if the parent of the operator is single element 2D tensor
 				if( dimensions[1]==1){
