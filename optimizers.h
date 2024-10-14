@@ -13,15 +13,22 @@
 
 class Optimizer_SGD{
 	public:
-		Optimizer_SGD(double learning_rate=1.0);
+		double current_learning_rate = learning_rate;
+
+		Optimizer_SGD(double learning_rate=1.0, double decay = 0.0);
 		~Optimizer_SGD();
 
 
+		void pre_update_params();
 		Layer_dense update_params(Layer_dense layer);
+		void post_update_params();
 
 
 	private:
 		double learning_rate = 1.0;
+		double decay = decay;
+		int iterations = 0;
+
 };
 
 

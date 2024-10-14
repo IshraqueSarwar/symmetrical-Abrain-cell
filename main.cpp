@@ -84,7 +84,7 @@ int main(int argc, char* argv[]){
 	Layer_dense dense2(64,3);
 	Activation_Softmax_Loss_CategoricalCrossentropy loss_activation;
 
-	Optimizer_SGD optimizer;
+	Optimizer_SGD optimizer(1,1e-2);
 	for(int epoch = 0;epoch<10001;epoch++){
 		auto output = dense1.forward(X);
 		output = activation1.forward(output);
@@ -110,7 +110,7 @@ int main(int argc, char* argv[]){
 		long double acc = corr_pred/(predictions.shape()[0]);
 
 		if(!(epoch%100)){
-			cout<<"epoch: "<<epoch<<"\nacc: "<<acc<<"\nloss: "<<loss<<"\n\n";
+			cout<<"epoch: "<<epoch<<"\nacc: "<<acc<<"\nloss: "<<loss<<"\nlr: "<<optimizer.current_learning_rate<<"\n\n";
 			// loss_activation.output.print();
 		}
 
@@ -120,9 +120,10 @@ int main(int argc, char* argv[]){
 		activation1.backward(dense2.dinputs);
 		dense1.backward(activation1.dinputs);
 
+		optimizer.pre_update_params();
 		dense1 = optimizer.update_params(dense1);
 		dense2 = optimizer.update_params(dense2);
-
+		optimizer.post_update_params();
 	}
 	
 
