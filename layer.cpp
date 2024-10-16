@@ -17,6 +17,11 @@ Layer_dense::Layer_dense(int n_inputs, int n_neurons){
 
 	// initialize biases to zeros.
 	Layer_dense::biases = nmain.zeros(1, n_neurons);
+
+
+	// initialize momentum tensors 
+	Layer_dense::weight_momentums = nmain.zeros_like(Layer_dense::weights);
+	Layer_dense::bias_momentums = nmain.zeros_like(Layer_dense::biases);
 }
 
 void Layer_dense::print_weights_biases(){

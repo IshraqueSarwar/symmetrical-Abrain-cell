@@ -38,6 +38,9 @@ class NNL{
 		Tensor2D empty_like(Tensor2D t);
 
 
+		Tensor1D zeros_like(Tensor1D t);
+		Tensor2D zeros_like(Tensor2D t);
+
 
 		Tensor1D dot(Tensor1D& t1, Tensor1D& t2);
 		double dot(double t1, double t2);

@@ -82,36 +82,37 @@ int main(int argc, char* argv[]){
 	Activation_ReLU activation1;
 	/*passing it through sencond layer of neurons*/
 	Layer_dense dense2(64,3);
+
+	// dense1.weight_momentums.shape(true);
+
 	Activation_Softmax_Loss_CategoricalCrossentropy loss_activation;
 
-	Optimizer_SGD optimizer(1,1e-2);
+	Optimizer_SGD optimizer(1,1e-3, 0.5);
 	for(int epoch = 0;epoch<10001;epoch++){
 		auto output = dense1.forward(X);
 		output = activation1.forward(output);
 		output = dense2.forward(output);
 
-		long double loss = loss_activation.forward(output, y);
+		double loss = loss_activation.forward(output, y);
 
 		
 
-		// loss_activation.output.print();
 		auto predictions = nl.n_argmax(loss_activation.output, 1);
 		auto y_1d = nl.n_argmax(y, 1);
 
 
 
-		long double corr_pred = 0;
+		double corr_pred = 0;
 		for(int i= 0;i<predictions.shape()[0];i++){
 			if(predictions[i]==y_1d[i]){
 				corr_pred++;
 			}
 		}
 
-		long double acc = corr_pred/(predictions.shape()[0]);
+		double acc = corr_pred/(predictions.shape()[0]);
 
 		if(!(epoch%100)){
 			cout<<"epoch: "<<epoch<<"\nacc: "<<acc<<"\nloss: "<<loss<<"\nlr: "<<optimizer.current_learning_rate<<"\n\n";
-			// loss_activation.output.print();
 		}
 
 
@@ -129,6 +130,12 @@ int main(int argc, char* argv[]){
 
 
 	/* <-------TESTING-----> */
+	// Tensor2D t({{0,0,0}, {0,0,0}});
+	// Tensor2D t2({{-8.7077e-06, -3.89208e-05, 4.76285e-05},
+	// 			{1.82587e-05, -5.24643e-05, 3.42056e-05}});
+
+	// (t+t2).print();
+
 	// Tensor2D softmax_outputs({{0.7,0.1,0.2},
 	// 							{0.1,0.5,0.4},
 	// 							{0.02, 0.9,0.08}});

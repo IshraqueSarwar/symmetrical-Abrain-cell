@@ -13,9 +13,10 @@
 
 class Optimizer_SGD{
 	public:
-		double current_learning_rate = learning_rate;
-
-		Optimizer_SGD(double learning_rate=1.0, double decay = 0.0);
+		// TODO: LOOK AT THE variable assignment
+		double current_learning_rate;// = learning_rate;
+		double momentum;// = 0;
+		Optimizer_SGD(double learning_rate=1.0, double decay = 0.0, double momentum = 0.0);
 		~Optimizer_SGD();
 
 
@@ -28,6 +29,7 @@ class Optimizer_SGD{
 		double learning_rate = 1.0;
 		double decay = decay;
 		int iterations = 0;
+
 
 };
 

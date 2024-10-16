@@ -33,6 +33,17 @@ Tensor2D NNL::empty_like(Tensor2D t){
 }
 
 
+Tensor1D NNL::zeros_like(Tensor1D t){
+	vector<double>v(t.shape()[0], 0);
+	return Tensor1D(v);
+}
+
+Tensor2D NNL::zeros_like(Tensor2D t){
+	vector<vector<double>> v(t.shape()[0], vector<double>(t.shape()[1], 0));
+	return Tensor2D(v);
+}
+
+
 
 Tensor1D NNL::dot(Tensor1D& t1, Tensor1D& t2){
 	return t1*t2;

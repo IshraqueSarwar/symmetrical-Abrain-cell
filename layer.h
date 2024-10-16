@@ -13,9 +13,13 @@ using namespace std;
 class Layer_dense{
 	private:
 		int n_inputs, n_neurons;
-		
+
 		
 	public:
+
+		Tensor2D weight_momentums;
+		Tensor2D bias_momentums;
+		
 		
 		Tensor2D weights;
 		Tensor2D biases;

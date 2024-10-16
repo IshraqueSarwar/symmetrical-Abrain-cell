@@ -373,6 +373,7 @@ class Tensor2D: public NNL{
 			// Tensor + (double)n
 		Tensor2D operator+(double n)const{
 			Tensor2D res;
+			
 			for(int i = 0;i<dimensions[0];i++){
 				vector<double>row;
 				for(int j=0;j<dimensions[1];j++){
@@ -387,23 +388,28 @@ class Tensor2D: public NNL{
 			//Tensor2D + Tensor2D
 		Tensor2D operator+(Tensor2D& t){
 			// NxN + NxN
-			if(dimensions==t.shape()){
+
+			// vector<vector<double>> t_v = t.get();
+			vector<int>this_shape = this->shape();
+			if(this_shape==t.shape()){
 				Tensor2D res;
-				for(int i = 0;i<dimensions[0];i++){
+				for(int i = 0;i<this_shape[0];i++){
 					vector<double> row;
-					for(int j =0;j<dimensions[1];j++){
+					for(int j =0;j<this_shape[1];j++){
 						row.push_back(tensor[i][j]+t.tensor[i][j]);
 					}
 					res.push(row);
 				}
+
+				
 				return res;
 
 
-			}else if(dimensions[0]==t.shape()[0]){
+			}else if(this_shape[0]==t.shape()[0]){
 				// if the parent of the operator is single element 2D tensor
-				if( dimensions[1]==1){
+				if( this_shape[1]==1){
 					Tensor2D res;
-					for(int i = 0;i<dimensions[0];i++){
+					for(int i = 0;i<this_shape[0];i++){
 						vector<double> row;
 						for(int j = 0;j<t.shape()[1];j++){
 							row.push_back(tensor[i][0]+t.tensor[i][j]);
@@ -416,9 +422,9 @@ class Tensor2D: public NNL{
 				// if the operated Tensor is single element 2D tensor
 				else if(t.shape()[1]==1){
 					Tensor2D res;
-					for(int i = 0;i<dimensions[0];i++){
+					for(int i = 0;i<this_shape[0];i++){
 						vector<double> row;
-						for(int j = 0;j<dimensions[1];j++){
+						for(int j = 0;j<this_shape[1];j++){
 							row.push_back(tensor[i][j]+t.tensor[i][0]);
 						}
 						res.push(row);
@@ -427,8 +433,8 @@ class Tensor2D: public NNL{
 				}
 
 				
-			}else if(dimensions[1]==t.shape()[1]){
-				if(dimensions[0]==1){
+			}else if(this_shape[1]==t.shape()[1]){
+				if(this_shape[0]==1){
 					Tensor2D res;
 					for(int i = 0;i<t.shape()[0];i++){
 						vector<double> row;
@@ -441,9 +447,9 @@ class Tensor2D: public NNL{
 				}
 				else if(t.shape()[0]==1){
 					Tensor2D res;
-					for(int i = 0;i<dimensions[0];i++){
+					for(int i = 0;i<this_shape[0];i++){
 						vector<double> row;
-						for(int j = 0;j<dimensions[1];j++){
+						for(int j = 0;j<this_shape[1];j++){
 							row.push_back(tensor[i][j]+t.tensor[0][j]);
 						}
 						res.push(row);
@@ -515,51 +521,10 @@ class Tensor2D: public NNL{
 		// TODO: Add (n,1)operator(n,m) or viceversa, - and / dome
 
 		Tensor2D operator-(Tensor2D& t){
-			Tensor2D x = (*this);
+			Tensor2D x(this->tensor);
 			Tensor2D r = t*-1;
 			Tensor2D res = x+r;
 			return res;
-			// if(dimensions==t.shape()){
-			// 	Tensor2D res;
-			// 	for(int i = 0;i<dimensions[0];i++){
-			// 		vector<double> row;
-			// 		for(int j =0;j<dimensions[1];j++){
-			// 			row.push_back(tensor[i][j]-t.tensor[i][j]);
-			// 		}
-			// 		res.push(row);
-			// 	}
-			// 	return res;
-			// }else if(dimensions[0]==t.shape()[0]){
-			// 	// if the parent of the operator is single element 2D tensor
-			// 	if( dimensions[1]==1){
-			// 		Tensor2D res;
-			// 		for(int i = 0;i<dimensions[0];i++){
-			// 			vector<double> row;
-			// 			for(int j = 0;j<t.shape()[1];j++){
-			// 				row.push_back(tensor[i][0]-t.tensor[i][j]);
-			// 			}
-			// 			res.push(row);
-			// 		}
-			// 		return res;
-
-			// 	}
-			// 	// if the operated Tensor is single element 2D tensor
-			// 	else if(t.shape()[1]==1){
-			// 		Tensor2D res;
-			// 		for(int i = 0;i<dimensions[0];i++){
-			// 			vector<double> row;
-			// 			for(int j = 0;j<dimensions[1];j++){
-			// 				row.push_back(tensor[i][j]-t.tensor[i][0]);
-			// 			}
-			// 			res.push(row);
-			// 		}
-			// 		return res;
-			// 	}
-
-				
-			// }
-			// throw invalid_argument("Error: The shape of the Tensors don't match");
-
 		}
 
 
