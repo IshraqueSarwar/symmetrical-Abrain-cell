@@ -6,6 +6,7 @@ using namespace std;
 
 Optimizer_SGD::Optimizer_SGD(double learning_rate, double decay, double momentum){
 	Optimizer_SGD::learning_rate = learning_rate;
+	Optimizer_SGD::current_learning_rate = learning_rate;
 	Optimizer_SGD::decay = decay;
 	Optimizer_SGD::momentum = momentum;
 }
@@ -26,10 +27,7 @@ void Optimizer_SGD::pre_update_params(){
 
 
 Layer_dense Optimizer_SGD::update_params(Layer_dense layer){
-	Tensor2D weight_updates;
-	Tensor2D bias_updates;
-
-
+	
 	if (Optimizer_SGD::momentum){
 		/* we do momentum calculation the weight momentums and bias momentums*/
 
@@ -67,9 +65,9 @@ Layer_dense Optimizer_SGD::update_params(Layer_dense layer){
 
 		double neg_lr = Optimizer_SGD::current_learning_rate*-1;
 		// we calculate the weight updates
-		weight_updates = layer.dweights * neg_lr;
+		Tensor2D weight_updates = layer.dweights * neg_lr;
 		// we calculate the bias_updates
-		bias_updates = layer.dbiases * neg_lr;
+		Tensor2D bias_updates = layer.dbiases * neg_lr;
 
 		layer.weights+= weight_updates;
 		layer.biases += bias_updates;

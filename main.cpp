@@ -81,17 +81,23 @@ int main(int argc, char* argv[]){
 	/* Rectified linear activation function*/
 	Activation_ReLU activation1;
 	/*passing it through sencond layer of neurons*/
-	Layer_dense dense2(64,3);
+	Layer_dense dense2(64,32);
+
+	Activation_ReLU activation2;
+
+	Layer_dense dense3(32, 3);
 
 	// dense1.weight_momentums.shape(true);
 
 	Activation_Softmax_Loss_CategoricalCrossentropy loss_activation;
 
-	Optimizer_SGD optimizer(1,1e-3, 0.5);
+	Optimizer_SGD optimizer(1, 1e-3,0.9);
 	for(int epoch = 0;epoch<10001;epoch++){
 		auto output = dense1.forward(X);
 		output = activation1.forward(output);
 		output = dense2.forward(output);
+		output = activation2.forward(output);
+		output = dense3.forward(output);
 
 		double loss = loss_activation.forward(output, y);
 
@@ -117,13 +123,16 @@ int main(int argc, char* argv[]){
 
 
 		loss_activation.backward(loss_activation.output, y);
-		dense2.backward(loss_activation.dinputs);
+		dense3.backward(loss_activation.dinputs);
+		activation2.backward(dense3.dinputs);
+		dense2.backward(activation2.dinputs);
 		activation1.backward(dense2.dinputs);
 		dense1.backward(activation1.dinputs);
 
 		optimizer.pre_update_params();
 		dense1 = optimizer.update_params(dense1);
 		dense2 = optimizer.update_params(dense2);
+		dense3 = optimizer.update_params(dense3);
 		optimizer.post_update_params();
 	}
 	
